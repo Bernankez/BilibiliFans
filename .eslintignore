@@ -1,0 +1,9 @@
+node_modules
+target
+build
+dist
+package-lock.json
+.git
+.mvn
+gradle
+.gradle

@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended",
+    "@vue/eslint-config-typescript/recommended",
+    "@vue/eslint-config-prettier"
+  ],
+  "env": {
+    "vue/setup-compiler-macros": true
+  },
+  "rules": {
+    "no-undef": "warn",
+    "prefer-const": "warn",
+    "no-async-promise-executor": "warn",
+    "vue/no-v-text-v-html-on-component": "warn",
+    "vue/multi-word-component-names": "warn",
+    "vue/no-setup-props-destructure": "off",
+    "@typescript-eslint/no-empty-function": "warn"
+  }
+}
