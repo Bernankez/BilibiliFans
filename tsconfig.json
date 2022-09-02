@@ -33,7 +33,8 @@
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "unocss.config.ts"
   ],
   "references": [
     {

@@ -22,6 +22,7 @@
   "devDependencies": {
     "@iconify-json/uil": "^1.1.2",
     "@types/node": "^18.7.14",
+    "@unocss/preset-rem-to-px": "^0.45.13",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
@@ -37,5 +38,12 @@
     "vite-plugin-mock": "^2.9.6",
     "vitest": "^0.22.1",
     "vue-tsc": "^0.39.5"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "rollup"
+      ]
+    }
   }
 }

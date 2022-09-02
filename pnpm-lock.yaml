@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@iconify-json/uil': ^1.1.2
   '@types/node': ^18.7.14
+  '@unocss/preset-rem-to-px': ^0.45.13
   '@vitejs/plugin-vue': ^3.0.3
   '@vue/eslint-config-prettier': ^7.0.0
   '@vue/eslint-config-typescript': ^11.0.0
@@ -28,6 +29,7 @@ dependencies:
 devDependencies:
   '@iconify-json/uil': 1.1.2
   '@types/node': 18.7.14
+  '@unocss/preset-rem-to-px': 0.45.13
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
   '@vue/eslint-config-prettier': 7.0.0_bxpuzolsxufkw2ipnoyzzxnyrm
   '@vue/eslint-config-typescript': 11.0.0_eigtonit5c3q5td2tbopyi5r7e
@@ -244,6 +246,9 @@ packages:
     engines: {node: '>= 10.0.0'}
     peerDependencies:
       rollup: ^2.42.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
     dependencies:
       '@rollup/pluginutils': 3.1.0
       '@types/resolve': 1.17.1
@@ -258,6 +263,9 @@ packages:
     engines: {node: '>= 8.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
     dependencies:
       '@types/estree': 0.0.39
       estree-walker: 1.0.1
@@ -509,6 +517,12 @@ packages:
 
   /@unocss/preset-mini/0.45.13:
     resolution: {integrity: sha512-aHnVtVu0twY0m/SzTzOLniFiBDHx1PaewJRfRdqeJdTu5d+FeWK9XA/kXudWBTvRSxOKz2yQJw3kReCVit8ueQ==}
+    dependencies:
+      '@unocss/core': 0.45.13
+    dev: true
+
+  /@unocss/preset-rem-to-px/0.45.13:
+    resolution: {integrity: sha512-H/IB3Q7hLvauTC3yF7vtreFjmpgI5BFyTjdnil01c7zwXSyHkZ0KHus9da+6uL9Wl+xjKArFaYKHVOZcDK0Z8g==}
     dependencies:
       '@unocss/core': 0.45.13
     dev: true
