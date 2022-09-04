@@ -1,27 +1,60 @@
 <template>
-  <div class="fans-card">
-    <img class="absolute right-0 top-0 w-[90%] object-contain" :src="Ly" />
+  <div ref="fansCardEl" class="fans-card">
+    <div class="absolute right-0 top-0">
+      <slot name="image"></slot>
+    </div>
     <div class="background"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
-        <img class="avatar" :src="Avatar" />
-        <span class="user-name">科科Cole</span>
+        <img class="avatar" :src="avatar" />
+        <span class="user-name">{{ nickname }}</span>
       </div>
       <div class="m-t-[17px]">
         <div class="fans-mono">FANS NO.</div>
-        <div class="fans-number kenny-mini">004597</div>
+        <div class="fans-number kenny-mini">{{ fansNo }}</div>
       </div>
       <div class="m-t-[1px]">
         <div class="fans-mono">DATE</div>
-        <div class="fans-date">2022/04/21</div>
+        <div class="fans-date">{{ date }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Avatar from "@/assets/avatar.jpg";
-import Ly from "@/assets/lyj.webp";
+import dayjs from "dayjs";
+import html2canvas from "html2canvas";
+
+const {
+  avatar = "",
+  nickname = "",
+  fansNo = "000001",
+  date = dayjs().format("YYYY/MM/DD"),
+  backgroundColor = "#fff",
+  gradientColor = "#333",
+  gradientStart = "10%",
+  gradientEnd = "40%",
+} = defineProps<{
+  avatar?: string;
+  nickname?: string;
+  fansNo?: string;
+  date?: string;
+  backgroundColor?: string;
+  gradientColor?: string;
+  gradientStart?: string;
+  gradientEnd?: string;
+}>();
+
+const fansCardEl = $ref<HTMLElement>();
+function snapshot() {
+  return html2canvas(fansCardEl).then(canvas => {
+    document.body.appendChild(canvas);
+  });
+}
+
+defineExpose({
+  snapshot,
+});
 </script>
 
 <style lang="scss" scoped>
@@ -32,7 +65,7 @@ import Ly from "@/assets/lyj.webp";
   height: 200px;
   width: 486px;
   border-radius: 6px;
-  background-size: contain;
+  background-color: v-bind("backgroundColor");
   box-shadow: 0 0 5px 2px #ccc;
   overflow: hidden;
 }
@@ -43,7 +76,11 @@ import Ly from "@/assets/lyj.webp";
   left: 0;
   top: 0;
   height: 100%;
-  background: linear-gradient(to right, #333 10%, transparent 40%);
+  background: linear-gradient(
+    to right,
+    v-bind("gradientColor") v-bind("gradientStart"),
+    transparent v-bind("gradientEnd")
+  );
   width: 100%;
 }
 
@@ -56,13 +93,14 @@ import Ly from "@/assets/lyj.webp";
   width: 31px;
   height: 31px;
   border-radius: 999px;
+  object-fit: cover;
   outline: 1px solid #fff;
 }
 
 .user-name {
   padding-top: 7px;
   margin-left: 13px;
-  color: rgba(255, 255, 255, 1);
+  color: white;
   font-size: 18px;
 }
 

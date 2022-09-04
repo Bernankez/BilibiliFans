@@ -1,11 +1,12 @@
 <template>
   <div class="sidebar">
     <NColorPicker :modes="['hex']" :showAlpha="false" :showPreview="true"></NColorPicker>
+    <!-- <NButton @click="onSnapshot">生成</NButton> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { NColorPicker } from "naive-ui";
+import { NColorPicker, NButton } from "naive-ui";
 </script>
 
 <style lang="scss" scoped>
