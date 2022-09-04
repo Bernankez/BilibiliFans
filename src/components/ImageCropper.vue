@@ -1,5 +1,5 @@
 <template>
-  <div class="shrink-0 w-400px h-500px">
+  <div class="shrink-0 w-400px h-400px">
     <VueCropper
       ref="vueCropperEl"
       :img="image"
