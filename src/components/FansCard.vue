@@ -47,9 +47,7 @@ const {
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return html2canvas(fansCardEl).then(canvas => {
-    document.body.appendChild(canvas);
-  });
+  return html2canvas(fansCardEl);
 }
 
 defineExpose({

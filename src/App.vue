@@ -22,9 +22,10 @@ let finalImage = $ref("");
 const imageCropperEl = $ref<typeof ImageCropper>();
 const fansCardEl = $ref<typeof FansCard>();
 const onClick = async () => {
-  finalImage = await imageCropperEl.getCrop();
+  finalImage = await imageCropperEl.crop();
   await nextTick();
-  fansCardEl.snapshot().then(() => {
+  fansCardEl.snapshot().then((canvas: HTMLCanvasElement) => {
+    document.body.appendChild(canvas);
     finalImage = "";
   });
 };

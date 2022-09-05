@@ -5,12 +5,14 @@
       :img="image"
       outputType="png"
       :canScale="false"
+      :canMove="false"
       autoCrop
+      centerBox
       full
       fixed
       :fixedNumber="[73, 30]"
       :maxImgSize="4096"
-      @realTime="realTimePreview">
+      @realTime="onPreview">
     </VueCropper>
   </div>
 </template>
@@ -28,14 +30,14 @@ const emit = defineEmits<{
   (event: "preview", preview: Preview): void;
 }>();
 
-let preview = reactive<Preview>({
+const preview = reactive<Preview>({
   src: "",
   imageStyle: {},
   containerStyle: {},
 });
 const vueCropperEl = $ref<typeof VueCropper>();
 
-function realTimePreview(data: Record<string, any>) {
+function onPreview(data: Record<string, any>) {
   preview.src = data.url;
   preview.imageStyle = data.img;
   preview.containerStyle = {
@@ -46,14 +48,16 @@ function realTimePreview(data: Record<string, any>) {
   emit("preview", preview);
 }
 
-defineExpose({
-  getCrop() {
-    return new Promise((resolve, reject) => {
-      vueCropperEl.getCropData((data: string) => {
-        resolve(data);
-      });
+function crop() {
+  return new Promise((resolve, reject) => {
+    vueCropperEl?.getCropData((data: string) => {
+      resolve(data);
     });
-  },
+  });
+}
+
+defineExpose({
+  crop,
 });
 </script>
 
