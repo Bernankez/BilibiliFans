@@ -6,6 +6,7 @@
       outputType="png"
       :canScale="false"
       autoCrop
+      full
       fixed
       :fixedNumber="[73, 30]"
       :maxImgSize="4096"

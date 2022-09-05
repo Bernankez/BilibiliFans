@@ -36,7 +36,7 @@ const onClick = async () => {
       <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
       <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
         <template #image>
-          <img class="w-full h-full" v-if="finalImage" :src="finalImage" />
+          <img v-if="finalImage" class="w-full h-full" :src="finalImage" alt="backgroundImage" />
           <div v-else :style="preview?.containerStyle">
             <img :src="preview?.src" :style="preview?.imageStyle" />
           </div>

@@ -1,6 +1,6 @@
 <template>
   <div ref="fansCardEl" class="fans-card">
-    <div class="absolute right-0 top-0">
+    <div class="absolute right-0 top-0 left-0 bottom-0">
       <slot name="image"></slot>
     </div>
     <div class="background"></div>
