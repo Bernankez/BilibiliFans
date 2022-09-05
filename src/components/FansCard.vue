@@ -26,7 +26,7 @@ import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 
 const {
-  avatar = "",
+  avatar: _avatar = null as string | Blob | null,
   nickname = "",
   fansNo = "000001",
   date = dayjs().format("YYYY/MM/DD"),
@@ -35,7 +35,7 @@ const {
   gradientStart = "10%",
   gradientEnd = "40%",
 } = defineProps<{
-  avatar?: string;
+  avatar?: Blob;
   nickname?: string;
   fansNo?: string;
   date?: string;
@@ -44,6 +44,17 @@ const {
   gradientStart?: string;
   gradientEnd?: string;
 }>();
+
+let prevAvatar = "";
+const avatar = $computed(() => {
+  prevAvatar && URL.revokeObjectURL(prevAvatar);
+  if (_avatar instanceof Blob) {
+    prevAvatar = URL.createObjectURL(_avatar);
+    return prevAvatar;
+  } else {
+    return _avatar || "";
+  }
+});
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
