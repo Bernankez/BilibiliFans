@@ -34,6 +34,7 @@ const {
   gradientColor = "#333",
   gradientStart = "10%",
   gradientEnd = "40%",
+  textColor = "#ffffff",
 } = defineProps<{
   avatar?: Blob;
   nickname?: string;
@@ -43,6 +44,7 @@ const {
   gradientColor?: string;
   gradientStart?: string;
   gradientEnd?: string;
+  textColor?: string;
 }>();
 
 let prevAvatar = "";
@@ -73,6 +75,7 @@ defineExpose({
   box-sizing: border-box;
   height: 200px;
   width: 486px;
+  color: v-bind("textColor");
   border-radius: 6px;
   background-color: v-bind("backgroundColor");
   box-shadow: 0 0 5px 2px #ccc;
@@ -109,21 +112,20 @@ defineExpose({
 .user-name {
   padding-top: 7px;
   margin-left: 13px;
-  color: white;
   font-size: 18px;
 }
 
 .fans-mono {
-  @apply text-white text-[16px];
+  @apply text-[16px];
   font-family: "Google Sans Text", Arial, Helvetica, sans-serif;
 }
 
 .fans-number {
-  @apply tracking-[1px] leading-[38px] text-white text-[29px];
+  @apply tracking-[1px] leading-[38px] text-[29px];
 }
 
 .fans-date {
-  @apply tracking-[0.4px] leading-[21px] text-[16px] text-white;
+  @apply tracking-[0.4px] leading-[21px] text-[16px];
 }
 
 .kenny-mini {

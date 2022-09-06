@@ -31,6 +31,8 @@ export type CardOption = {
   article?: ComputedRef<string>;
   /**主播名 */
   anchorName?: string;
+  /**字体颜色 */
+  textColor?: string;
 };
 
 // export type CardConfig = {};

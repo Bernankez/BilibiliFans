@@ -23,12 +23,23 @@ import { reactive } from "vue";
 import { VueCropper } from "vue-cropper";
 import "vue-cropper/dist/index.css";
 
-const { image = "" } = defineProps<{
+const { image: _image = null as string | Blob | null } = defineProps<{
   image?: string | Blob;
 }>();
 const emit = defineEmits<{
   (event: "preview", preview: Preview): void;
 }>();
+
+let prevImage = "";
+const image = $computed(() => {
+  prevImage && URL.revokeObjectURL(prevImage);
+  if (_image instanceof Blob) {
+    prevImage = URL.createObjectURL(_image);
+    return prevImage;
+  } else {
+    return _image || "";
+  }
+});
 
 const preview = reactive<Preview>({
   src: "",

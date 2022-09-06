@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { NConfigProvider, zhCN, dateZhCN, NLocale, NDateLocale, darkTheme } from "naive-ui";
+import {
+  NDialogProvider,
+  NMessageProvider,
+  NConfigProvider,
+  zhCN,
+  dateZhCN,
+  NLocale,
+  NDateLocale,
+  darkTheme,
+} from "naive-ui";
 import Sidebar from "@/components/Sidebar.vue";
 import FansCard from "./components/FansCard.vue";
 import ImageCropper from "./components/ImageCropper.vue";
@@ -33,6 +42,10 @@ const onClick = async () => {
     finalImage = "";
   });
 };
+
+window.onbeforeunload = function (e) {
+  return false;
+};
 </script>
 
 <template>
@@ -50,7 +63,11 @@ const onClick = async () => {
         </FansCard>
         <!-- <button @click="onClick">generate</button> -->
       </main>
-      <Sidebar></Sidebar>
+      <NMessageProvider>
+        <NDialogProvider>
+          <Sidebar></Sidebar>
+        </NDialogProvider>
+      </NMessageProvider>
     </div>
   </NConfigProvider>
 </template>
