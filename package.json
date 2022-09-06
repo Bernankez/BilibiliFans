@@ -8,6 +8,8 @@
     "mock": "vite --mode mock",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "build:github": "vue-tsc --noEmit && vite build --base /BilibiliFans/",
+    "preview:github": "vite preview --base /BilibiliFans/",
     "test": "vitest run",
     "test:watch": "vitest run",
     "coverage": "vitest run --coverage",
