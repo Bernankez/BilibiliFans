@@ -3,7 +3,7 @@
     <div class="absolute right-0 top-0 left-0 bottom-0">
       <slot name="image"></slot>
     </div>
-    <div class="background"></div>
+    <div v-if="gradient" class="gradient"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
         <img class="avatar" :src="avatar" />
@@ -26,30 +26,43 @@ import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 
 const {
-  avatar = "",
+  avatar: _avatar = null as string | Blob | null,
   nickname = "",
   fansNo = "000001",
   date = dayjs().format("YYYY/MM/DD"),
   backgroundColor = "#fff",
+  gradient = true,
   gradientColor = "#333",
   gradientStart = "10%",
   gradientEnd = "40%",
+  textColor = "#ffffff",
 } = defineProps<{
-  avatar?: string;
+  avatar?: string | Blob | null;
   nickname?: string;
   fansNo?: string;
   date?: string;
   backgroundColor?: string;
+  gradient?: boolean;
   gradientColor?: string;
   gradientStart?: string;
   gradientEnd?: string;
+  textColor?: string;
 }>();
+
+let prevAvatar = "";
+const avatar = $computed(() => {
+  prevAvatar && URL.revokeObjectURL(prevAvatar);
+  if (_avatar instanceof Blob) {
+    prevAvatar = URL.createObjectURL(_avatar);
+    return prevAvatar;
+  } else {
+    return _avatar || "";
+  }
+});
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return html2canvas(fansCardEl).then(canvas => {
-    document.body.appendChild(canvas);
-  });
+  return html2canvas(fansCardEl, { scale: 1, backgroundColor: null });
 }
 
 defineExpose({
@@ -64,13 +77,14 @@ defineExpose({
   box-sizing: border-box;
   height: 200px;
   width: 486px;
+  color: v-bind("textColor");
   border-radius: 6px;
   background-color: v-bind("backgroundColor");
   box-shadow: 0 0 5px 2px #ccc;
   overflow: hidden;
 }
 
-.background {
+.gradient {
   position: absolute;
   z-index: 0;
   left: 0;
@@ -100,21 +114,21 @@ defineExpose({
 .user-name {
   padding-top: 7px;
   margin-left: 13px;
-  color: white;
   font-size: 18px;
 }
 
 .fans-mono {
-  @apply text-white text-[16px];
+  @apply text-[16px];
+  opacity: 0.5;
   font-family: "Google Sans Text", Arial, Helvetica, sans-serif;
 }
 
 .fans-number {
-  @apply tracking-[1px] leading-[38px] text-white text-[29px];
+  @apply tracking-[1px] leading-[38px] text-[29px];
 }
 
 .fans-date {
-  @apply tracking-[0.4px] leading-[21px] text-[16px] text-white;
+  @apply tracking-[0.4px] leading-[21px] text-[16px];
 }
 
 .kenny-mini {
