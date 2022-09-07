@@ -18,6 +18,7 @@ import { nextTick } from "vue";
 import Lyj from "@/assets/lyj.webp";
 import { useAppStore } from "./store/app-store";
 import dayjs from "dayjs";
+import version from "./version";
 
 const locale = $ref<NLocale>(zhCN);
 const dateLocale = $ref<NDateLocale>(dateZhCN);
@@ -71,18 +72,30 @@ window.onbeforeunload = function (e) {
 <template>
   <NConfigProvider :locale="locale" :dateLocale="dateLocale" abstract>
     <div class="flex min-w-fit w-full h-full">
-      <main class="flex p-3 box-border justify-evenly gap-4 items-center w-full h-full overflow-x-auto bg-background">
-        <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
-        <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
-          <template #image>
-            <img v-if="finalImage" class="w-full h-full" :src="finalImage" alt="backgroundImage" />
-            <div v-else :style="preview?.containerStyle">
-              <img :src="preview?.src" :style="preview?.imageStyle" />
-            </div>
-          </template>
-        </FansCard>
-        <!-- <button @click="onClick">generate</button> -->
-      </main>
+      <div class="relative min-w-fit w-full h-full">
+        <header class="header">
+          <div>Bilibili Fans</div>
+          <div class="flex items-center gap-2">
+            <div>v{{ version }}</div>
+            <a class="text-[#333]" href="https://github.com/Bernankez/BilibiliFans" target="_blank">
+              <div class="i-uil:github text-10"></div>
+            </a>
+          </div>
+        </header>
+        <main
+          class="flex p-3 p-t-15 box-border justify-evenly gap-4 items-center w-full h-full overflow-x-auto bg-background">
+          <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
+          <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
+            <template #image>
+              <img v-if="finalImage" class="w-full h-full" :src="finalImage" alt="backgroundImage" />
+              <div v-else :style="preview?.containerStyle">
+                <img :src="preview?.src" :style="preview?.imageStyle" />
+              </div>
+            </template>
+          </FansCard>
+          <!-- <button @click="onClick">generate</button> -->
+        </main>
+      </div>
       <NMessageProvider>
         <NDialogProvider>
           <Sidebar @generate="onGenerate"></Sidebar>
@@ -92,4 +105,8 @@ window.onbeforeunload = function (e) {
   </NConfigProvider>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+  @apply absolute w-full flex items-center justify-between h-15 p-x-6 box-border text-5 bg-transparent;
+}
+</style>
