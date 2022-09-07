@@ -49,15 +49,22 @@
                 </NUploadDragger>
               </NUpload>
             </NFormItem>
-            <NFormItem label="卡片左侧渐变色">
-              <NColorPicker
-                v-model:value="options.gradientColor"
-                :modes="['hex']"
-                :showAlpha="false"
-                :showPreview="true"></NColorPicker>
+            <NFormItem label="卡片前景渐变色">
+              <div class="grid grid-cols-1 gap-2 w-full">
+                <NCheckbox v-model:checked="withoutGradient">不使用前景渐变色</NCheckbox>
+                <NColorPicker
+                  :disabled="withoutGradient"
+                  :value="options.gradientColor"
+                  @update:value="setGradientColor"
+                  :swatches="backgroundPalette"
+                  :modes="['hex']"
+                  :showAlpha="false"
+                  :showPreview="true">
+                </NColorPicker>
+              </div>
             </NFormItem>
             <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
-              <NSlider v-model:value="gradientRange" range :step="1"></NSlider>
+              <NSlider :disabled="withoutGradient" v-model:value="gradientRange" range :step="1"></NSlider>
             </NFormItem>
             <NFormItem label="字体颜色">
               <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
@@ -88,11 +95,15 @@
 import { useAppStore } from "@/store/app-store";
 import Clipboard from "clipboard";
 import dayjs from "dayjs";
+// eslint-disable-next-line
+// @ts-ignore next-line
+import analyze from "rgbaster";
 import {
   NButton,
   NCollapse,
   NCollapseItem,
   NColorPicker,
+  NCheckbox,
   NDatePicker,
   NForm,
   NFormItem,
@@ -115,7 +126,6 @@ const { options, reset } = $(appStore);
 // button action
 const message = useMessage();
 const onGenerate = (e: MouseEvent) => {
-  console.log("doing");
   const clipboard = new Clipboard(e.target as HTMLElement, { text: () => options.article! });
   clipboard.on("success", e => {
     message.success("复制成功，可以去b站发动态了");
@@ -151,13 +161,51 @@ const onAvatar = (data: { fileList: UploadFileInfo[] }) => {
     options.avatar = data.fileList[0].file!;
   }
 };
+type Palette = {
+  color: string;
+  count: number;
+};
+let backgroundPaletteHistory = $ref<string[]>([]);
+let backgroundPaletteInfer = $ref<Palette[]>([]);
+const backgroundPalette = $computed(() =>
+  ([] as string[]).concat(backgroundPaletteInfer.map(p => p.color).concat(backgroundPaletteHistory))
+);
+function setGradientColor(color: string) {
+  if (backgroundPaletteHistory.length >= 3) {
+    backgroundPaletteHistory.shift();
+  }
+  backgroundPaletteHistory.push(color);
+  options.gradientColor = color;
+}
+function inferFontColor(color: string) {
+  const colors = color.match(/\d+/g)!;
+  const grayLevel = Number(colors[0]) * 0.299 + Number(colors[1]) * 0.587 + Number(colors[2]) * 0.114;
+  if (grayLevel >= 192) {
+    return "#333333";
+  } else {
+    return "#ffffff";
+  }
+}
 const onBackgroundImage = (data: { fileList: UploadFileInfo[] }) => {
   if (data?.fileList.length > 0) {
     options.backgroundImage = data.fileList[0].file!;
+    const url = URL.createObjectURL(data.fileList[0].file!);
+    analyze(url).then((res: Palette[]) => {
+      backgroundPaletteInfer = res.slice(0, 3);
+      options.textColor = inferFontColor(backgroundPaletteInfer[0].color);
+    });
   }
 };
 
 // computed prop
+const withoutGradient = $computed({
+  get() {
+    return !options.gradient;
+  },
+  set(gradient: boolean) {
+    options.gradient = !gradient;
+  },
+});
 const date = $computed({
   get() {
     return dayjs(options.date).valueOf();
@@ -166,7 +214,6 @@ const date = $computed({
     options.date = dayjs(date).format("YYYY/MM/DD");
   },
 });
-
 const gradientRange = $computed({
   get() {
     const { gradientStart, gradientEnd } = options;

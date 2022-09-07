@@ -8,6 +8,7 @@ export const useAppStore = defineStore("app", () => {
     return {
       backgroundColor: "#ffffff",
       backgroundImage: "",
+      gradient: false,
       gradientColor: "#333333",
       gradientStart: "10%",
       gradientEnd: "30%",

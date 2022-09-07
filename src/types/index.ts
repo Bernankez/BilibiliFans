@@ -11,6 +11,8 @@ export type CardOption = {
   backgroundColor?: string;
   /**卡片背景图片 */
   backgroundImage?: string | Blob;
+  /**是否使用前景渐变色 */
+  gradient?: boolean;
   /**卡片上的渐变色 */
   gradientColor?: string;
   /**渐变起始位置% */
@@ -34,5 +36,3 @@ export type CardOption = {
   /**字体颜色 */
   textColor?: string;
 };
-
-// export type CardConfig = {};

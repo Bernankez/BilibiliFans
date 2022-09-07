@@ -3,7 +3,7 @@
     <div class="absolute right-0 top-0 left-0 bottom-0">
       <slot name="image"></slot>
     </div>
-    <div class="background"></div>
+    <div v-if="gradient" class="gradient"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
         <img class="avatar" :src="avatar" />
@@ -31,16 +31,18 @@ const {
   fansNo = "000001",
   date = dayjs().format("YYYY/MM/DD"),
   backgroundColor = "#fff",
+  gradient = true,
   gradientColor = "#333",
   gradientStart = "10%",
   gradientEnd = "40%",
   textColor = "#ffffff",
 } = defineProps<{
-  avatar?: Blob;
+  avatar?: string | Blob | null;
   nickname?: string;
   fansNo?: string;
   date?: string;
   backgroundColor?: string;
+  gradient?: boolean;
   gradientColor?: string;
   gradientStart?: string;
   gradientEnd?: string;
@@ -63,9 +65,7 @@ function snapshot() {
   return html2canvas(fansCardEl);
 }
 
-defineExpose({
-  snapshot,
-});
+defineExpose({});
 </script>
 
 <style lang="scss" scoped>
@@ -82,7 +82,7 @@ defineExpose({
   overflow: hidden;
 }
 
-.background {
+.gradient {
   position: absolute;
   z-index: 0;
   left: 0;
@@ -117,6 +117,7 @@ defineExpose({
 
 .fans-mono {
   @apply text-[16px];
+  opacity: 0.5;
   font-family: "Google Sans Text", Arial, Helvetica, sans-serif;
 }
 

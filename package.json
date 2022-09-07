@@ -23,6 +23,7 @@
     "html2canvas": "^1.4.1",
     "mockjs": "^1.1.0",
     "pinia": "^2.0.21",
+    "rgbaster": "^2.1.1",
     "vue": "^3.2.37",
     "vue-cropper": "^1.0.5"
   },
