@@ -192,6 +192,7 @@ const onBackgroundImage = (data: { fileList: UploadFileInfo[] }) => {
     options.backgroundImage = data.fileList[0].file!;
     const url = URL.createObjectURL(data.fileList[0].file!);
     analyze(url).then((res: Palette[]) => {
+      URL.revokeObjectURL(url);
       backgroundPaletteInfer = res.slice(0, 3);
       options.textColor = inferFontColor(backgroundPaletteInfer[0].color);
     });

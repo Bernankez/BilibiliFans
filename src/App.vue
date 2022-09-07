@@ -17,6 +17,7 @@ import { nextTick } from "vue";
 
 import Lyj from "@/assets/lyj.webp";
 import { useAppStore } from "./store/app-store";
+import dayjs from "dayjs";
 
 const locale = $ref<NLocale>(zhCN);
 const dateLocale = $ref<NDateLocale>(dateZhCN);
@@ -34,12 +35,31 @@ const onPreview = (_preview: Preview) => {
 let finalImage = $ref("");
 const imageCropperEl = $ref<typeof ImageCropper>();
 const fansCardEl = $ref<typeof FansCard>();
-const onClick = async () => {
+
+const onGenerate = async () => {
   finalImage = await imageCropperEl.crop();
   await nextTick();
   fansCardEl.snapshot().then((canvas: HTMLCanvasElement) => {
-    document.body.appendChild(canvas);
-    finalImage = "";
+    const dataURL = canvas.toDataURL("image/png");
+    const arr = dataURL.split(",");
+    const MIME = arr[0].match(/:(.*?);/)?.[1];
+    const bstr = window.atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    const filename = options.anchorName + " - " + options.fansNo;
+    const file = new File([u8arr], filename, {
+      type: MIME,
+      lastModified: dayjs().valueOf(),
+    });
+    const a = document.createElement("a");
+    const url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename + ".png";
+    a.click();
+    URL.revokeObjectURL(url);
   });
 };
 
@@ -65,11 +85,11 @@ window.onbeforeunload = function (e) {
       </main>
       <NMessageProvider>
         <NDialogProvider>
-          <Sidebar></Sidebar>
+          <Sidebar @generate="onGenerate"></Sidebar>
         </NDialogProvider>
       </NMessageProvider>
     </div>
   </NConfigProvider>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

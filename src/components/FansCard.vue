@@ -62,10 +62,12 @@ const avatar = $computed(() => {
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return html2canvas(fansCardEl);
+  return html2canvas(fansCardEl, { scale: 1, backgroundColor: null });
 }
 
-defineExpose({});
+defineExpose({
+  snapshot,
+});
 </script>
 
 <style lang="scss" scoped>
