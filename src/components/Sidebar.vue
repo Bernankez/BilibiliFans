@@ -177,6 +177,7 @@ function setGradientColor(color: string) {
   backgroundPaletteHistory.push(color);
   options.gradientColor = color;
 }
+// #ref: https://juejin.cn/post/6844903511956815885
 function inferFontColor(color: string) {
   const colors = color.match(/\d+/g)!;
   const grayLevel = Number(colors[0]) * 0.299 + Number(colors[1]) * 0.587 + Number(colors[2]) * 0.114;
