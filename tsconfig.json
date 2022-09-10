@@ -34,7 +34,8 @@
     "src/**/*.test.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "unocss.config.ts"
+    "unocss.config.ts",
+    "scripts/*.ts"
   ],
   "references": [
     {
