@@ -45,6 +45,8 @@ const {
   cancelText?: string;
 }>();
 
+// style v-bind does not work in teleport
+// #ref: https://github.com/vuejs/core/issues/4605
 const wrapperStyle = $computed(() => ({
   "--width": width,
   "--max-width": maxWidth,
