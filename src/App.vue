@@ -14,6 +14,7 @@ import FansCard from "./components/FansCard.vue";
 import ImageCropper from "./components/ImageCropper.vue";
 import { Preview } from "./types";
 import { nextTick } from "vue";
+import Dialog from "@/components/Dialog.vue";
 
 import Lyj from "@/assets/lyj.webp";
 import { useAppStore } from "./store/app-store";
@@ -67,6 +68,8 @@ const onGenerate = async () => {
 window.onbeforeunload = function (e) {
   return false;
 };
+
+const showDialog = $ref(false);
 </script>
 
 <template>
@@ -93,9 +96,10 @@ window.onbeforeunload = function (e) {
               </div>
             </template>
           </FansCard>
-          <!-- <button @click="onClick">generate</button> -->
+          <Dialog v-model="showDialog"></Dialog>
         </main>
       </div>
+      <button @click="showDialog = true">open</button>
       <NMessageProvider>
         <NDialogProvider>
           <Sidebar @generate="onGenerate"></Sidebar>
