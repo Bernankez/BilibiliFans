@@ -1,5 +1,12 @@
 <template>
-  <NModal v-model:show="show" :style="wrapperStyle" role="dialog" aria-modal="true">
+  <NModal
+    v-model:show="show"
+    :style="wrapperStyle"
+    role="dialog"
+    aria-modal="true"
+    :maskClosable="closeOnOverlay"
+    :closeOnEsc="closeOnEsc"
+    :displayDirective="displayDirective">
     <div class="dialog--wrapper">
       <div class="flex justify-between items-center p-y-4 p-x-5 box-border text-5">
         <div>
@@ -8,17 +15,17 @@
         <div
           role="button"
           class="transition duration-230 hover:bg-backgray active:bg-backgraydarker hover:cursor-pointer rounded-1">
-          <div class="i-uil:times text-6 text-secondary"></div>
+          <div class="i-uil:times text-6 text-secondary" @click="onCancel"></div>
         </div>
       </div>
       <div class="p-x-5 p-b-4 box-border">
         <slot></slot>
       </div>
-      <div class="p-x-5 p-b-4 box-border">
+      <div v-if="useFooter" class="p-x-5 p-b-4 box-border">
         <slot name="footer">
           <NSpace justify="end">
-            <NButton secondary>{{ cancelText }}</NButton>
-            <NButton type="primary">{{ confirmText }}</NButton>
+            <NButton secondary @click="onCancel">{{ cancelText }}</NButton>
+            <NButton type="primary" @click="emit('confirm')">{{ confirmText }}</NButton>
           </NSpace>
         </slot>
       </div>
@@ -36,6 +43,10 @@ const {
   title = "",
   confirmText = "确定",
   cancelText = "取消",
+  closeOnOverlay = true,
+  closeOnEsc = true,
+  displayDirective = "if",
+  useFooter = true,
 } = defineProps<{
   modelValue?: boolean;
   width?: string;
@@ -43,6 +54,10 @@ const {
   title?: string;
   confirmText?: string;
   cancelText?: string;
+  closeOnOverlay?: boolean;
+  closeOnEsc?: boolean;
+  displayDirective?: "if" | "show";
+  useFooter?: boolean;
 }>();
 
 // style v-bind does not work in teleport
@@ -54,6 +69,8 @@ const wrapperStyle = $computed(() => ({
 
 const emit = defineEmits<{
   (event: "update:modelValue", show: boolean): void;
+  (event: "confirm"): void;
+  (event: "cancel"): void;
 }>();
 
 const show = $computed({
@@ -64,6 +81,11 @@ const show = $computed({
     emit("update:modelValue", s);
   },
 });
+
+const onCancel = () => {
+  emit("update:modelValue", false);
+  emit("cancel");
+};
 </script>
 
 <style lang="scss" scoped>
