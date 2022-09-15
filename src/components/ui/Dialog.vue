@@ -14,8 +14,8 @@
         </div>
         <div
           role="button"
-          class="transition duration-230 hover:bg-backgray active:bg-backgraydarker hover:cursor-pointer rounded-1">
-          <div class="i-uil:times text-6 text-secondary" @click="onCancel"></div>
+          class="transition duration-230 hover:bg-background-light active:bg-background! hover:cursor-pointer rounded-1">
+          <div class="i-uil:times text-6 text-default-light" @click="onCancel"></div>
         </div>
       </div>
       <div class="p-x-5 p-b-4 box-border">
@@ -90,7 +90,7 @@ const onCancel = () => {
 
 <style lang="scss" scoped>
 .dialog--wrapper {
-  @apply bg-white rounded-1 text-default;
+  @apply bg-background-lighter dark:bg-darkbackground rounded-1 text-default;
   width: var(--width);
   max-width: var(--max-width);
 }
