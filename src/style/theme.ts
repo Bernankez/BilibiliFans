@@ -27,20 +27,20 @@ export const colorDisabled = {
 
 // default background color
 export const colorBackground = {
-  lighter: "#FAFAFA",
-  light: "#F5F5F5",
-  DEFAULT: "#E5E5E5",
-  dark: "#D4D4D4",
-  darker: "#A3A3A3",
+  lighter: "#ffffff",
+  light: "#FAFAFA",
+  DEFAULT: "#F5F5F5",
+  dark: "#E5E5E5",
+  darker: "#D4D4D4",
 };
 
 //default background color in dark mode
 export const colorDarkBackground = {
-  lighter: "#A1A1AA",
-  light: "#71717A",
-  DEFAULT: "#52525B",
-  dark: "#3F3F46",
-  darker: "#27272A",
+  lighter: "#52525B",
+  light: "#3F3F46",
+  DEFAULT: "#27272A",
+  dark: "#10101B",
+  darker: "#000000",
 };
 
 // subject color
