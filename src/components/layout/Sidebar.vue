@@ -93,17 +93,15 @@
 
 <script setup lang="ts">
 import { useAppStore } from "@/store/app-store";
+import { useCardStore } from "@/store/card-store";
 import Clipboard from "clipboard";
 import dayjs from "dayjs";
-// eslint-disable-next-line
-// @ts-ignore next-line
-import analyze from "rgbaster";
 import {
   NButton,
+  NCheckbox,
   NCollapse,
   NCollapseItem,
   NColorPicker,
-  NCheckbox,
   NDatePicker,
   NForm,
   NFormItem,
@@ -116,13 +114,18 @@ import {
   useDialog,
   useMessage,
 } from "naive-ui";
+// eslint-disable-next-line
+// @ts-ignore next-line
+import analyze from "rgbaster";
 
 const emit = defineEmits<{
   (event: "generate"): void;
 }>();
 
+const cardStore = useCardStore();
+const { options, reset } = $(cardStore);
 const appStore = useAppStore();
-const { options, reset } = $(appStore);
+const { sidebarWidth } = $(appStore);
 // button action
 const message = useMessage();
 const onGenerate = (e: MouseEvent) => {
@@ -232,7 +235,8 @@ const gradientRange = $computed({
 
 <style lang="scss" scoped>
 .sidebar {
-  @apply relative shrink-0 h-full w-70 p-3 box-border;
+  @apply relative shrink-0 h-full p-3 box-border;
+  width: v-bind("sidebarWidth");
   box-shadow: -1px 0 10px 0px #eee;
 }
 
