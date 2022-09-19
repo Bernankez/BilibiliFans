@@ -9,7 +9,7 @@
     :displayDirective="displayDirective">
     <div class="dialog--wrapper">
       <div class="flex justify-between items-center p-y-4 p-x-5 box-border text-5">
-        <div class="text-default dark:text-darkdefault">
+        <div class="text-default dark:text-darkdefault cursor-default">
           <slot name="title">{{ title }}</slot>
         </div>
         <div
@@ -34,7 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import { NModal, NButton, NSpace } from "naive-ui";
+import { colorPrimary } from "@/style/theme";
+import { NButton, NModal, NSpace } from "naive-ui";
 
 const {
   modelValue = false,
@@ -65,6 +66,7 @@ const {
 const wrapperStyle = $computed(() => ({
   "--width": width,
   "--max-width": maxWidth,
+  "--selection-background": colorPrimary.DEFAULT,
 }));
 
 const emit = defineEmits<{
@@ -90,8 +92,13 @@ const onCancel = () => {
 
 <style lang="scss" scoped>
 .dialog--wrapper {
-  @apply bg-background-lighter dark:bg-darkbackground rounded-1 text-default transition-all duration-250;
+  @apply bg-background-lighter dark-bg-darkbackground rounded-1 text-default transition-all duration-250;
   width: var(--width);
   max-width: var(--max-width);
+
+  ::selection {
+    background-color: var(--selection-background);
+    color: #fff;
+  }
 }
 </style>
