@@ -1,14 +1,12 @@
 <template>
   <Dialog v-model="show" title="更新日志" @confirm="show = false">
-    <div>
+    <div class="text-default dark:text-darkdefault">
       <LogCard title="v0.1.1">
         <LogCardItem title="Features">
           <div>添加更新日志</div>
           <div>优化界面样式</div>
         </LogCardItem>
       </LogCard>
-    </div>
-    <div>
       <LogCard title="v0.1.0"> 完成基本功能 </LogCard>
     </div>
   </Dialog>
@@ -36,5 +34,3 @@ const show = $computed({
   },
 });
 </script>
-
-<style lang="scss" scoped></style>

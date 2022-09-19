@@ -1,6 +1,6 @@
 <template>
   <aside class="sidebar">
-    <NScrollbar style="height: calc(100vh - 280px)">
+    <div class="sidebar-content">
       <NCollapse :defaultExpandedNames="['card']">
         <NCollapseItem title="分享文案设置" name="article">
           <NForm :model="options" labelWidth="auto">
@@ -75,15 +75,22 @@
                 v-model:value="options.backgroundColor"
                 :modes="['hex']"
                 :showAlpha="false"
-                :showPreview="true"></NColorPicker>
+                :showPreview="true">
+              </NColorPicker>
             </NFormItem>
           </NForm>
         </NCollapseItem>
       </NCollapse>
-    </NScrollbar>
-    <div class="fixed-bottom absolute bottom-0 left-0 right-0 h-67 p-3 box-border bg-white">
+    </div>
+    <div class="sidebar-fixed p-3 box-border bg-white">
       <div class="flex flex-col gap-3">
-        <NInput :value="options.article" readonly="" type="textarea" autosize placeholder="这里填写动态文案"></NInput>
+        <NInput
+          :value="options.article"
+          readonly=""
+          type="textarea"
+          autosize
+          placeholder="这里填写动态文案"
+          @focus="onInputFocus"></NInput>
         <NButton class="w-full" type="primary" @click="onGenerate">生成卡片并复制动态</NButton>
         <NButton class="w-full" @click="onReset">重置</NButton>
       </div>
@@ -125,10 +132,10 @@ const emit = defineEmits<{
 const cardStore = useCardStore();
 const { options, reset } = $(cardStore);
 const appStore = useAppStore();
-const { sidebarWidth } = $(appStore);
+const { sidebarWidth, sidebarFixedHeight } = $(appStore);
 // button action
 const message = useMessage();
-const onGenerate = (e: MouseEvent) => {
+const clip = (e: Event) => {
   const clipboard = new Clipboard(e.target as HTMLElement, { text: () => options.article! });
   clipboard.on("success", e => {
     message.success("复制成功，可以去b站发动态了");
@@ -139,7 +146,13 @@ const onGenerate = (e: MouseEvent) => {
     clipboard.destroy();
   });
   (clipboard as any).onClick(e);
+};
+const onGenerate = (e: MouseEvent) => {
+  clip(e);
   emit("generate");
+};
+const onInputFocus = (e: FocusEvent) => {
+  clip(e);
 };
 
 const avatarEl = $ref<typeof NUpload>();
@@ -235,12 +248,18 @@ const gradientRange = $computed({
 
 <style lang="scss" scoped>
 .sidebar {
-  @apply relative shrink-0 h-full p-3 box-border;
+  @apply relative shrink-0 h-full bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
   width: v-bind("sidebarWidth");
-  box-shadow: -1px 0 10px 0px #eee;
 }
 
-.fixed-bottom {
-  box-shadow: 0 -3px 10px 0 #ddd;
+.sidebar-content {
+  @apply p-3 box-border;
+  height: calc(100% - v-bind("sidebarFixedHeight"));
+  overflow: auto;
+}
+
+.sidebar-fixed {
+  @apply b-t b-disabled-light dark:b-darkbackground-light bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
+  height: v-bind("sidebarFixedHeight");
 }
 </style>

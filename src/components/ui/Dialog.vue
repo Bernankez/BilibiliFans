@@ -9,13 +9,13 @@
     :displayDirective="displayDirective">
     <div class="dialog--wrapper">
       <div class="flex justify-between items-center p-y-4 p-x-5 box-border text-5">
-        <div>
+        <div class="text-default dark:text-darkdefault">
           <slot name="title">{{ title }}</slot>
         </div>
         <div
           role="button"
-          class="transition duration-230 hover:bg-background-light active:bg-background! hover:cursor-pointer rounded-1">
-          <div class="i-uil:times text-6 text-default-light" @click="onCancel"></div>
+          class="transition duration-230 hover:bg-background-light hover:dark:bg-darkbackground-lighter active:bg-background! active:dark:bg-darkbackground-light! hover:cursor-pointer rounded-1">
+          <div class="i-uil:times text-6 text-default-light dark:text-darkdefault" @click="onCancel"></div>
         </div>
       </div>
       <div class="p-x-5 p-b-4 box-border">
@@ -90,7 +90,7 @@ const onCancel = () => {
 
 <style lang="scss" scoped>
 .dialog--wrapper {
-  @apply bg-background-lighter dark:bg-darkbackground rounded-1 text-default;
+  @apply bg-background-lighter dark:bg-darkbackground rounded-1 text-default transition-all duration-250;
   width: var(--width);
   max-width: var(--max-width);
 }

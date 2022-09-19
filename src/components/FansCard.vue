@@ -83,6 +83,9 @@ defineExpose({
   background-color: v-bind("backgroundColor");
   box-shadow: 0 0 10px 0 v-bind("colorBackground.darker");
   overflow: hidden;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
 
   .dark & {
     box-shadow: 0 0 10px 0 #fff;

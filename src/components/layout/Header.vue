@@ -1,6 +1,6 @@
 <template>
   <header
-    class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default">
+    class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250">
     <div class="flex items-center">
       <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">

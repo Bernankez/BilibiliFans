@@ -18,7 +18,7 @@ import Main from "@/components/layout/Main.vue";
 import Sidebar from "@/components/layout/Sidebar.vue";
 import ConfigProvider from "./components/layout/ConfigProvider.vue";
 import { useAppStore } from "./store/app-store";
-import { colorPrimary, colorDisabled } from "@/style/theme";
+import { colorPrimary, colorDisabled, colorBackground, colorDarkBackground } from "@/style/theme";
 
 const appStore = useAppStore();
 const { sidebarWidth } = $(appStore);
@@ -29,7 +29,7 @@ const onGenerate = () => {
 };
 </script>
 
-<style>
+<style lang="scss">
 ::selection {
   background-color: v-bind("colorPrimary.DEFAULT");
   color: #fff;
@@ -39,6 +39,12 @@ const onGenerate = () => {
   height: 13px;
   width: 13px;
   box-shadow: inset 0 0 5px v-bind("colorDisabled.light");
+  background-color: v-bind("colorBackground.lighter");
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.darker");
+    box-shadow: unset;
+  }
 }
 
 ::-webkit-scrollbar-thumb {
@@ -48,13 +54,19 @@ const onGenerate = () => {
   border-width: 2px;
   background-color: v-bind("colorDisabled.light");
   background-clip: padding-box;
-  transition: all 0.2s ease-in-out;
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.light");
+  }
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: v-bind("colorDisabled.DEFAULT");
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.lighter");
+  }
 }
 
 #app {

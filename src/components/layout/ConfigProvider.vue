@@ -1,5 +1,5 @@
 <template>
-  <NConfigProvider :locale="zhCN" :dateLocale="dateZhCN" abstract>
+  <NConfigProvider :theme="isDark ? darkTheme : undefined" :locale="zhCN" :dateLocale="dateZhCN" abstract>
     <NMessageProvider>
       <NDialogProvider>
         <slot></slot>
@@ -9,5 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { NConfigProvider, NMessageProvider, NDialogProvider, zhCN, dateZhCN } from "naive-ui";
+import { useAppStore } from "@/store/app-store";
+import { darkTheme, dateZhCN, NConfigProvider, NDialogProvider, NMessageProvider, zhCN } from "naive-ui";
+
+const appStore = useAppStore();
+const { isDark } = $(appStore);
 </script>

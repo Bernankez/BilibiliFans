@@ -5,6 +5,7 @@ const APPEARANCE_KEY = "bilibili-fans-theme-appearance";
 export const useAppStore = defineStore("app", () => {
   const sidebarWidth = $ref("280px");
   const headerHeight = $ref("60px");
+  const sidebarFixedHeight = $ref("270px");
 
   const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const saved = localStorage.getItem(APPEARANCE_KEY);
@@ -38,6 +39,7 @@ export const useAppStore = defineStore("app", () => {
 
   return $$({
     sidebarWidth,
+    sidebarFixedHeight,
     headerHeight,
     isDark,
   });
