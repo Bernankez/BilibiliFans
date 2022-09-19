@@ -1,6 +1,25 @@
 <template>
   <Dialog v-model="show" title="更新日志" @confirm="show = false">
     <div class="text-default dark:text-darkdefault">
+      <div class="font-bold">目前Safari和火狐浏览器下样式有问题，推荐使用Edge或Chrome浏览器</div>
+      <div>
+        默认背景图来源：<a
+          class="text-default dark:text-darkdefault hover:text-primary"
+          href="https://space.bilibili.com/5659864"
+          target="_blank"
+          >鹿野灸</a
+        >
+      </div>
+      <LogCard title="v0.2.0">
+        <LogCardItem title="Features">
+          <div>适配黑暗模式</div>
+          <div>优化小尺寸窗口下的的样式</div>
+          <div>优化部分设置项</div>
+        </LogCardItem>
+        <LogCardItem title="Bug Fixes">
+          <div>修复当设置前景渐变色时，过渡部分颜色发黑问题</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.1.1">
         <LogCardItem title="Features">
           <div>添加更新日志</div>
