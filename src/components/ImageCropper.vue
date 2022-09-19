@@ -7,7 +7,7 @@
       :canScale="false"
       :canMove="false"
       autoCrop
-      centerBox
+      :centerBox="options.boxInsideImage"
       full
       fixed
       :fixedNumber="[73, 30]"
@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCardStore } from "@/store/card-store";
 import { Preview } from "@/types";
 import { reactive } from "vue";
 import { VueCropper } from "vue-cropper";
@@ -29,6 +30,9 @@ const { image: _image = null as string | Blob | null } = defineProps<{
 const emit = defineEmits<{
   (event: "preview", preview: Preview): void;
 }>();
+
+const cardStore = useCardStore();
+const { options } = $(cardStore);
 
 let prevImage = "";
 const image = $computed(() => {

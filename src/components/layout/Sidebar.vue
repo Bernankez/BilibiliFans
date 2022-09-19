@@ -81,6 +81,9 @@
               :showPreview="true">
             </NColorPicker>
           </NFormItem>
+          <NFormItem label="框选设置">
+            <NCheckbox v-model:checked="options.boxInsideImage">框选范围限制在图片内</NCheckbox>
+          </NFormItem>
         </NCollapseItem>
       </NCollapse>
     </div>

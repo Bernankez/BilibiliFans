@@ -25,6 +25,7 @@ export const useCardStore = defineStore("card", () => {
       anchorName: "",
       date: dayjs().format("YYYY/MM/DD"),
       textColor: "#ffffff",
+      boxInsideImage: false,
     };
   }
 

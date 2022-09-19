@@ -35,4 +35,7 @@ export type CardOption = {
   anchorName?: string;
   /**字体颜色 */
   textColor?: string;
+  /**框选范围限制在图片内 */
+  boxInsideImage?: boolean;
+  // TODO 允许图片缩放 允许图片移动
 };
