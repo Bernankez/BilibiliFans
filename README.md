@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <samp>点击 <a href="https://bernankez.github.io/BilibiliFans">Github Pages</a> 或 <a href="https://bilibili-fans.vercel.app">Vercel</a> 开始制作🎉</samp>
+  <samp>点击 <a href="https://bernankez.github.io/BilibiliFans" target="_blank">Github Pages</a> 或 <a href="https://bilibili-fans.vercel.app" target="_blank">Vercel</a> 开始制作🎉</samp>
 </p>
 
 <p align="center">
