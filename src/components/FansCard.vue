@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { colorBackground } from "@/style/theme";
 import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 
@@ -80,8 +81,12 @@ defineExpose({
   color: v-bind("textColor");
   border-radius: 6px;
   background-color: v-bind("backgroundColor");
-  box-shadow: 0 0 5px 2px #ccc;
+  box-shadow: 0 0 10px 0 v-bind("colorBackground.darker");
   overflow: hidden;
+
+  .dark & {
+    box-shadow: 0 0 10px 0 #fff;
+  }
 }
 
 .gradient {

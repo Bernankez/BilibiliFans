@@ -1,6 +1,6 @@
 <template>
   <header
-    class="header absolute w-full flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground-light cursor-default">
+    class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default">
     <div class="flex items-center">
       <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
@@ -11,13 +11,13 @@
     <NSpace align="center">
       <div
         role="button"
-        class="text-5 cursor-pointer text-default-light hover:text-default transition-all duration-250"
+        class="text-5 cursor-pointer text-default-light dark:text-darkdefault hover:text-default hover:dark:text-darkdefault-lighter transition-all duration-250"
         @click="showChangelog = true">
         v{{ version }}
       </div>
       <div class="divide-vertical"></div>
       <a
-        class="text-default-light hover:text-default transition-all duration-250"
+        class="text-default-light hover:text-default dark:text-darkdefault hover:dark:text-darkdefault-lighter transition-all duration-250"
         href="https://github.com/Bernankez/BilibiliFans"
         target="_blank">
         <div class="i-uil:github text-8"></div>
@@ -36,12 +36,13 @@ import { NSpace } from "naive-ui";
 const showChangelog = $ref(false);
 
 const appStore = useAppStore();
-const { headerHeight } = $(appStore);
+const { headerHeight, sidebarWidth } = $(appStore);
 </script>
 
 <style lang="scss" scoped>
 .header {
   height: v-bind("headerHeight");
+  width: calc(100% - v-bind("sidebarWidth"));
   font-family: "Inter var experimental", "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }

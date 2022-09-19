@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <aside class="sidebar">
     <NScrollbar style="height: calc(100vh - 280px)">
       <NCollapse :defaultExpandedNames="['card']">
         <NCollapseItem title="分享文案设置" name="article">
@@ -88,7 +88,7 @@
         <NButton class="w-full" @click="onReset">重置</NButton>
       </div>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script setup lang="ts">

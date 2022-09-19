@@ -1,6 +1,6 @@
 <template>
   <main
-    class="flex p-3 p-t-15 box-border justify-evenly gap-4 items-center w-full h-full overflow-x-auto bg-background-light">
+    class="min-w-fit w-full h-full flex p-3 box-border justify-evenly gap-4 items-center overflow-x-auto bg-background-light dark:bg-darkbackground">
     <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
     <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
       <template #image>
