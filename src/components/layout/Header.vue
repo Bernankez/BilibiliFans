@@ -5,7 +5,7 @@
       <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
         <div class="title">Bilibili Fans</div>
-        <div class="subtitle">一键制作你的粉丝动态卡片</div>
+        <div class="subtitle">一键制作你的粉丝装扮卡片</div>
       </NSpace>
     </div>
     <NSpace align="center">
