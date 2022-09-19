@@ -16,6 +16,15 @@
         v{{ version }}
       </div>
       <div class="divide-vertical"></div>
+      <NSwitch v-model:value="isDark" :railStyle="railStyle">
+        <template #unchecked-icon>
+          <div class="i-uil:brightness"></div>
+        </template>
+        <template #checked-icon>
+          <div class="i-uil:moon rotate-y-180"></div>
+        </template>
+      </NSwitch>
+      <div class="divide-vertical"></div>
       <a
         class="text-default-light hover:text-default dark:text-darkdefault hover:dark:text-darkdefault-lighter transition-all duration-250"
         href="https://github.com/Bernankez/BilibiliFans"
@@ -30,13 +39,31 @@
 <script setup lang="ts">
 import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
+import { colorBackground, colorDarkBackground } from "@/style/theme";
 import version from "@/version";
-import { NSpace } from "naive-ui";
+import { NSpace, NSwitch } from "naive-ui";
+import { CSSProperties } from "vue";
 
 const showChangelog = $ref(false);
 
 const appStore = useAppStore();
-const { headerHeight, sidebarWidth } = $(appStore);
+const { headerHeight, sidebarWidth, isDark } = $(appStore);
+
+const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
+  const style: CSSProperties = {};
+  if (checked) {
+    style.background = colorDarkBackground.light;
+    if (focused) {
+      style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`;
+    }
+  } else {
+    style.background = colorBackground.dark;
+    if (focused) {
+      style.boxShadow = `0 0 0 2px ${colorBackground.DEFAULT}`;
+    }
+  }
+  return style;
+};
 </script>
 
 <style lang="scss" scoped>
