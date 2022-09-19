@@ -11,10 +11,6 @@ const mainEl = $ref<typeof Main>();
 const onGenerate = () => {
   mainEl?.generate();
 };
-
-window.onbeforeunload = function (e) {
-  return false;
-};
 </script>
 
 <template>
