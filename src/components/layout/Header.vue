@@ -5,10 +5,10 @@
       <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
         <div class="title">Bilibili Fans</div>
-        <div class="subtitle">一键制作你的粉丝装扮卡片</div>
+        <div class="display-none lg:inline">一键制作你的粉丝装扮卡片</div>
       </NSpace>
     </div>
-    <NSpace align="center">
+    <NSpace class="display-none! md:flex!" align="center">
       <div
         role="button"
         class="text-5 cursor-pointer text-default-light dark:text-darkdefault hover:text-default hover:dark:text-darkdefault-lighter transition-all duration-250"
@@ -32,6 +32,12 @@
         <div class="i-uil:github text-8"></div>
       </a>
     </NSpace>
+    <div
+      class="md:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light">
+      <NDropdown trigger="click" :options="dropdownItems" @select="onDropdownItem">
+        <div class="i-uil:align-right text-5"></div>
+      </NDropdown>
+    </div>
   </header>
   <ChangelogDialog v-model="showChangelog"></ChangelogDialog>
 </template>
@@ -41,13 +47,13 @@ import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
 import { colorBackground, colorDarkBackground } from "@/style/theme";
 import version from "@/version";
-import { NSpace, NSwitch } from "naive-ui";
+import { NDropdown, NSpace, NSwitch } from "naive-ui";
 import { CSSProperties } from "vue";
 
-const showChangelog = $ref(false);
+let showChangelog = $ref(false);
 
 const appStore = useAppStore();
-const { headerHeight, sidebarWidth, isDark } = $(appStore);
+let { headerHeight, sidebarWidth, isDark } = $(appStore);
 
 const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
   const style: CSSProperties = {};
@@ -63,6 +69,34 @@ const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean })
     }
   }
   return style;
+};
+
+const dropdownItems = $computed(() => [
+  {
+    label: `v${version}`,
+    key: "version",
+  },
+  {
+    label: `切换至${isDark ? "亮色☀️" : "暗色🌙"}`,
+    key: "appearance",
+  },
+  {
+    label: `去Github看看👀`,
+    key: "github",
+  },
+]);
+const onDropdownItem = (key: string) => {
+  switch (key) {
+    case "version":
+      showChangelog = true;
+      break;
+    case "appearance":
+      isDark = !isDark;
+      break;
+    case "github":
+      window.open("https://github.com/Bernankez/BilibiliFans", "_blank");
+      break;
+  }
 };
 </script>
 
