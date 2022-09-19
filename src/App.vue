@@ -7,7 +7,7 @@
           <Main ref="mainEl"></Main>
         </div>
       </div>
-      <Sidebar @generate="onGenerate"></Sidebar>
+      <Sidebar @generate="onGenerate" @reset-cropper="onResetCropper"></Sidebar>
     </div>
   </ConfigProvider>
 </template>
@@ -26,6 +26,10 @@ const { sidebarWidth } = $(appStore);
 const mainEl = $ref<typeof Main>();
 const onGenerate = () => {
   mainEl?.generate();
+};
+
+const onResetCropper = () => {
+  mainEl?.resetCropper();
 };
 </script>
 

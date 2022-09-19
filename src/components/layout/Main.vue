@@ -54,5 +54,8 @@ const onGenerate: () => Promise<void> = async () => {
 
 defineExpose({
   generate: onGenerate,
+  resetCropper() {
+    imageCropperEl.reset();
+  },
 });
 </script>

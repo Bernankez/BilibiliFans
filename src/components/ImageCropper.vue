@@ -4,8 +4,8 @@
       ref="vueCropperEl"
       :img="image"
       outputType="png"
-      :canScale="false"
-      :canMove="false"
+      :canScale="options.imageScale"
+      :canMove="options.imageMove"
       autoCrop
       :centerBox="options.boxInsideImage"
       full
@@ -73,6 +73,9 @@ function crop() {
 
 defineExpose({
   crop,
+  reset() {
+    vueCropperEl?.refresh();
+  },
 });
 </script>
 

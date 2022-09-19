@@ -37,5 +37,8 @@ export type CardOption = {
   textColor?: string;
   /**框选范围限制在图片内 */
   boxInsideImage?: boolean;
-  // TODO 允许图片缩放 允许图片移动
+  /**允许图片缩放 */
+  imageScale?: boolean;
+  /**允许图片拖动 */
+  imageMove?: boolean;
 };

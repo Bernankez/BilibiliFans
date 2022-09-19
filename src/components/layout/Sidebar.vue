@@ -39,6 +39,17 @@
                   :showAlpha="false"
                   :showPreview="true">
                 </NColorPicker>
+                <div v-if="backgroundPaletteInfer.length > 0" class="flex items-center">
+                  推荐颜色：
+                  <div class="grid grid-cols-3 gap-2">
+                    <ColorSquare
+                      v-for="color in backgroundPaletteInfer"
+                      :key="color.color"
+                      :disabled="withoutGradient"
+                      :color="color.color"
+                      @click="onPaletteInfer"></ColorSquare>
+                  </div>
+                </div>
               </div>
             </NFormItem>
             <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
@@ -82,7 +93,12 @@
             </NColorPicker>
           </NFormItem>
           <NFormItem label="框选设置">
-            <NCheckbox v-model:checked="options.boxInsideImage">框选范围限制在图片内</NCheckbox>
+            <div class="grid grid-cols-1 gap-2 w-full">
+              <NCheckbox v-model:checked="options.boxInsideImage">框选范围限制在图片内</NCheckbox>
+              <NCheckbox v-model:checked="options.imageScale">允许图片缩放</NCheckbox>
+              <NCheckbox v-model:checked="options.imageMove">允许图片拖动</NCheckbox>
+              <NButton secondary @click="emit('resetCropper')">重置截图框</NButton>
+            </div>
           </NFormItem>
         </NCollapseItem>
       </NCollapse>
@@ -125,12 +141,14 @@ import {
   useDialog,
   useMessage,
 } from "naive-ui";
+import ColorSquare from "../ui/ColorSquare.vue";
 // eslint-disable-next-line
 // @ts-ignore next-line
 import analyze from "rgbaster";
 
 const emit = defineEmits<{
   (event: "generate"): void;
+  (event: "resetCropper"): void;
 }>();
 
 const cardStore = useCardStore();
@@ -187,14 +205,14 @@ type Palette = {
 };
 let backgroundPaletteHistory = $ref<string[]>([]);
 let backgroundPaletteInfer = $ref<Palette[]>([]);
-const backgroundPalette = $computed(() =>
-  ([] as string[]).concat(backgroundPaletteInfer.map(p => p.color).concat(backgroundPaletteHistory))
-);
+const backgroundPalette = $computed(() => ([] as string[]).concat(backgroundPaletteHistory));
 function setGradientColor(color: string) {
-  if (backgroundPaletteHistory.length >= 3) {
+  if (backgroundPaletteInfer.findIndex(p => p.color === color) === -1 && !backgroundPaletteHistory.includes(color)) {
+    backgroundPaletteHistory.push(color);
+  }
+  if (backgroundPaletteHistory.length >= 9) {
     backgroundPaletteHistory.shift();
   }
-  backgroundPaletteHistory.push(color);
   options.gradientColor = color;
 }
 // #ref: https://juejin.cn/post/6844903511956815885
@@ -215,8 +233,12 @@ const onBackgroundImage = (data: { fileList: UploadFileInfo[] }) => {
       URL.revokeObjectURL(url);
       backgroundPaletteInfer = res.slice(0, 3);
       options.textColor = inferFontColor(backgroundPaletteInfer[0].color);
+      options.gradientColor = backgroundPaletteInfer[0].color;
     });
   }
+};
+const onPaletteInfer = (color: string) => {
+  options.gradientColor = color;
 };
 
 // computed prop
