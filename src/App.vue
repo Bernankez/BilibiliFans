@@ -1,100 +1,96 @@
+<template>
+  <ConfigProvider>
+    <div class="layout">
+      <div class="content">
+        <Header></Header>
+        <div class="main">
+          <Main ref="mainEl"></Main>
+        </div>
+      </div>
+      <Sidebar @generate="onGenerate" @reset-cropper="onResetCropper"></Sidebar>
+    </div>
+  </ConfigProvider>
+</template>
+
 <script setup lang="ts">
-import {
-  NDialogProvider,
-  NMessageProvider,
-  NConfigProvider,
-  zhCN,
-  dateZhCN,
-  NLocale,
-  NDateLocale,
-  darkTheme,
-} from "naive-ui";
-import Sidebar from "@/components/Sidebar.vue";
-import FansCard from "./components/FansCard.vue";
-import ImageCropper from "./components/ImageCropper.vue";
-import { Preview } from "./types";
-import { nextTick } from "vue";
 import Header from "@/components/layout/Header.vue";
-
-import Lyj from "@/assets/lyj.webp";
+import Main from "@/components/layout/Main.vue";
+import Sidebar from "@/components/layout/Sidebar.vue";
+import ConfigProvider from "./components/layout/ConfigProvider.vue";
 import { useAppStore } from "./store/app-store";
-import dayjs from "dayjs";
-import version from "./version";
-
-const locale = $ref<NLocale>(zhCN);
-const dateLocale = $ref<NDateLocale>(dateZhCN);
+import { colorPrimary, colorDisabled, colorBackground, colorDarkBackground } from "@/style/theme";
 
 const appStore = useAppStore();
-const { options } = $(appStore);
-options.avatar = Lyj;
-options.backgroundImage = Lyj;
+const { sidebarWidth } = $(appStore);
 
-let preview = $ref<Preview | undefined>();
-const onPreview = (_preview: Preview) => {
-  preview = _preview;
+const mainEl = $ref<typeof Main>();
+const onGenerate = () => {
+  mainEl?.generate();
 };
 
-let finalImage = $ref("");
-const imageCropperEl = $ref<typeof ImageCropper>();
-const fansCardEl = $ref<typeof FansCard>();
-
-const onGenerate = async () => {
-  finalImage = await imageCropperEl.crop();
-  await nextTick();
-  fansCardEl.snapshot().then((canvas: HTMLCanvasElement) => {
-    const dataURL = canvas.toDataURL("image/png");
-    const arr = dataURL.split(",");
-    const MIME = arr[0].match(/:(.*?);/)?.[1];
-    const bstr = window.atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    const filename = options.anchorName + " - " + options.fansNo;
-    const file = new File([u8arr], filename, {
-      type: MIME,
-      lastModified: dayjs().valueOf(),
-    });
-    const a = document.createElement("a");
-    const url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = filename + ".png";
-    a.click();
-    URL.revokeObjectURL(url);
-  });
-};
-
-window.onbeforeunload = function (e) {
-  return false;
+const onResetCropper = () => {
+  mainEl?.resetCropper();
 };
 </script>
 
-<template>
-  <NConfigProvider :locale="locale" :dateLocale="dateLocale" abstract>
-    <div class="flex min-w-fit w-full h-full">
-      <div class="relative min-w-fit w-full h-full">
-        <Header></Header>
-        <main
-          class="flex p-3 p-t-15 box-border justify-evenly gap-4 items-center w-full h-full overflow-x-auto bg-background-light">
-          <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
-          <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
-            <template #image>
-              <img v-if="finalImage" class="w-full h-full" :src="finalImage" alt="backgroundImage" />
-              <div v-else :style="preview?.containerStyle">
-                <img :src="preview?.src" :style="preview?.imageStyle" />
-              </div>
-            </template>
-          </FansCard>
-        </main>
-      </div>
-      <NMessageProvider>
-        <NDialogProvider>
-          <Sidebar @generate="onGenerate"></Sidebar>
-        </NDialogProvider>
-      </NMessageProvider>
-    </div>
-  </NConfigProvider>
-</template>
+<style lang="scss">
+::selection {
+  background-color: v-bind("colorPrimary.DEFAULT");
+  color: #fff;
+}
 
-<style lang="scss" scoped></style>
+::-webkit-scrollbar {
+  height: 13px;
+  width: 13px;
+  box-shadow: inset 0 0 5px v-bind("colorDisabled.light");
+  background-color: v-bind("colorBackground.lighter");
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.darker");
+    box-shadow: unset;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 2px;
+  background-color: v-bind("colorDisabled.light");
+  background-clip: padding-box;
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.light");
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: v-bind("colorDisabled.DEFAULT");
+  cursor: pointer;
+
+  .dark & {
+    background-color: v-bind("colorDarkBackground.lighter");
+  }
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+</style>
+
+<style lang="scss" scoped>
+.layout {
+  @apply flex w-full h-full;
+}
+
+.content {
+  @apply h-full;
+  width: calc(100% - v-bind("sidebarWidth"));
+}
+
+.main {
+  @apply h-full overflow-x-auto;
+}
+</style>

@@ -6,10 +6,10 @@
     <div v-if="gradient" class="gradient"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
-        <img class="avatar" :src="avatar" />
+        <img class="avatar" :src="avatar" alt="avatar" />
         <span class="user-name">{{ nickname }}</span>
       </div>
-      <div class="m-t-[17px]">
+      <div class="m-t-[16px]">
         <div class="fans-mono">FANS NO.</div>
         <div class="fans-number kenny-mini">{{ fansNo }}</div>
       </div>
@@ -22,8 +22,11 @@
 </template>
 
 <script setup lang="ts">
+import { colorBackground } from "@/style/theme";
 import dayjs from "dayjs";
-import html2canvas from "html2canvas";
+// eslint-disable-next-line
+// @ts-ignore next-line
+import domToImage from "dom-to-image";
 
 const {
   avatar: _avatar = null as string | Blob | null,
@@ -62,7 +65,7 @@ const avatar = $computed(() => {
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return html2canvas(fansCardEl, { scale: 1, backgroundColor: null });
+  return domToImage.toBlob(fansCardEl, { style: { boxShadow: "unset" } });
 }
 
 defineExpose({
@@ -73,15 +76,22 @@ defineExpose({
 <style lang="scss" scoped>
 .fans-card {
   position: relative;
-  padding: 14px 18px 9px 18px;
+  padding: 14px 18px 7px 18px;
   box-sizing: border-box;
   height: 200px;
   width: 486px;
   color: v-bind("textColor");
   border-radius: 6px;
   background-color: v-bind("backgroundColor");
-  box-shadow: 0 0 5px 2px #ccc;
+  box-shadow: 0 0 10px 0 v-bind("colorBackground.darker");
   overflow: hidden;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+
+  .dark & {
+    box-shadow: 0 0 10px 0 #fff;
+  }
 }
 
 .gradient {

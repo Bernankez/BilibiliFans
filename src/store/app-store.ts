@@ -1,39 +1,46 @@
-import { CardOption } from "@/types";
-import dayjs from "dayjs";
 import { defineStore } from "pinia";
-import { computed, ref, UnwrapRef } from "vue";
+
+const APPEARANCE_KEY = "bilibili-fans-theme-appearance";
 
 export const useAppStore = defineStore("app", () => {
-  function createDefault(): CardOption {
-    return {
-      backgroundColor: "#ffffff",
-      backgroundImage: "",
-      gradient: false,
-      gradientColor: "#333333",
-      gradientStart: "10%",
-      gradientEnd: "30%",
-      nickname: "",
-      avatar: "",
-      fansNo: "00001",
-      customLink: "https://www.bilibili.com/h5/mall/home?navhide=1",
-      article: computed(
-        () =>
-          `我是#${options.value.anchorName}#的NO.${options.value.fansNo}号真爱粉，靓号在手，走路带风，解锁专属粉丝卡片，使用专属粉丝装扮，你也来生成你的专属秀起来吧！${options.value.customLink}`
-      ),
-      anchorName: "",
-      date: dayjs().format("YYYY/MM/DD"),
-      textColor: "#ffffff",
-    };
-  }
+  const sidebarWidth = $ref("280px");
+  const headerHeight = $ref("60px");
+  const sidebarFixedHeight = $ref("270px");
 
-  let options = ref<CardOption>(createDefault());
+  const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const saved = localStorage.getItem(APPEARANCE_KEY);
+  let _isDark = $ref(false);
+  let isDark = $computed({
+    get() {
+      return _isDark;
+    },
+    set(v: boolean) {
+      const html = document.documentElement;
+      const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (v) {
+        html.classList.add("dark");
+        if (preferDark) {
+          localStorage.setItem(APPEARANCE_KEY, "auto");
+        } else {
+          localStorage.setItem(APPEARANCE_KEY, "dark");
+        }
+      } else {
+        html.classList.remove("dark");
+        if (preferDark) {
+          localStorage.setItem(APPEARANCE_KEY, "light");
+        } else {
+          localStorage.setItem(APPEARANCE_KEY, "auto");
+        }
+      }
+      _isDark = v;
+    },
+  });
+  isDark = !saved || saved === "auto" ? preferDark : saved === "dark";
 
-  function reset() {
-    options.value = createDefault() as UnwrapRef<CardOption>;
-  }
-
-  return {
-    options,
-    reset,
-  };
+  return $$({
+    sidebarWidth,
+    sidebarFixedHeight,
+    headerHeight,
+    isDark,
+  });
 });

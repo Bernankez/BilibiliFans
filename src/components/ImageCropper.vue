@@ -4,22 +4,24 @@
       ref="vueCropperEl"
       :img="image"
       outputType="png"
-      :canScale="false"
-      :canMove="false"
+      :canScale="options.imageScale"
+      :canMove="options.imageMove"
       autoCrop
-      centerBox
+      :centerBox="options.boxInsideImage"
       full
       fixed
       :fixedNumber="[73, 30]"
       :maxImgSize="4096"
-      @realTime="onPreview">
+      @realTime="onPreview"
+      @imgLoad="imgLoad">
     </VueCropper>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCardStore } from "@/store/card-store";
 import { Preview } from "@/types";
-import { reactive } from "vue";
+import { nextTick, reactive, watch, watchEffect } from "vue";
 import { VueCropper } from "vue-cropper";
 import "vue-cropper/dist/index.css";
 
@@ -29,6 +31,9 @@ const { image: _image = null as string | Blob | null } = defineProps<{
 const emit = defineEmits<{
   (event: "preview", preview: Preview): void;
 }>();
+
+const cardStore = useCardStore();
+const { options } = $(cardStore);
 
 let prevImage = "";
 const image = $computed(() => {
@@ -66,9 +71,38 @@ function crop() {
     });
   });
 }
+// default crop
+let imgLoaded = $ref(false);
+const imgLoad = () => {
+  nextTick(() => {
+    imgLoaded = true;
+  });
+};
+const setCrop = () => {
+  vueCropperEl.cropOffsertX = 106;
+  vueCropperEl.cropOffsertY = 107;
+  vueCropperEl.cropW = 294;
+  vueCropperEl.cropH = 120;
+};
+const setDefaultCrop = () => {
+  if (imgLoaded) {
+    setCrop();
+  } else {
+    const stop = watchEffect(() => {
+      if (imgLoaded) {
+        setCrop();
+        stop();
+      }
+    });
+  }
+};
 
 defineExpose({
   crop,
+  reset() {
+    vueCropperEl?.refresh();
+  },
+  setDefaultCrop,
 });
 </script>
 

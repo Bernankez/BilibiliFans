@@ -10,10 +10,10 @@ export const colorDefault = {
 // default text color in dark mode
 export const colorDarkDefault = {
   lighter: "#ffffff",
-  light: "#ffffff",
-  DEFAULT: "#ffffff",
-  dark: "#ffffff",
-  darker: "#ffffff",
+  light: "#fafafa",
+  DEFAULT: "#fffbf0",
+  dark: "#fafaf9",
+  darker: "#fafaf9",
 };
 
 // default disabled color

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-4">
+  <div class="text-[14px]">
     <div class="font-bold text-6">{{ title }}</div>
     <slot></slot>
   </div>

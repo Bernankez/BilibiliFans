@@ -35,4 +35,10 @@ export type CardOption = {
   anchorName?: string;
   /**字体颜色 */
   textColor?: string;
+  /**框选范围限制在图片内 */
+  boxInsideImage?: boolean;
+  /**允许图片缩放 */
+  imageScale?: boolean;
+  /**允许图片拖动 */
+  imageMove?: boolean;
 };
