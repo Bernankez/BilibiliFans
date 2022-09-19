@@ -39,24 +39,16 @@ const imageSuffix = "png";
 const onGenerate: () => Promise<void> = async () => {
   finalImage = await imageCropperEl.crop();
   await nextTick();
-  return fansCardEl.snapshot().then((canvas: HTMLCanvasElement) => {
-    const dataURL = canvas.toDataURL(imageMIME);
-    const dataArr = dataURL.split(",");
-    const MIME = dataArr[0].match(/:(.*?);/)?.[1];
-    const bstr = window.atob(dataArr[1]);
-    let n = bstr.length;
-    const u8Arr = new Uint8Array(n);
-    while (n--) {
-      u8Arr[n] = bstr.charCodeAt(n);
-    }
+  return fansCardEl.snapshot().then((image: Blob) => {
     const filename = options.anchorName + "-" + options.fansNo;
-    const file = new File([u8Arr], filename, { type: MIME, lastModified: new Date().valueOf() });
+    const file = new File([image], filename, { type: imageMIME, lastModified: new Date().valueOf() });
     const a = document.createElement("a");
     const url = URL.createObjectURL(file);
     a.href = url;
     a.download = filename + "." + imageSuffix;
     a.click();
     URL.revokeObjectURL(url);
+    finalImage = "";
   });
 };
 

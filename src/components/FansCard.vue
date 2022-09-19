@@ -24,7 +24,9 @@
 <script setup lang="ts">
 import { colorBackground } from "@/style/theme";
 import dayjs from "dayjs";
-import html2canvas from "html2canvas";
+// eslint-disable-next-line
+// @ts-ignore next-line
+import domToImage from "dom-to-image";
 
 const {
   avatar: _avatar = null as string | Blob | null,
@@ -63,7 +65,7 @@ const avatar = $computed(() => {
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return html2canvas(fansCardEl, { scale: 1, backgroundColor: null });
+  return domToImage.toBlob(fansCardEl, { style: { boxShadow: "unset" } });
 }
 
 defineExpose({
