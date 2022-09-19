@@ -250,7 +250,7 @@ const gradientRange = $computed({
 
 <style lang="scss" scoped>
 .sidebar {
-  @apply relative shrink-0 h-full bg-background-lighter dark: bg-darkbackground-dark transition-all duration-250;
+  @apply relative shrink-0 h-full bg-background-lighter dark-bg-darkbackground-dark transition-all duration-250;
   width: v-bind("sidebarWidth");
 }
 
