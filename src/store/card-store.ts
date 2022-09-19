@@ -6,7 +6,7 @@ import defaultAvatar from "@/assets/default/avatar.jpg";
 import defaultBackground from "@/assets/default/background.webp";
 
 export const useCardStore = defineStore("card", () => {
-  function createDefault(): CardOption {
+  function createReset(): CardOption {
     return {
       backgroundColor: "#ffffff",
       backgroundImage: "",
@@ -28,10 +28,10 @@ export const useCardStore = defineStore("card", () => {
     };
   }
 
-  let options = ref<CardOption>(createDefault());
+  let options = ref<CardOption>(createReset());
 
   function reset() {
-    options.value = createDefault() as UnwrapRef<CardOption>;
+    options.value = createReset() as UnwrapRef<CardOption>;
   }
 
   function setDefault() {
