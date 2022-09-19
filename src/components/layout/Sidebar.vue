@@ -14,9 +14,18 @@
         </NCollapseItem>
         <NCollapseItem title="卡片设置" name="card">
           <NForm :model="options" labelWidth="auto">
-            <NFormItem label="字体颜色">
-              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
-              </NColorPicker>
+            <NFormItem label="选择背景图片">
+              <NUpload
+                ref="backgroundImageEl"
+                directoryDnd
+                :max="1"
+                listType="image-card"
+                :defaultUpload="false"
+                @change="onBackgroundImage">
+                <NUploadDragger>
+                  <div>点击或拖拽到这里上传文件</div>
+                </NUploadDragger>
+              </NUpload>
             </NFormItem>
             <NFormItem label="卡片前景渐变色">
               <div class="grid grid-cols-1 gap-2 w-full">
@@ -34,6 +43,10 @@
             </NFormItem>
             <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
               <NSlider :disabled="withoutGradient" v-model:value="gradientRange" range :step="1"></NSlider>
+            </NFormItem>
+            <NFormItem label="字体颜色">
+              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
+              </NColorPicker>
             </NFormItem>
             <NFormItem label="你的头像">
               <NUpload
@@ -56,19 +69,6 @@
             </NFormItem>
             <NFormItem label="获得装扮日期">
               <NDatePicker v-model:value="date" type="date"></NDatePicker>
-            </NFormItem>
-            <NFormItem label="选择背景图片">
-              <NUpload
-                ref="backgroundImageEl"
-                directoryDnd
-                :max="1"
-                listType="image-card"
-                :defaultUpload="false"
-                @change="onBackgroundImage">
-                <NUploadDragger>
-                  <div>点击或拖拽到这里上传文件</div>
-                </NUploadDragger>
-              </NUpload>
             </NFormItem>
           </NForm>
         </NCollapseItem>
@@ -115,7 +115,6 @@ import {
   NForm,
   NFormItem,
   NInput,
-  NScrollbar,
   NSlider,
   NUpload,
   NUploadDragger,
@@ -261,7 +260,7 @@ const gradientRange = $computed({
 }
 
 .sidebar-fixed {
-  @apply b-t b-disabled-light dark: b-darkbackground-light bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
+  @apply b-t b-disabled-light dark-b-darkbackground-light bg-background-lighter dark-bg-darkbackground-dark transition-all duration-250;
   height: v-bind("sidebarFixedHeight");
 }
 </style>

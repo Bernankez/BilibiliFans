@@ -6,10 +6,10 @@
     <div v-if="gradient" class="gradient"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
-        <img class="avatar" :src="avatar" />
+        <img class="avatar" :src="avatar" alt="avatar" />
         <span class="user-name">{{ nickname }}</span>
       </div>
-      <div class="m-t-[17px]">
+      <div class="m-t-[16px]">
         <div class="fans-mono">FANS NO.</div>
         <div class="fans-number kenny-mini">{{ fansNo }}</div>
       </div>
@@ -76,7 +76,7 @@ defineExpose({
 <style lang="scss" scoped>
 .fans-card {
   position: relative;
-  padding: 14px 18px 9px 18px;
+  padding: 14px 18px 7px 18px;
   box-sizing: border-box;
   height: 200px;
   width: 486px;

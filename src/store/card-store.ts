@@ -10,13 +10,13 @@ export const useCardStore = defineStore("card", () => {
     return {
       backgroundColor: "#ffffff",
       backgroundImage: "",
-      gradient: false,
+      gradient: true,
       gradientColor: "#333333",
       gradientStart: "10%",
       gradientEnd: "30%",
       nickname: "",
       avatar: "",
-      fansNo: "00001",
+      fansNo: "000001",
       customLink: "https://www.bilibili.com/h5/mall/home?navhide=1",
       article: computed(
         () =>
