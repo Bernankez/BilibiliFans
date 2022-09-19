@@ -14,6 +14,27 @@
         </NCollapseItem>
         <NCollapseItem title="卡片设置" name="card">
           <NForm :model="options" labelWidth="auto">
+            <NFormItem label="字体颜色">
+              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
+              </NColorPicker>
+            </NFormItem>
+            <NFormItem label="卡片前景渐变色">
+              <div class="grid grid-cols-1 gap-2 w-full">
+                <NCheckbox v-model:checked="withoutGradient">不使用前景渐变色</NCheckbox>
+                <NColorPicker
+                  :disabled="withoutGradient"
+                  :value="options.gradientColor"
+                  @update:value="setGradientColor"
+                  :swatches="backgroundPalette"
+                  :modes="['hex']"
+                  :showAlpha="false"
+                  :showPreview="true">
+                </NColorPicker>
+              </div>
+            </NFormItem>
+            <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
+              <NSlider :disabled="withoutGradient" v-model:value="gradientRange" range :step="1"></NSlider>
+            </NFormItem>
             <NFormItem label="你的头像">
               <NUpload
                 ref="avatarEl"
@@ -49,36 +70,17 @@
                 </NUploadDragger>
               </NUpload>
             </NFormItem>
-            <NFormItem label="卡片前景渐变色">
-              <div class="grid grid-cols-1 gap-2 w-full">
-                <NCheckbox v-model:checked="withoutGradient">不使用前景渐变色</NCheckbox>
-                <NColorPicker
-                  :disabled="withoutGradient"
-                  :value="options.gradientColor"
-                  @update:value="setGradientColor"
-                  :swatches="backgroundPalette"
-                  :modes="['hex']"
-                  :showAlpha="false"
-                  :showPreview="true">
-                </NColorPicker>
-              </div>
-            </NFormItem>
-            <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
-              <NSlider :disabled="withoutGradient" v-model:value="gradientRange" range :step="1"></NSlider>
-            </NFormItem>
-            <NFormItem label="字体颜色">
-              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
-              </NColorPicker>
-            </NFormItem>
-            <NFormItem label="卡片背景色（一般不用设置）">
-              <NColorPicker
-                v-model:value="options.backgroundColor"
-                :modes="['hex']"
-                :showAlpha="false"
-                :showPreview="true">
-              </NColorPicker>
-            </NFormItem>
           </NForm>
+        </NCollapseItem>
+        <NCollapseItem title="更多设置" name="more">
+          <NFormItem label="卡片背景色（一般不用设置）">
+            <NColorPicker
+              v-model:value="options.backgroundColor"
+              :modes="['hex']"
+              :showAlpha="false"
+              :showPreview="true">
+            </NColorPicker>
+          </NFormItem>
         </NCollapseItem>
       </NCollapse>
     </div>
@@ -248,7 +250,7 @@ const gradientRange = $computed({
 
 <style lang="scss" scoped>
 .sidebar {
-  @apply relative shrink-0 h-full bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
+  @apply relative shrink-0 h-full bg-background-lighter dark: bg-darkbackground-dark transition-all duration-250;
   width: v-bind("sidebarWidth");
 }
 
@@ -259,7 +261,7 @@ const gradientRange = $computed({
 }
 
 .sidebar-fixed {
-  @apply b-t b-disabled-light dark:b-darkbackground-light bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
+  @apply b-t b-disabled-light dark: b-darkbackground-light bg-background-lighter dark:bg-darkbackground-dark transition-all duration-250;
   height: v-bind("sidebarFixedHeight");
 }
 </style>
