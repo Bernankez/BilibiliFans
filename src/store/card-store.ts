@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { defineStore } from "pinia";
 import { computed, ref, UnwrapRef } from "vue";
 import defaultAvatar from "@/assets/default/avatar.jpg";
-import defaultBackground from "@/assets/default/background.webp";
+import defaultBackground from "@/assets/default/background.png";
 
 export const useCardStore = defineStore("card", () => {
   function createReset(): CardOption {
@@ -11,9 +11,9 @@ export const useCardStore = defineStore("card", () => {
       backgroundColor: "#ffffff",
       backgroundImage: "",
       gradient: true,
-      gradientColor: "#333333",
-      gradientStart: "10%",
-      gradientEnd: "30%",
+      gradientColor: "#FFE4C5",
+      gradientStart: "0%",
+      gradientEnd: "32%",
       nickname: "",
       avatar: "",
       fansNo: "000001",
@@ -24,8 +24,8 @@ export const useCardStore = defineStore("card", () => {
       ),
       anchorName: "",
       date: dayjs().format("YYYY/MM/DD"),
-      textColor: "#ffffff",
-      boxInsideImage: false,
+      textColor: "#27272A",
+      boxInsideImage: true,
       imageScale: false,
       imageMove: false,
     };

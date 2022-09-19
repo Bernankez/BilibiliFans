@@ -14,16 +14,20 @@
 </template>
 
 <script setup lang="ts">
-import { useCardStore } from "@/store/card-store";
-import { Preview } from "@/types";
 import FansCard from "@/components/FansCard.vue";
 import ImageCropper from "@/components/ImageCropper.vue";
-import { nextTick } from "vue";
+import { useCardStore } from "@/store/card-store";
+import { Preview } from "@/types";
+import { nextTick, onMounted } from "vue";
 
 const cardStore = useCardStore();
 const { options, setDefault } = $(cardStore);
 
+const imageCropperEl = $ref<typeof ImageCropper>();
 setDefault();
+onMounted(() => {
+  imageCropperEl.setDefaultCrop();
+});
 
 let preview = $ref<Preview | undefined>();
 const onPreview = (_preview: Preview) => {
@@ -31,7 +35,6 @@ const onPreview = (_preview: Preview) => {
 };
 
 let finalImage = $ref("");
-const imageCropperEl = $ref<typeof ImageCropper>();
 const fansCardEl = $ref<typeof FansCard>();
 
 const imageMIME = "image/png";
