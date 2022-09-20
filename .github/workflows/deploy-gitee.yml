@@ -20,46 +20,10 @@ jobs:
           source-repo: git@github.com:Bernankez/BilibiliFans.git
           destination-repo: git@gitee.com:bernankez/bilibili-fans.git
 
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 7
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
-        run: pnpm build:github
-
-      - name: deploy Gitee Pages
+      - name: Build Gitee Pages
         uses: yanglbme/gitee-pages-action@main
         with:
           gitee-username: bernankez
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          gitee-repo: bernankez/bilibili-fans
+          gitee-repo: bernankez/BilibiliFans
           branch: master
