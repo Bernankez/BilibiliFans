@@ -10,6 +10,11 @@
           >鹿野灸</a
         >
       </div>
+      <LogCard title="v0.2.2">
+        <LogCardItem title="Bug Fixes">
+          <div>修复生成图片多出部分透明像素问题</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.2.1">
         <LogCardItem title="Bug Fixes">
           <div>修复生成图片分辨率低问题</div>
