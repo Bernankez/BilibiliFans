@@ -1,5 +1,8 @@
+<div align="center">
+  <h1>Bilibili Fans</h1>
+</div>
+
 <p align="center">
-  <strong>Bilibili Fans</strong><br>
   <strong><samp>制作你的粉丝装扮卡片🪄</samp></strong>
 </p>
 
