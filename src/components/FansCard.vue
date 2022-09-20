@@ -69,7 +69,10 @@ const avatar = $computed(() => {
 
 const fansCardEl = $ref<HTMLElement>();
 function snapshot() {
-  return domToImage.toBlob(fansCardEl, { style: { boxShadow: "unset" } });
+  const style = getComputedStyle(fansCardEl);
+  const width = Number(style.width.slice(0, -2));
+  const height = Number(style.height.slice(0, -2));
+  return domToImage.toBlob(fansCardEl, { width, height, style: { boxShadow: "unset" } });
 }
 
 defineExpose({
