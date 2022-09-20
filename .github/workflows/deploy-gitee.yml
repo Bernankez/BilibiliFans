@@ -2,9 +2,6 @@ name: Deploy Gitee Pages
 
 on:
   push:
-    paths-ignore: 
-      - 'README.md'
-      - 'scripts/**'
     branches:
       - master
   pull_request:
