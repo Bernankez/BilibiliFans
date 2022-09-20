@@ -44,9 +44,12 @@ export const useCardStore = defineStore("card", () => {
     options.value.anchorName = "鹿野灸";
   }
 
+  const baseFontSize = ref(16);
+
   return {
     options,
     reset,
     setDefault,
+    baseFontSize,
   };
 });

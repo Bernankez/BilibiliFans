@@ -79,7 +79,7 @@ const imgLoad = () => {
   });
 };
 const setCrop = () => {
-  vueCropperEl.cropOffsertX = 106;
+  vueCropperEl.cropOffsertX = 104;
   vueCropperEl.cropOffsertY = 107;
   vueCropperEl.cropW = 294;
   vueCropperEl.cropH = 120;

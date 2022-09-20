@@ -2,13 +2,13 @@
   <main
     class="min-w-fit w-full h-full flex p-3 box-border justify-evenly gap-4 items-center overflow-x-auto bg-background-light dark:bg-darkbackground transition-all duration-250">
     <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview"></ImageCropper>
-    <FansCard ref="fansCardEl" v-bind="options" class="shrink-0">
-      <template #image>
-        <img v-if="finalImage" class="w-full h-full" :src="finalImage" alt="backgroundImage" />
-        <div v-else :style="preview?.containerStyle">
-          <img :src="preview?.src" :style="preview?.imageStyle" />
-        </div>
-      </template>
+    <FansCard v-bind="options" class="shrink-0" :baseFontSize="baseFontSize">
+      <div :style="preview?.containerStyle">
+        <img :src="preview?.src" :style="preview?.imageStyle" />
+      </div>
+    </FansCard>
+    <FansCard v-show="finalImage" ref="fansCardEl" v-bind="options" class="shrink-0" :baseFontSize="36">
+      <img class="w-full h-full" :src="finalImage" alt="backgroundImage" />
     </FansCard>
   </main>
 </template>
@@ -21,7 +21,7 @@ import { Preview } from "@/types";
 import { nextTick, onMounted } from "vue";
 
 const cardStore = useCardStore();
-const { options, setDefault } = $(cardStore);
+const { options, setDefault, baseFontSize } = $(cardStore);
 
 const imageCropperEl = $ref<typeof ImageCropper>();
 setDefault();
