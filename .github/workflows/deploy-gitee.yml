@@ -25,5 +25,5 @@ jobs:
         with:
           gitee-username: bernankez
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          gitee-repo: bernankez/BilibiliFans
+          gitee-repo: bernankez/bilibili-fans
           branch: master
