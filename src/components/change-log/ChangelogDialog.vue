@@ -10,6 +10,11 @@
           >鹿野灸</a
         >
       </div>
+      <LogCard title="v0.2.1">
+        <LogCardItem title="Bug Fixes">
+          <div>修复生成图片分辨率低问题</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.2.0">
         <LogCardItem title="Features">
           <div>适配黑暗模式</div>
