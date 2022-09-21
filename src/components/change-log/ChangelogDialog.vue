@@ -1,6 +1,6 @@
 <template>
   <Dialog v-model="show" title="更新日志" @confirm="show = false">
-    <div class="text-default dark:text-darkdefault">
+    <NScrollbar class="text-default dark:text-darkdefault" style="max-height: 400px" trigger="none">
       <div class="font-bold">目前Safari和火狐浏览器下样式有问题，推荐使用Edge或Chrome浏览器</div>
       <div>
         默认背景图来源：<a
@@ -10,6 +10,11 @@
           >鹿野灸</a
         >
       </div>
+      <LogCard title="v0.2.3">
+        <LogCardItem title="Performance Improvements">
+          <div>优化生成图片时的样式，现在生成图片不会再有一闪而过的大图</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.2.2">
         <LogCardItem title="Bug Fixes">
           <div>修复生成图片多出部分透明像素问题</div>
@@ -37,7 +42,7 @@
         </LogCardItem>
       </LogCard>
       <LogCard title="v0.1.0"> 完成基本功能 </LogCard>
-    </div>
+    </NScrollbar>
   </Dialog>
 </template>
 
@@ -45,6 +50,7 @@
 import Dialog from "@/components/ui/Dialog.vue";
 import LogCard from "./LogCard.vue";
 import LogCardItem from "./LogCardItem.vue";
+import { NScrollbar } from "naive-ui";
 
 const { modelValue = false } = defineProps<{
   modelValue?: boolean;

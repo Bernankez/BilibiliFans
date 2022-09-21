@@ -72,7 +72,7 @@ function snapshot() {
   const style = getComputedStyle(fansCardEl);
   const width = Number(style.width.slice(0, -2));
   const height = Number(style.height.slice(0, -2));
-  return domToImage.toBlob(fansCardEl, { width, height, style: { boxShadow: "unset" } });
+  return domToImage.toBlob(fansCardEl, { width, height, style: { boxShadow: "unset", display: "block" } });
 }
 
 defineExpose({
