@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy Github Pages
 
 on:
   push:
@@ -51,7 +51,7 @@ jobs:
       - name: Build
         run: pnpm build:github
 
-      - name: Deploy
+      - name: Deploy Github Pages
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           token: ${{ secrets.TOKEN }}
