@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "mock": "vite --mode mock",
+    "taze": "taze",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "build:github": "vue-tsc --noEmit && vite build --base /BilibiliFans/",
@@ -42,6 +43,7 @@
     "naive-ui": "^2.33.2",
     "prettier": "^2.7.1",
     "sass": "^1.54.8",
+    "taze": "^0.8.1",
     "terser": "^5.15.0",
     "tsx": "^3.9.0",
     "typescript": "^4.8.2",
