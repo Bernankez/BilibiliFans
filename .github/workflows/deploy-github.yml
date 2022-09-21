@@ -1,4 +1,4 @@
-name: Deploy Pages
+name: Deploy Github Pages
 
 on:
   push:
@@ -60,19 +60,3 @@ jobs:
           git-config-name: Github Action Bot
           git-config-email: github-action-bot@github.com
           commit-message: "chore: deploy github pages"
-
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env: 
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
-        with:
-          source-repo: git@github.com:Bernankez/BilibiliFans.git
-          destination-repo: git@gitee.com:bernankez/bilibili-fans.git
-
-      - name: Deploy Gitee Pages
-        uses: yanglbme/gitee-pages-action@main
-        with:
-          gitee-username: bernankez
-          gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          gitee-repo: bernankez/bilibili-fans
-          branch: deploy
