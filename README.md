@@ -11,5 +11,9 @@
 </p>
 
 <p align="center">
+  <samp><a href="https://www.bilibili.com/video/BV1AB4y1J75V/" target="_blank">教程</a></samp>
+</p>
+
+<p align="center">
   <img src="https://user-images.githubusercontent.com/23058788/191068507-c8a145ae-c43e-4b5f-9486-bdf368e52967.png">
 </p>
