@@ -7,7 +7,7 @@
         <img :src="preview?.src" :style="preview?.imageStyle" />
       </div>
     </FansCard>
-    <FansCard v-show="finalImage" ref="fansCardEl" v-bind="options" class="shrink-0" :baseFontSize="36">
+    <FansCard v-show="false" ref="fansCardEl" v-bind="options" class="shrink-0" :baseFontSize="36">
       <img class="w-full h-full" :src="finalImage" alt="backgroundImage" />
     </FansCard>
   </main>
