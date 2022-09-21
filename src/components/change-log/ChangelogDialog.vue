@@ -1,6 +1,6 @@
 <template>
   <Dialog v-model="show" title="更新日志" @confirm="show = false">
-    <div class="text-default dark:text-darkdefault">
+    <NScrollbar class="text-default dark:text-darkdefault" style="max-height: 400px" trigger="none">
       <div class="font-bold">目前Safari和火狐浏览器下样式有问题，推荐使用Edge或Chrome浏览器</div>
       <div>
         默认背景图来源：<a
@@ -37,7 +37,7 @@
         </LogCardItem>
       </LogCard>
       <LogCard title="v0.1.0"> 完成基本功能 </LogCard>
-    </div>
+    </NScrollbar>
   </Dialog>
 </template>
 
@@ -45,6 +45,7 @@
 import Dialog from "@/components/ui/Dialog.vue";
 import LogCard from "./LogCard.vue";
 import LogCardItem from "./LogCardItem.vue";
+import { NScrollbar } from "naive-ui";
 
 const { modelValue = false } = defineProps<{
   modelValue?: boolean;
