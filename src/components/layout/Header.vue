@@ -46,7 +46,7 @@
 import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
 import { colorBackground, colorDarkBackground } from "@/style/theme";
-import version from "@/version";
+import { version } from "~/package.json";
 import { NDropdown, NSpace, NSwitch } from "naive-ui";
 import { CSSProperties } from "vue";
 
