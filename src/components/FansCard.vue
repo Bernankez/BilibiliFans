@@ -24,8 +24,6 @@
 <script setup lang="ts">
 import { colorBackground } from "@/style/theme";
 import dayjs from "dayjs";
-// eslint-disable-next-line
-// @ts-ignore next-line
 import domToImage from "dom-to-image";
 
 const {
