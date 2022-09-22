@@ -40,6 +40,7 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
     "bumpp": "^8.2.1",
+    "changelogithub": "^0.12.4",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
     "naive-ui": "^2.33.2",
