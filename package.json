@@ -16,7 +16,8 @@
     "coverage": "vitest run --coverage",
     "format": "npm run prettier && npm run lint",
     "prettier": "prettier --config ./.prettierrc --write src/**/*.{js,ts,jsx,tsx,vue,html,json}",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "clipboard": "^2.0.11",
@@ -43,6 +44,8 @@
     "changelogithub": "^0.12.4",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "naive-ui": "^2.33.2",
     "prettier": "^2.7.1",
     "sass": "^1.54.8",
@@ -55,6 +58,12 @@
     "vite-plugin-mock": "^2.9.6",
     "vitest": "^0.22.1",
     "vue-tsc": "^0.39.5"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,vue,md}": [
+      "eslint --fix",
+      "prettier --config ./.prettierrc --write src/**/*.{js,ts,jsx,tsx,vue,html,json}"
+    ]
   },
   "pnpm": {
     "peerDependencyRules": {
