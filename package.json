@@ -12,7 +12,7 @@
     "build:github": "vue-tsc --noEmit && vite build --base /BilibiliFans/",
     "preview:github": "vite preview --base /BilibiliFans/",
     "test": "vitest run",
-    "test:watch": "vitest run",
+    "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "format": "npm run prettier && npm run lint",
     "prettier": "prettier --config ./.prettierrc --write src/**/*.{js,ts,jsx,tsx,vue,html,json}",
