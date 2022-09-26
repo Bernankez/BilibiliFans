@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
+import { resolve } from "path";
 import legacy from "@vitejs/plugin-legacy";
 import vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
 import Unocss from "unocss/vite";
 import { defineConfig } from "vite";
 import { viteMockServe } from "vite-plugin-mock";

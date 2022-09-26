@@ -53,4 +53,4 @@ jobs:
           branch: deploy
           git-config-name: Github Action Bot
           git-config-email: github-action-bot@github.com
-          commit-message: "chore: deploy github pages"
+          commit-message: 'chore: deploy github pages'

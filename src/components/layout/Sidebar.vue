@@ -1,27 +1,28 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-content">
-      <NCollapse :defaultExpandedNames="['card']">
+      <NCollapse :default-expanded-names="['card']">
         <NCollapseItem title="分享文案设置" name="article">
-          <NForm :model="options" labelWidth="auto">
+          <NForm :model="options" label-width="auto">
             <NFormItem label="主播名">
-              <NInput v-model:value="options.anchorName"></NInput>
+              <NInput v-model:value="options.anchorName" />
             </NFormItem>
             <NFormItem label="装扮链接">
-              <NInput v-model:value="options.customLink"></NInput>
+              <NInput v-model:value="options.customLink" />
             </NFormItem>
           </NForm>
         </NCollapseItem>
         <NCollapseItem title="卡片设置" name="card">
-          <NForm :model="options" labelWidth="auto">
+          <NForm :model="options" label-width="auto">
             <NFormItem label="选择背景图片">
               <NUpload
                 ref="backgroundImageEl"
-                directoryDnd
+                directory-dnd
                 :max="1"
-                listType="image-card"
-                :defaultUpload="false"
-                @change="onBackgroundImage">
+                list-type="image-card"
+                :default-upload="false"
+                @change="onBackgroundImage"
+              >
                 <NUploadDragger>
                   <div>点击或拖拽到这里上传文件</div>
                 </NUploadDragger>
@@ -29,16 +30,18 @@
             </NFormItem>
             <NFormItem label="卡片前景渐变色">
               <div class="grid grid-cols-1 gap-2 w-full">
-                <NCheckbox v-model:checked="withoutGradient">不使用前景渐变色</NCheckbox>
+                <NCheckbox v-model:checked="withoutGradient">
+                  不使用前景渐变色
+                </NCheckbox>
                 <NColorPicker
                   :disabled="withoutGradient"
                   :value="options.gradientColor"
-                  @update:value="setGradientColor"
                   :swatches="backgroundPalette"
                   :modes="['hex']"
-                  :showAlpha="false"
-                  :showPreview="true">
-                </NColorPicker>
+                  :show-alpha="false"
+                  :show-preview="true"
+                  @update:value="setGradientColor"
+                />
                 <div v-if="backgroundPaletteInfer.length > 0" class="flex items-center">
                   推荐颜色：
                   <div class="grid grid-cols-3 gap-2">
@@ -47,39 +50,40 @@
                       :key="color.color"
                       :disabled="withoutGradient"
                       :color="color.color"
-                      @click="onPaletteInfer"></ColorSquare>
+                      @click="onPaletteInfer"
+                    />
                   </div>
                 </div>
               </div>
             </NFormItem>
             <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
-              <NSlider :disabled="withoutGradient" v-model:value="gradientRange" range :step="1"></NSlider>
+              <NSlider v-model:value="gradientRange" :disabled="withoutGradient" range :step="1" />
             </NFormItem>
             <NFormItem label="字体颜色">
-              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :showAlpha="false" :showPreview="true">
-              </NColorPicker>
+              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :show-alpha="false" :show-preview="true" />
             </NFormItem>
             <NFormItem label="你的头像">
               <NUpload
                 ref="avatarEl"
-                directoryDnd
+                directory-dnd
                 :max="1"
-                listType="image-card"
-                :defaultUpload="false"
-                @change="onAvatar">
+                list-type="image-card"
+                :default-upload="false"
+                @change="onAvatar"
+              >
                 <NUploadDragger>
                   <div>点击或拖拽到这里上传文件</div>
                 </NUploadDragger>
               </NUpload>
             </NFormItem>
             <NFormItem label="你的用户名">
-              <NInput v-model:value="options.nickname"></NInput>
+              <NInput v-model:value="options.nickname" />
             </NFormItem>
             <NFormItem label="装扮编号">
-              <NInput v-model:value="options.fansNo"></NInput>
+              <NInput v-model:value="options.fansNo" />
             </NFormItem>
             <NFormItem label="获得装扮日期">
-              <NDatePicker v-model:value="date" type="date"></NDatePicker>
+              <NDatePicker v-model:value="date" type="date" />
             </NFormItem>
           </NForm>
         </NCollapseItem>
@@ -88,16 +92,24 @@
             <NColorPicker
               v-model:value="options.backgroundColor"
               :modes="['hex']"
-              :showAlpha="false"
-              :showPreview="true">
-            </NColorPicker>
+              :show-alpha="false"
+              :show-preview="true"
+            />
           </NFormItem>
           <NFormItem label="框选设置">
             <div class="grid grid-cols-1 gap-2 w-full">
-              <NCheckbox v-model:checked="options.boxInsideImage">框选范围限制在图片内</NCheckbox>
-              <NCheckbox v-model:checked="options.imageScale">允许图片缩放</NCheckbox>
-              <NCheckbox v-model:checked="options.imageMove">允许图片拖动</NCheckbox>
-              <NButton secondary @click="emit('resetCropper')">重置截图框</NButton>
+              <NCheckbox v-model:checked="options.boxInsideImage">
+                框选范围限制在图片内
+              </NCheckbox>
+              <NCheckbox v-model:checked="options.imageScale">
+                允许图片缩放
+              </NCheckbox>
+              <NCheckbox v-model:checked="options.imageMove">
+                允许图片拖动
+              </NCheckbox>
+              <NButton secondary @click="emit('resetCropper')">
+                重置截图框
+              </NButton>
             </div>
           </NFormItem>
         </NCollapseItem>
@@ -111,19 +123,23 @@
           type="textarea"
           autosize
           placeholder="这里填写动态文案"
-          @focus="onInputFocus"></NInput>
-        <NButton class="w-full" type="primary" @click="onGenerate">生成卡片并复制动态</NButton>
-        <NButton class="w-full" @click="onReset">重置</NButton>
+          @focus="onInputFocus"
+        />
+        <NButton class="w-full" type="primary" @click="onGenerate">
+          生成卡片并复制动态
+        </NButton>
+        <NButton class="w-full" @click="onReset">
+          重置
+        </NButton>
       </div>
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from "@/store/app-store";
-import { useCardStore } from "@/store/card-store";
 import Clipboard from "clipboard";
 import dayjs from "dayjs";
+import type { UploadFileInfo } from "naive-ui";
 import {
   NButton,
   NCheckbox,
@@ -137,18 +153,19 @@ import {
   NSlider,
   NUpload,
   NUploadDragger,
-  UploadFileInfo,
   useDialog,
   useMessage,
 } from "naive-ui";
-import ColorSquare from "../ui/ColorSquare.vue";
-// eslint-disable-next-line
+// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
 // @ts-ignore next-line
 import analyze from "rgbaster";
+import ColorSquare from "../ui/ColorSquare.vue";
+import { useCardStore } from "@/store/card-store";
+import { useAppStore } from "@/store/app-store";
 
 const emit = defineEmits<{
-  (event: "generate"): void;
-  (event: "resetCropper"): void;
+  (event: "generate"): void
+  (event: "resetCropper"): void
 }>();
 
 const cardStore = useCardStore();
@@ -159,11 +176,11 @@ const { sidebarWidth, sidebarFixedHeight } = $(appStore);
 const message = useMessage();
 const clip = (e: Event) => {
   const clipboard = new Clipboard(e.target as HTMLElement, { text: () => options.article! });
-  clipboard.on("success", e => {
+  clipboard.on("success", (e) => {
     message.success("复制成功，可以去b站发动态了");
     clipboard.destroy();
   });
-  clipboard.on("error", e => {
+  clipboard.on("error", (e) => {
     message.error("浏览器不支持复制，手动复制一下吧");
     clipboard.destroy();
   });
@@ -195,35 +212,33 @@ const onReset = () => {
 };
 
 const onAvatar = (data: { fileList: UploadFileInfo[] }) => {
-  if (data?.fileList.length > 0) {
+  if (data?.fileList.length > 0)
     options.avatar = data.fileList[0].file!;
-  }
 };
-type Palette = {
-  color: string;
-  count: number;
-};
-let backgroundPaletteHistory = $ref<string[]>([]);
+interface Palette {
+  color: string
+  count: number
+}
+const backgroundPaletteHistory = $ref<string[]>([]);
 let backgroundPaletteInfer = $ref<Palette[]>([]);
 const backgroundPalette = $computed(() => ([] as string[]).concat(backgroundPaletteHistory));
 function setGradientColor(color: string) {
-  if (backgroundPaletteInfer.findIndex(p => p.color === color) === -1 && !backgroundPaletteHistory.includes(color)) {
+  if (backgroundPaletteInfer.findIndex(p => p.color === color) === -1 && !backgroundPaletteHistory.includes(color))
     backgroundPaletteHistory.push(color);
-  }
-  if (backgroundPaletteHistory.length >= 9) {
+
+  if (backgroundPaletteHistory.length >= 9)
     backgroundPaletteHistory.shift();
-  }
+
   options.gradientColor = color;
 }
 // #ref: https://juejin.cn/post/6844903511956815885
 function inferFontColor(color: string) {
   const colors = color.match(/\d+/g)!;
   const grayLevel = Number(colors[0]) * 0.299 + Number(colors[1]) * 0.587 + Number(colors[2]) * 0.114;
-  if (grayLevel >= 192) {
+  if (grayLevel >= 192)
     return "#333333";
-  } else {
+  else
     return "#ffffff";
-  }
 }
 const onBackgroundImage = (data: { fileList: UploadFileInfo[] }) => {
   if (data?.fileList.length > 0) {
@@ -266,8 +281,8 @@ const gradientRange = $computed({
   set(range: number[]) {
     const min = Math.min(...range);
     const max = Math.max(...range);
-    options.gradientStart = min + "%";
-    options.gradientEnd = max + "%";
+    options.gradientStart = `${min}%`;
+    options.gradientEnd = `${max}%`;
   },
 });
 </script>

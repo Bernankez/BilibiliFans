@@ -1,7 +1,8 @@
-import { CardOption } from "@/types";
 import dayjs from "dayjs";
 import { defineStore } from "pinia";
-import { computed, ref, UnwrapRef } from "vue";
+import type { UnwrapRef } from "vue";
+import { computed, ref } from "vue";
+import type { CardOption } from "@/types";
 import defaultAvatar from "@/assets/default/avatar.jpg";
 import defaultBackground from "@/assets/default/background.png";
 
@@ -20,7 +21,7 @@ export const useCardStore = defineStore("card", () => {
       customLink: "https://www.bilibili.com/h5/mall/home?navhide=1",
       article: computed(
         () =>
-          `我是#${options.value.anchorName}#的NO.${options.value.fansNo}号真爱粉，靓号在手，走路带风，解锁专属粉丝卡片，使用专属粉丝装扮，你也来生成你的专属秀起来吧！${options.value.customLink}`
+          `我是#${options.value.anchorName}#的NO.${options.value.fansNo}号真爱粉，靓号在手，走路带风，解锁专属粉丝卡片，使用专属粉丝装扮，你也来生成你的专属秀起来吧！${options.value.customLink}`,
       ),
       anchorName: "",
       date: dayjs().format("YYYY/MM/DD"),

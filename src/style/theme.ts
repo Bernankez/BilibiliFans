@@ -34,7 +34,7 @@ export const colorBackground = {
   darker: "#D4D4D4",
 };
 
-//default background color in dark mode
+// default background color in dark mode
 export const colorDarkBackground = {
   lighter: "#52525B",
   light: "#3F3F46",

@@ -3,33 +3,33 @@
     <VueCropper
       ref="vueCropperEl"
       :img="image"
-      outputType="png"
-      :canScale="options.imageScale"
-      :canMove="options.imageMove"
-      autoCrop
-      :centerBox="options.boxInsideImage"
+      output-type="png"
+      :can-scale="options.imageScale"
+      :can-move="options.imageMove"
+      auto-crop
+      :center-box="options.boxInsideImage"
       full
       fixed
-      :fixedNumber="[73, 30]"
-      :maxImgSize="4096"
+      :fixed-number="[73, 30]"
+      :max-img-size="4096"
       @realTime="onPreview"
-      @imgLoad="imgLoad">
-    </VueCropper>
+      @imgLoad="imgLoad"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useCardStore } from "@/store/card-store";
-import { Preview } from "@/types";
 import { nextTick, reactive, watch, watchEffect } from "vue";
 import { VueCropper } from "vue-cropper";
+import { useCardStore } from "@/store/card-store";
+import type { Preview } from "@/types";
 import "vue-cropper/dist/index.css";
 
 const { image: _image = null as string | Blob | null } = defineProps<{
-  image?: string | Blob;
+  image?: string | Blob
 }>();
 const emit = defineEmits<{
-  (event: "preview", preview: Preview): void;
+  (event: "preview", preview: Preview): void
 }>();
 
 const cardStore = useCardStore();
@@ -41,7 +41,8 @@ const image = $computed(() => {
   if (_image instanceof Blob) {
     prevImage = URL.createObjectURL(_image);
     return prevImage;
-  } else {
+  }
+  else {
     return _image || "";
   }
 });
@@ -57,8 +58,8 @@ function onPreview(data: Record<string, any>) {
   preview.src = data.url;
   preview.imageStyle = data.img;
   preview.containerStyle = {
-    width: data.w + "px",
-    height: data.h + "px",
+    width: `${data.w}px`,
+    height: `${data.h}px`,
     zoom: 200 / data.h,
   };
   emit("preview", preview);
@@ -87,7 +88,8 @@ const setCrop = () => {
 const setDefaultCrop = () => {
   if (imgLoaded) {
     setCrop();
-  } else {
+  }
+  else {
     const stop = watchEffect(() => {
       if (imgLoaded) {
         setCrop();

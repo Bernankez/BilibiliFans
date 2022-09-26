@@ -4,28 +4,36 @@
     :style="wrapperStyle"
     role="dialog"
     aria-modal="true"
-    :maskClosable="closeOnOverlay"
-    :closeOnEsc="closeOnEsc"
-    :displayDirective="displayDirective">
+    :mask-closable="closeOnOverlay"
+    :close-on-esc="closeOnEsc"
+    :display-directive="displayDirective"
+  >
     <div class="dialog--wrapper">
       <div class="flex justify-between items-center p-y-4 p-x-5 box-border text-5">
         <div class="text-default dark:text-darkdefault cursor-default">
-          <slot name="title">{{ title }}</slot>
+          <slot name="title">
+            {{ title }}
+          </slot>
         </div>
         <div
           role="button"
-          class="transition duration-230 hover:bg-background-light hover:dark:bg-darkbackground-lighter active:bg-background! active:dark:bg-darkbackground-light! hover:cursor-pointer rounded-1">
-          <div class="i-uil:times text-6 text-default-light dark:text-darkdefault" @click="onCancel"></div>
+          class="transition duration-230 hover:bg-background-light hover:dark:bg-darkbackground-lighter active:bg-background! active:dark:bg-darkbackground-light! hover:cursor-pointer rounded-1"
+        >
+          <div class="i-uil:times text-6 text-default-light dark:text-darkdefault" @click="onCancel" />
         </div>
       </div>
       <div class="p-x-5 p-b-4 box-border">
-        <slot></slot>
+        <slot />
       </div>
       <div v-if="useFooter" class="p-x-5 p-b-4 box-border">
         <slot name="footer">
           <NSpace justify="end">
-            <NButton secondary @click="onCancel">{{ cancelText }}</NButton>
-            <NButton type="primary" @click="emit('confirm')">{{ confirmText }}</NButton>
+            <NButton secondary @click="onCancel">
+              {{ cancelText }}
+            </NButton>
+            <NButton type="primary" @click="emit('confirm')">
+              {{ confirmText }}
+            </NButton>
           </NSpace>
         </slot>
       </div>
@@ -34,8 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { colorPrimary } from "@/style/theme";
 import { NButton, NModal, NSpace } from "naive-ui";
+import { colorPrimary } from "@/style/theme";
 
 const {
   modelValue = false,
@@ -49,16 +57,22 @@ const {
   displayDirective = "if",
   useFooter = true,
 } = defineProps<{
-  modelValue?: boolean;
-  width?: string;
-  maxWidth?: string;
-  title?: string;
-  confirmText?: string;
-  cancelText?: string;
-  closeOnOverlay?: boolean;
-  closeOnEsc?: boolean;
-  displayDirective?: "if" | "show";
-  useFooter?: boolean;
+  modelValue?: boolean
+  width?: string
+  maxWidth?: string
+  title?: string
+  confirmText?: string
+  cancelText?: string
+  closeOnOverlay?: boolean
+  closeOnEsc?: boolean
+  displayDirective?: "if" | "show"
+  useFooter?: boolean
+}>();
+
+const emit = defineEmits<{
+  (event: "update:modelValue", show: boolean): void
+  (event: "confirm"): void
+  (event: "cancel"): void
 }>();
 
 // style v-bind does not work in teleport
@@ -68,12 +82,6 @@ const wrapperStyle = $computed(() => ({
   "--max-width": maxWidth,
   "--selection-background": colorPrimary.DEFAULT,
 }));
-
-const emit = defineEmits<{
-  (event: "update:modelValue", show: boolean): void;
-  (event: "confirm"): void;
-  (event: "cancel"): void;
-}>();
 
 const show = $computed({
   get() {

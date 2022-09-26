@@ -1,11 +1,11 @@
-import { defineConfig, presetUno, presetIcons, transformerDirectives } from "unocss";
+import { defineConfig, presetIcons, presetUno, transformerDirectives } from "unocss";
 import presetRemToPx from "@unocss/preset-rem-to-px";
 import {
-  colorDefault,
-  colorDarkDefault,
-  colorDisabled,
   colorBackground,
   colorDarkBackground,
+  colorDarkDefault,
+  colorDefault,
+  colorDisabled,
   colorPrimary,
 } from "./src/style/theme";
 

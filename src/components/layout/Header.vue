@@ -1,54 +1,62 @@
 <template>
   <header
-    class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250">
+    class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250"
+  >
     <div class="flex items-center">
-      <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
+      <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo">
       <NSpace align="baseline">
-        <div class="title">Bilibili Fans</div>
-        <div class="display-none lg:inline">一键制作你的粉丝装扮卡片</div>
+        <div class="title">
+          Bilibili Fans
+        </div>
+        <div class="display-none lg:inline">
+          一键制作你的粉丝装扮卡片
+        </div>
       </NSpace>
     </div>
     <NSpace class="display-none! md:flex!" align="center">
       <div
         role="button"
         class="text-5 cursor-pointer text-default-light dark:text-darkdefault hover:text-default hover:dark:text-darkdefault-lighter transition-all duration-250"
-        @click="showChangelog = true">
+        @click="showChangelog = true"
+      >
         v{{ version }}
       </div>
-      <div class="divide-vertical"></div>
-      <NSwitch v-model:value="isDark" :railStyle="railStyle">
+      <div class="divide-vertical" />
+      <NSwitch v-model:value="isDark" :rail-style="railStyle">
         <template #unchecked-icon>
-          <div class="i-uil:brightness"></div>
+          <div class="i-uil:brightness" />
         </template>
         <template #checked-icon>
-          <div class="i-uil:moon rotate-y-180"></div>
+          <div class="i-uil:moon rotate-y-180" />
         </template>
       </NSwitch>
-      <div class="divide-vertical"></div>
+      <div class="divide-vertical" />
       <a
         class="text-default-light hover:text-default dark:text-darkdefault hover:dark:text-darkdefault-lighter transition-all duration-250"
         href="https://github.com/Bernankez/BilibiliFans"
-        target="_blank">
-        <div class="i-uil:github text-8"></div>
+        target="_blank"
+      >
+        <div class="i-uil:github text-8" />
       </a>
     </NSpace>
     <div
-      class="md:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light">
+      class="md:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light"
+    >
       <NDropdown trigger="click" :options="dropdownItems" @select="onDropdownItem">
-        <div class="i-uil:align-right text-5"></div>
+        <div class="i-uil:align-right text-5" />
       </NDropdown>
     </div>
   </header>
-  <ChangelogDialog v-model="showChangelog"></ChangelogDialog>
+  <ChangelogDialog v-model="showChangelog" />
 </template>
 
 <script setup lang="ts">
+import { NDropdown, NSpace, NSwitch } from "naive-ui";
+import type { CSSProperties } from "vue";
 import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
 import { colorBackground, colorDarkBackground } from "@/style/theme";
 import { version } from "~/package.json";
-import { NDropdown, NSpace, NSwitch } from "naive-ui";
-import { CSSProperties } from "vue";
 
 let showChangelog = $ref(false);
 
@@ -59,14 +67,13 @@ const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean })
   const style: CSSProperties = {};
   if (checked) {
     style.background = colorDarkBackground.light;
-    if (focused) {
+    if (focused)
       style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`;
-    }
-  } else {
+  }
+  else {
     style.background = colorBackground.dark;
-    if (focused) {
+    if (focused)
       style.boxShadow = `0 0 0 2px ${colorBackground.DEFAULT}`;
-    }
   }
   return style;
 };
@@ -81,7 +88,7 @@ const dropdownItems = $computed(() => [
     key: "appearance",
   },
   {
-    label: `去Github看看👀`,
+    label: "去Github看看👀",
     key: "github",
   },
 ]);

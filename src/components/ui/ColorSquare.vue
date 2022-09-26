@@ -1,5 +1,5 @@
 <template>
-  <div class="color-square w-4 h-4 rounded-1 b-1" @click="onClick"></div>
+  <div class="color-square w-4 h-4 rounded-1 b-1" @click="onClick" />
 </template>
 
 <script setup lang="ts">
@@ -10,19 +10,18 @@ const {
   disabled = false,
   borderColor = colorDisabled.DEFAULT,
 } = defineProps<{
-  color?: string;
-  disabled?: boolean;
-  borderColor?: string;
+  color?: string
+  disabled?: boolean
+  borderColor?: string
 }>();
 
 const emit = defineEmits<{
-  (event: "click", color: string): void;
+  (event: "click", color: string): void
 }>();
 
 const onClick = () => {
-  if (!disabled) {
+  if (!disabled)
     emit("click", color);
-  }
 };
 
 const cursor = $computed(() => (disabled ? "not-allowed" : "pointer"));

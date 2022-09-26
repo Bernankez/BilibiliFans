@@ -1,14 +1,15 @@
 <template>
   <Dialog v-model="show" title="更新日志" @confirm="show = false">
     <NScrollbar class="text-default dark:text-darkdefault" style="max-height: 400px" trigger="none">
-      <div class="font-bold">目前Safari和火狐浏览器下样式有问题，推荐使用Edge或Chrome浏览器</div>
+      <div class="font-bold">
+        目前Safari和火狐浏览器下样式有问题，推荐使用Edge或Chrome浏览器
+      </div>
       <div>
         默认背景图来源：<a
           class="text-default dark:text-darkdefault hover:text-primary"
           href="https://space.bilibili.com/5659864"
           target="_blank"
-          >鹿野灸</a
-        >
+        >鹿野灸</a>
       </div>
       <LogCard title="v0.2.3">
         <LogCardItem title="Performance Improvements">
@@ -41,23 +42,25 @@
           <div>优化界面样式</div>
         </LogCardItem>
       </LogCard>
-      <LogCard title="v0.1.0"> 完成基本功能 </LogCard>
+      <LogCard title="v0.1.0">
+        完成基本功能
+      </LogCard>
     </NScrollbar>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import Dialog from "@/components/ui/Dialog.vue";
+import { NScrollbar } from "naive-ui";
 import LogCard from "./LogCard.vue";
 import LogCardItem from "./LogCardItem.vue";
-import { NScrollbar } from "naive-ui";
+import Dialog from "@/components/ui/Dialog.vue";
 
 const { modelValue = false } = defineProps<{
-  modelValue?: boolean;
+  modelValue?: boolean
 }>();
 
 const emit = defineEmits<{
-  (event: "update:modelValue", show: boolean): void;
+  (event: "update:modelValue", show: boolean): void
 }>();
 
 const show = $computed({

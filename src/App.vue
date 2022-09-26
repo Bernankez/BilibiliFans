@@ -2,23 +2,23 @@
   <ConfigProvider>
     <div class="layout">
       <div class="content">
-        <Header></Header>
+        <Header />
         <div class="main">
-          <Main ref="mainEl"></Main>
+          <Main ref="mainEl" />
         </div>
       </div>
-      <Sidebar @generate="onGenerate" @reset-cropper="onResetCropper"></Sidebar>
+      <Sidebar @generate="onGenerate" @reset-cropper="onResetCropper" />
     </div>
   </ConfigProvider>
 </template>
 
 <script setup lang="ts">
+import ConfigProvider from "./components/layout/ConfigProvider.vue";
+import { useAppStore } from "./store/app-store";
 import Header from "@/components/layout/Header.vue";
 import Main from "@/components/layout/Main.vue";
 import Sidebar from "@/components/layout/Sidebar.vue";
-import ConfigProvider from "./components/layout/ConfigProvider.vue";
-import { useAppStore } from "./store/app-store";
-import { colorPrimary, colorDisabled, colorBackground, colorDarkBackground } from "@/style/theme";
+import { colorBackground, colorDarkBackground, colorDisabled, colorPrimary } from "@/style/theme";
 
 const appStore = useAppStore();
 const { sidebarWidth } = $(appStore);
