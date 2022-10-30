@@ -3,7 +3,7 @@
     class="header fixed top-0 flex items-center justify-between p-x-6 box-border text-default bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250"
   >
     <div class="flex items-center">
-      <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo">
+      <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
         <div class="title">
           Bilibili Fans
@@ -21,29 +21,29 @@
       >
         v{{ version }}
       </div>
-      <div class="divide-vertical" />
+      <div class="divide-vertical"></div>
       <NSwitch v-model:value="isDark" :rail-style="railStyle">
         <template #unchecked-icon>
-          <div class="i-uil:brightness" />
+          <div class="i-uil:brightness"></div>
         </template>
         <template #checked-icon>
-          <div class="i-uil:moon rotate-y-180" />
+          <div class="i-uil:moon rotate-y-180"></div>
         </template>
       </NSwitch>
-      <div class="divide-vertical" />
+      <div class="divide-vertical"></div>
       <a
         class="text-default-light hover:text-default dark:text-darkdefault hover:dark:text-darkdefault-lighter transition-all duration-250"
         href="https://github.com/Bernankez/BilibiliFans"
         target="_blank"
       >
-        <div class="i-uil:github text-8" />
+        <div class="i-uil:github text-8"></div>
       </a>
     </NSpace>
     <div
       class="md:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light"
     >
       <NDropdown trigger="click" :options="dropdownItems" @select="onDropdownItem">
-        <div class="i-uil:align-right text-5" />
+        <div class="i-uil:align-right text-5"></div>
       </NDropdown>
     </div>
   </header>
@@ -67,13 +67,10 @@ const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean })
   const style: CSSProperties = {};
   if (checked) {
     style.background = colorDarkBackground.light;
-    if (focused)
-      style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`;
-  }
-  else {
+    if (focused) { style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`; }
+  } else {
     style.background = colorBackground.dark;
-    if (focused)
-      style.boxShadow = `0 0 0 2px ${colorBackground.DEFAULT}`;
+    if (focused) { style.boxShadow = `0 0 0 2px ${colorBackground.DEFAULT}`; }
   }
   return style;
 };

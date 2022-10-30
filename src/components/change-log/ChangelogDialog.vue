@@ -11,8 +11,13 @@
           target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.3.0">
+        <LogCardItem title="Features">
+          <div>添加pwa支持</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.2.3">
-        <LogCardItem title="Performance Improvements">
+        <LogCardItem title="Improvements">
           <div>优化生成图片时的样式，现在生成图片不会再有一闪而过的大图</div>
         </LogCardItem>
       </LogCard>
@@ -56,11 +61,11 @@ import LogCardItem from "./LogCardItem.vue";
 import Dialog from "@/components/ui/Dialog.vue";
 
 const { modelValue = false } = defineProps<{
-  modelValue?: boolean
+  modelValue?: boolean;
 }>();
 
 const emit = defineEmits<{
-  (event: "update:modelValue", show: boolean): void
+  (event: "update:modelValue", show: boolean): void;
 }>();
 
 const show = $computed({
