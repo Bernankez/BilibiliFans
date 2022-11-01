@@ -6,6 +6,8 @@ export interface Preview {
   containerStyle: Record<string, string | number>;
 }
 
+export type Quality = "small" | "default" | "large";
+
 export interface CardOption {
   /** 卡片背景色 */
   backgroundColor?: string;

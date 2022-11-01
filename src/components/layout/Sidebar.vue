@@ -16,11 +16,7 @@
           <NForm :model="options" label-width="auto">
             <NFormItem label="选择背景图片">
               <NUpload
-                ref="backgroundImageEl"
-                directory-dnd
-                :max="1"
-                list-type="image-card"
-                :default-upload="false"
+                ref="backgroundImageEl" directory-dnd :max="1" list-type="image-card" :default-upload="false"
                 @change="onBackgroundImage"
               >
                 <NUploadDragger>
@@ -34,23 +30,15 @@
                   不使用前景渐变色
                 </NCheckbox>
                 <NColorPicker
-                  :disabled="withoutGradient"
-                  :value="options.gradientColor"
-                  :swatches="backgroundPalette"
-                  :modes="['hex']"
-                  :show-alpha="false"
-                  :show-preview="true"
-                  @update:value="setGradientColor"
+                  :disabled="withoutGradient" :value="options.gradientColor" :swatches="backgroundPalette"
+                  :modes="['hex']" :show-alpha="false" :show-preview="true" @update:value="setGradientColor"
                 />
                 <div v-if="backgroundPaletteInfer.length > 0" class="flex items-center">
                   推荐颜色：
                   <div class="grid grid-cols-3 gap-2">
                     <ColorSquare
-                      v-for="color in backgroundPaletteInfer"
-                      :key="color.color"
-                      :disabled="withoutGradient"
-                      :color="color.color"
-                      @click="onPaletteInfer"
+                      v-for="color in backgroundPaletteInfer" :key="color.color" :disabled="withoutGradient"
+                      :color="color.color" @click="onPaletteInfer"
                     />
                   </div>
                 </div>
@@ -60,15 +48,14 @@
               <NSlider v-model:value="gradientRange" :disabled="withoutGradient" range :step="1" />
             </NFormItem>
             <NFormItem label="字体颜色">
-              <NColorPicker v-model:value="options.textColor" :modes="['hex']" :show-alpha="false" :show-preview="true" />
+              <NColorPicker
+                v-model:value="options.textColor" :modes="['hex']" :show-alpha="false"
+                :show-preview="true"
+              />
             </NFormItem>
             <NFormItem label="你的头像">
               <NUpload
-                ref="avatarEl"
-                directory-dnd
-                :max="1"
-                list-type="image-card"
-                :default-upload="false"
+                ref="avatarEl" directory-dnd :max="1" list-type="image-card" :default-upload="false"
                 @change="onAvatar"
               >
                 <NUploadDragger>
@@ -90,9 +77,7 @@
         <NCollapseItem title="更多设置" name="more">
           <NFormItem label="卡片背景色（一般不用设置）">
             <NColorPicker
-              v-model:value="options.backgroundColor"
-              :modes="['hex']"
-              :show-alpha="false"
+              v-model:value="options.backgroundColor" :modes="['hex']" :show-alpha="false"
               :show-preview="true"
             />
           </NFormItem>
@@ -118,13 +103,15 @@
     <div class="sidebar-fixed p-3 box-border bg-white">
       <div class="flex flex-col gap-3">
         <NInput
-          :value="options.article"
-          readonly=""
-          type="textarea"
-          autosize
-          placeholder="这里填写动态文案"
+          :value="options.article" readonly="" type="textarea" autosize placeholder="这里填写动态文案"
           @focus="onInputFocus"
         />
+        <div class="flex items-center">
+          <NText class="shrink-0 m-r-3 text-[14px]">
+            生成图像大小
+          </NText>
+          <NSelect v-model:value="quality" :options="qualityOptions" />
+        </div>
         <NButton class="w-full" type="primary" @click="onGenerate">
           生成卡片并复制动态
         </NButton>
@@ -150,6 +137,7 @@ import {
   NForm,
   NFormItem,
   NInput,
+  NSelect,
   NSlider,
   NUpload,
   NUploadDragger,
@@ -162,14 +150,30 @@ import analyze from "rgbaster";
 import ColorSquare from "../ui/ColorSquare.vue";
 import { useCardStore } from "@/store/card-store";
 import { useAppStore } from "@/store/app-store";
+import type { Quality } from "@/types";
 
 const emit = defineEmits<{
   (event: "generate"): void;
   (event: "resetCropper"): void;
 }>();
 
+const qualityOptions: { label: string; value: Quality }[] = [
+  {
+    label: "小(607x250)",
+    value: "small",
+  },
+  {
+    label: "默认(1093x450)",
+    value: "default",
+  },
+  {
+    label: "大(2126x875)",
+    value: "large",
+  },
+];
+
 const cardStore = useCardStore();
-const { options, reset } = $(cardStore);
+const { options, reset, quality } = $(cardStore);
 const appStore = useAppStore();
 const { sidebarWidth, sidebarFixedHeight } = $(appStore);
 // button action

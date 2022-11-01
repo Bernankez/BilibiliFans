@@ -6,7 +6,7 @@ const AUTO_ADJUST_KEY = "bilibili-fans-auto-adjust";
 export const useAppStore = defineStore("app", () => {
   const sidebarWidth = $ref("280px");
   const headerHeight = $ref("60px");
-  const sidebarFixedHeight = $ref("270px");
+  const sidebarFixedHeight = $ref("310px");
   let _autoAdjust = $ref(false);
   const autoAdjust = $computed({
     get() {

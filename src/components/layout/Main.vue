@@ -14,7 +14,7 @@
         </FansCard>
       </div>
     </div>
-    <FansCard v-show="false" ref="fansCardEl" v-bind="options" class="shrink-0" :base-font-size="36">
+    <FansCard v-show="false" ref="fansCardEl" v-bind="options" class="shrink-0" :base-font-size="generateImageSize">
       <img class="w-full h-full" :src="finalImage" alt="backgroundImage" />
     </FansCard>
   </main>
@@ -30,9 +30,19 @@ import { useCardStore } from "@/store/card-store";
 import type { Preview } from "@/types";
 
 const cardStore = useCardStore();
-const { options, setDefault } = $(cardStore);
+const { options, setDefault, quality } = $(cardStore);
 let { baseFontSize: _baseFontSize } = $(cardStore);
 const { autoAdjust } = $(useAppStore());
+
+const generateImageSize = $computed(() => {
+  if (quality === "default") {
+    return 36;
+  } else if (quality === "small") {
+    return 20;
+  } else if (quality === "large") {
+    return 70;
+  }
+});
 
 const imageCropperWrapper = $ref<HTMLDivElement>();
 const imageCropperEl = $ref<typeof ImageCropper>();

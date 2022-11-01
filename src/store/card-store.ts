@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { defineStore } from "pinia";
 import type { UnwrapRef } from "vue";
 import { computed, ref } from "vue";
-import type { CardOption } from "@/types";
+import type { CardOption, Quality } from "@/types";
 import defaultAvatar from "@/assets/default/avatar.jpg";
 import defaultBackground from "@/assets/default/background.png";
 
@@ -47,10 +47,13 @@ export const useCardStore = defineStore("card", () => {
 
   const baseFontSize = ref(16);
 
+  const quality = $ref<Quality>("default");
+
   return {
     options,
     reset,
     setDefault,
     baseFontSize,
+    quality,
   };
 });
