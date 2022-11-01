@@ -1,36 +1,31 @@
 <template>
-  <div class="shrink-0 w-400px h-400px">
+  <div class="shrink-0 wrapper">
     <VueCropper
-      ref="vueCropperEl"
-      :img="image"
-      output-type="png"
-      :can-scale="options.imageScale"
-      :can-move="options.imageMove"
-      auto-crop
-      :center-box="options.boxInsideImage"
-      full
-      fixed
-      :fixed-number="[73, 30]"
-      :max-img-size="4096"
-      @real-time="onPreview"
-      @img-load="imgLoad"
+      ref="vueCropperEl" :img="image" output-type="png" :can-scale="options.imageScale"
+      :can-move="options.imageMove" auto-crop :center-box="options.boxInsideImage" full fixed :fixed-number="[73, 30]"
+      :max-img-size="4096" @real-time="onPreview" @img-load="imgLoad"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, reactive, watch, watchEffect } from "vue";
+import { nextTick, watch, watchEffect } from "vue";
 import { VueCropper } from "vue-cropper";
 import { useCardStore } from "@/store/card-store";
 import type { Preview } from "@/types";
 import "vue-cropper/dist/index.css";
 
-const { image: _image = null as string | Blob | null } = defineProps<{
+const { image: _image = null as string | Blob | null, width: _width = 400 } = defineProps<{
   image?: string | Blob;
+  width?: number;
 }>();
 const emit = defineEmits<{
   (event: "preview", preview: Preview): void;
 }>();
+const width = $computed(() => `${_width}px`);
+watch(() => _width, () => {
+  vueCropperEl?.reload();
+});
 
 const cardStore = useCardStore();
 const { options } = $(cardStore);
@@ -46,22 +41,17 @@ const image = $computed(() => {
   }
 });
 
-const preview = reactive<Preview>({
-  src: "",
-  imageStyle: {},
-  containerStyle: {},
-});
 const vueCropperEl = $ref<typeof VueCropper>();
 
 function onPreview(data: Record<string, any>) {
-  preview.src = data.url;
-  preview.imageStyle = data.img;
-  preview.containerStyle = {
-    width: `${data.w}px`,
-    height: `${data.h}px`,
-    zoom: 200 / data.h,
-  };
-  emit("preview", preview);
+  emit("preview", {
+    src: data.url,
+    imageStyle: data.img,
+    containerStyle: {
+      width: data.w,
+      height: data.h,
+    },
+  });
 }
 
 function crop() {
@@ -106,4 +96,9 @@ defineExpose({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrapper {
+  width: v-bind("width");
+  height: v-bind("width");
+}
+</style>

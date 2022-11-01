@@ -21,7 +21,7 @@ import Sidebar from "@/components/layout/Sidebar.vue";
 import { colorBackground, colorDarkBackground, colorDisabled, colorPrimary } from "@/style/theme";
 
 const appStore = useAppStore();
-const { sidebarWidth } = $(appStore);
+const { sidebarWidth, headerHeight } = $(appStore);
 
 const mainEl = $ref<typeof Main>();
 const onGenerate = () => {
@@ -91,6 +91,7 @@ const onResetCropper = () => {
 }
 
 .main {
-  @apply h-full overflow-x-auto;
+  height: calc(100% - v-bind("headerHeight"));
+  padding-top: v-bind("headerHeight");
 }
 </style>

@@ -22,6 +22,20 @@
         v{{ version }}
       </div>
       <div class="divide-vertical"></div>
+      <NPopover trigger="hover" :keep-alive-on-hover="false">
+        <template #trigger>
+          <NSwitch v-model:value="autoAdjust" :rail-style="railStyle" title="自适应缩放">
+            <template #unchecked-icon>
+              <div class="i-uil:square-shape"></div>
+            </template>
+            <template #checked-icon>
+              <div class="i-uil:panorama-h-alt"></div>
+            </template>
+          </NSwitch>
+        </template>
+        <span>自适应缩放</span>
+      </NPopover>
+      <div class="divide-vertical"></div>
       <NSwitch v-model:value="isDark" :rail-style="railStyle">
         <template #unchecked-icon>
           <div class="i-uil:brightness"></div>
@@ -51,26 +65,36 @@
 </template>
 
 <script setup lang="ts">
-import { NDropdown, NSpace, NSwitch } from "naive-ui";
+import { NDropdown, NPopover, NSpace, NSwitch } from "naive-ui";
 import type { CSSProperties } from "vue";
 import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
-import { colorBackground, colorDarkBackground } from "@/style/theme";
+import { colorBackground, colorDarkBackground, colorPrimary } from "@/style/theme";
 import { version } from "~/package.json";
 
 let showChangelog = $ref(false);
 
 const appStore = useAppStore();
-let { headerHeight, sidebarWidth, isDark } = $(appStore);
+let { headerHeight, sidebarWidth, autoAdjust, isDark } = $(appStore);
 
 const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
   const style: CSSProperties = {};
-  if (checked) {
-    style.background = colorDarkBackground.light;
-    if (focused) { style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`; }
+  if (isDark) {
+    if (checked) {
+      style.background = colorDarkBackground.dark;
+      if (focused) { style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`; }
+    } else {
+      style.background = colorDarkBackground.light;
+      if (focused) { style.boxShadow = `0 0 0 2px ${colorDarkBackground.lighter}`; }
+    }
   } else {
-    style.background = colorBackground.dark;
-    if (focused) { style.boxShadow = `0 0 0 2px ${colorBackground.DEFAULT}`; }
+    if (checked) {
+      style.background = colorPrimary.DEFAULT;
+      if (focused) { style.boxShadow = `0 0 0 2px ${colorPrimary.lighter}`; }
+    } else {
+      style.background = colorBackground.dark;
+      if (focused) { style.boxShadow = `0 0 0 2px ${colorPrimary.lighter}`; }
+    }
   }
   return style;
 };
@@ -79,6 +103,10 @@ const dropdownItems = $computed(() => [
   {
     label: `v${version}`,
     key: "version",
+  },
+  {
+    label: `${autoAdjust ? "关闭" : "开启"}自适应缩放`,
+    key: "autoAdjust",
   },
   {
     label: `切换至${isDark ? "亮色☀️" : "暗色🌙"}`,
@@ -93,6 +121,9 @@ const onDropdownItem = (key: string) => {
   switch (key) {
     case "version":
       showChangelog = true;
+      break;
+    case "autoAdjust":
+      autoAdjust = !autoAdjust;
       break;
     case "appearance":
       isDark = !isDark;
