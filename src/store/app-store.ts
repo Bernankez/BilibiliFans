@@ -19,17 +19,10 @@ export const useAppStore = defineStore("app", () => {
       const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       if (v) {
         html.classList.add("dark");
-        if (preferDark)
-          localStorage.setItem(APPEARANCE_KEY, "auto");
-        else
-          localStorage.setItem(APPEARANCE_KEY, "dark");
-      }
-      else {
+        if (preferDark) { localStorage.setItem(APPEARANCE_KEY, "auto"); } else { localStorage.setItem(APPEARANCE_KEY, "dark"); }
+      } else {
         html.classList.remove("dark");
-        if (preferDark)
-          localStorage.setItem(APPEARANCE_KEY, "light");
-        else
-          localStorage.setItem(APPEARANCE_KEY, "auto");
+        if (preferDark) { localStorage.setItem(APPEARANCE_KEY, "light"); } else { localStorage.setItem(APPEARANCE_KEY, "auto"); }
       }
       _isDark = v;
     },

@@ -12,8 +12,8 @@
       fixed
       :fixed-number="[73, 30]"
       :max-img-size="4096"
-      @realTime="onPreview"
-      @imgLoad="imgLoad"
+      @real-time="onPreview"
+      @img-load="imgLoad"
     />
   </div>
 </template>
@@ -26,10 +26,10 @@ import type { Preview } from "@/types";
 import "vue-cropper/dist/index.css";
 
 const { image: _image = null as string | Blob | null } = defineProps<{
-  image?: string | Blob
+  image?: string | Blob;
 }>();
 const emit = defineEmits<{
-  (event: "preview", preview: Preview): void
+  (event: "preview", preview: Preview): void;
 }>();
 
 const cardStore = useCardStore();
@@ -41,8 +41,7 @@ const image = $computed(() => {
   if (_image instanceof Blob) {
     prevImage = URL.createObjectURL(_image);
     return prevImage;
-  }
-  else {
+  } else {
     return _image || "";
   }
 });
@@ -88,8 +87,7 @@ const setCrop = () => {
 const setDefaultCrop = () => {
   if (imgLoaded) {
     setCrop();
-  }
-  else {
+  } else {
     const stop = watchEffect(() => {
       if (imgLoaded) {
         setCrop();

@@ -1,44 +1,44 @@
 import type { ComputedRef } from "vue";
 
 export interface Preview {
-  src: string
-  imageStyle: Record<string, string | number>
-  containerStyle: Record<string, string | number>
+  src: string;
+  imageStyle: Record<string, string | number>;
+  containerStyle: Record<string, string | number>;
 }
 
 export interface CardOption {
   /** 卡片背景色 */
-  backgroundColor?: string
+  backgroundColor?: string;
   /** 卡片背景图片 */
-  backgroundImage?: string | Blob
+  backgroundImage?: string | Blob;
   /** 是否使用前景渐变色 */
-  gradient?: boolean
+  gradient?: boolean;
   /** 卡片上的渐变色 */
-  gradientColor?: string
+  gradientColor?: string;
   /** 渐变起始位置% */
-  gradientStart?: string
+  gradientStart?: string;
   /** 渐变结束位置% */
-  gradientEnd?: string
+  gradientEnd?: string;
   /** 用户名 */
-  nickname?: string
+  nickname?: string;
   /** 头像 */
-  avatar?: string | Blob
+  avatar?: string | Blob;
   /** 粉丝编号 */
-  fansNo?: string
+  fansNo?: string;
   /** 获得装扮日期 */
-  date?: string
+  date?: string;
   /** 自定义链接 */
-  customLink?: string
+  customLink?: string;
   /** 分享文案 */
-  article?: ComputedRef<string>
+  article?: ComputedRef<string>;
   /** 主播名 */
-  anchorName?: string
+  anchorName?: string;
   /** 字体颜色 */
-  textColor?: string
+  textColor?: string;
   /** 框选范围限制在图片内 */
-  boxInsideImage?: boolean
+  boxInsideImage?: boolean;
   /** 允许图片缩放 */
-  imageScale?: boolean
+  imageScale?: boolean;
   /** 允许图片拖动 */
-  imageMove?: boolean
+  imageMove?: boolean;
 }

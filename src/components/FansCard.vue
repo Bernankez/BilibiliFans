@@ -1,12 +1,12 @@
 <template>
   <div ref="fansCardEl" class="fans-card">
     <div class="absolute right-0 top-0 left-0 bottom-0">
-      <slot />
+      <slot></slot>
     </div>
-    <div v-if="gradient" class="gradient" />
+    <div v-if="gradient" class="gradient"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
-        <img class="avatar" :src="avatar" alt="avatar">
+        <img class="avatar" :src="avatar" alt="avatar" />
         <span class="user-name">{{ nickname }}</span>
       </div>
       <div class="fans-no--wrapper">
@@ -47,17 +47,17 @@ const {
   textColor = "#ffffff",
   baseFontSize = 16,
 } = defineProps<{
-  avatar?: string | Blob | null
-  nickname?: string
-  fansNo?: string
-  date?: string
-  backgroundColor?: string
-  gradient?: boolean
-  gradientColor?: string
-  gradientStart?: string
-  gradientEnd?: string
-  textColor?: string
-  baseFontSize?: number
+  avatar?: string | Blob | null;
+  nickname?: string;
+  fansNo?: string;
+  date?: string;
+  backgroundColor?: string;
+  gradient?: boolean;
+  gradientColor?: string;
+  gradientStart?: string;
+  gradientEnd?: string;
+  textColor?: string;
+  baseFontSize?: number;
 }>();
 
 const computedFontSize = $computed(() => `${baseFontSize}px`);
@@ -68,8 +68,7 @@ const avatar = $computed(() => {
   if (_avatar instanceof Blob) {
     prevAvatar = URL.createObjectURL(_avatar);
     return prevAvatar;
-  }
-  else {
+  } else {
     return _avatar || "";
   }
 });

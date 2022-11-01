@@ -164,8 +164,8 @@ import { useCardStore } from "@/store/card-store";
 import { useAppStore } from "@/store/app-store";
 
 const emit = defineEmits<{
-  (event: "generate"): void
-  (event: "resetCropper"): void
+  (event: "generate"): void;
+  (event: "resetCropper"): void;
 }>();
 
 const cardStore = useCardStore();
@@ -212,22 +212,19 @@ const onReset = () => {
 };
 
 const onAvatar = (data: { fileList: UploadFileInfo[] }) => {
-  if (data?.fileList.length > 0)
-    options.avatar = data.fileList[0].file!;
+  if (data?.fileList.length > 0) { options.avatar = data.fileList[0].file!; }
 };
 interface Palette {
-  color: string
-  count: number
+  color: string;
+  count: number;
 }
 const backgroundPaletteHistory = $ref<string[]>([]);
 let backgroundPaletteInfer = $ref<Palette[]>([]);
 const backgroundPalette = $computed(() => ([] as string[]).concat(backgroundPaletteHistory));
 function setGradientColor(color: string) {
-  if (backgroundPaletteInfer.findIndex(p => p.color === color) === -1 && !backgroundPaletteHistory.includes(color))
-    backgroundPaletteHistory.push(color);
+  if (backgroundPaletteInfer.findIndex(p => p.color === color) === -1 && !backgroundPaletteHistory.includes(color)) { backgroundPaletteHistory.push(color); }
 
-  if (backgroundPaletteHistory.length >= 9)
-    backgroundPaletteHistory.shift();
+  if (backgroundPaletteHistory.length >= 9) { backgroundPaletteHistory.shift(); }
 
   options.gradientColor = color;
 }
@@ -235,10 +232,7 @@ function setGradientColor(color: string) {
 function inferFontColor(color: string) {
   const colors = color.match(/\d+/g)!;
   const grayLevel = Number(colors[0]) * 0.299 + Number(colors[1]) * 0.587 + Number(colors[2]) * 0.114;
-  if (grayLevel >= 192)
-    return "#333333";
-  else
-    return "#ffffff";
+  if (grayLevel >= 192) { return "#333333"; } else { return "#ffffff"; }
 }
 const onBackgroundImage = (data: { fileList: UploadFileInfo[] }) => {
   if (data?.fileList.length > 0) {

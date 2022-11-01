@@ -5,11 +5,11 @@
     <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" @preview="onPreview" />
     <FansCard v-bind="options" class="shrink-0" :base-font-size="baseFontSize">
       <div :style="preview?.containerStyle">
-        <img :src="preview?.src" :style="preview?.imageStyle">
+        <img :src="preview?.src" :style="preview?.imageStyle" />
       </div>
     </FansCard>
     <FansCard v-show="false" ref="fansCardEl" v-bind="options" class="shrink-0" :base-font-size="36">
-      <img class="w-full h-full" :src="finalImage" alt="backgroundImage">
+      <img class="w-full h-full" :src="finalImage" alt="backgroundImage" />
     </FansCard>
   </main>
 </template>

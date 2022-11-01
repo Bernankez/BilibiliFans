@@ -2,7 +2,7 @@
   <NConfigProvider :theme="isDark ? darkTheme : undefined" :locale="zhCN" :date-locale="dateZhCN" abstract>
     <NMessageProvider>
       <NDialogProvider>
-        <slot />
+        <slot></slot>
       </NDialogProvider>
     </NMessageProvider>
   </NConfigProvider>
