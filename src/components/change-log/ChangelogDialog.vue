@@ -11,6 +11,12 @@
           target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.3.1">
+        <LogCardItem title="Features">
+          <div>添加自适应缩放模式（默认关闭）</div>
+          <div>现在可以选择生成图片大小了</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.3.0">
         <LogCardItem title="Features">
           <div>添加pwa支持</div>
