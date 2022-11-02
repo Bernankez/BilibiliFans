@@ -11,6 +11,11 @@
           target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.3.3">
+        <LogCardItem title="Bug Fixes">
+          <div>修复自适应缩放模式下，页面垂直方向遮挡问题</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.3.2">
         <LogCardItem title="Features">
           <div>菜单栏现在可以收起了</div>
