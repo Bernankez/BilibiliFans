@@ -3,7 +3,7 @@
     <div class="layout">
       <div class="content">
         <Header />
-        <div class="main">
+        <div class="main-wrapper">
           <Main ref="mainEl" />
         </div>
       </div>
@@ -85,7 +85,7 @@ const onResetCropper = () => {
   @apply h-full w-full overflow-hidden;
 }
 
-.main {
+.main-wrapper {
   height: 100%;
 }
 </style>

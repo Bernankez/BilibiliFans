@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, watchEffect } from "vue";
+import { nextTick, onMounted } from "vue";
 import { debounce } from "lodash-es";
 import FansCard from "@/components/FansCard.vue";
 import ImageCropper from "@/components/ImageCropper.vue";
