@@ -1,10 +1,11 @@
 <template>
-  <main
-    class="w-full h-full overflow-auto bg-background-light dark:bg-darkbackground transition-all duration-250"
-  >
+  <main class="main w-full h-full overflow-auto bg-background-light dark:bg-darkbackground transition-all duration-250">
     <div class="h-full items-center" :class="autoAdjust ? 'lg:flex' : 'flex justify-evenly min-w-fit'">
       <div ref="imageCropperWrapper" class="p-3 box-border" :class="autoAdjust ? 'overflow-hidden flex-1' : ''">
-        <ImageCropper ref="imageCropperEl" :image="options.backgroundImage" :width="imageCropperWidth" @preview="onPreview" />
+        <ImageCropper
+          ref="imageCropperEl" :image="options.backgroundImage" :width="imageCropperWidth"
+          @preview="onPreview"
+        />
       </div>
       <div ref="fansCardWrapper" class="p-3 box-border" :class="autoAdjust ? 'overflow-hidden flex-1' : ''">
         <FansCard v-bind="options" class="shrink-0" :base-font-size="baseFontSize">
@@ -33,6 +34,9 @@ const cardStore = useCardStore();
 const { options, setDefault, quality } = $(cardStore);
 let { baseFontSize: _baseFontSize } = $(cardStore);
 const { autoAdjust } = $(useAppStore());
+
+const appStore = useAppStore();
+const { headerHeight } = $(appStore);
 
 const generateImageSize = $computed(() => {
   if (quality === "default") {
@@ -118,3 +122,10 @@ defineExpose({
   },
 });
 </script>
+
+<style scoped lang="scss">
+.main {
+  height: calc(100% - v-bind("headerHeight"));
+  padding-top: v-bind("headerHeight");
+}
+</style>

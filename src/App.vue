@@ -14,14 +14,10 @@
 
 <script setup lang="ts">
 import ConfigProvider from "./components/layout/ConfigProvider.vue";
-import { useAppStore } from "./store/app-store";
 import Header from "@/components/layout/Header.vue";
 import Main from "@/components/layout/Main.vue";
 import Sidebar from "@/components/layout/Sidebar.vue";
 import { colorBackground, colorDarkBackground, colorDisabled, colorPrimary } from "@/style/theme";
-
-const appStore = useAppStore();
-const { sidebarWidth, headerHeight } = $(appStore);
 
 const mainEl = $ref<typeof Main>();
 const onGenerate = () => {
@@ -86,12 +82,10 @@ const onResetCropper = () => {
 }
 
 .content {
-  @apply h-full;
-  width: calc(100% - v-bind("sidebarWidth"));
+  @apply h-full w-full overflow-hidden;
 }
 
 .main {
-  height: calc(100% - v-bind("headerHeight"));
-  padding-top: v-bind("headerHeight");
+  height: 100%;
 }
 </style>
