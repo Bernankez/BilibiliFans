@@ -11,6 +11,11 @@
           target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.3.2">
+        <LogCardItem title="Features">
+          <div>菜单栏现在可以收起了</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.3.1">
         <LogCardItem title="Features">
           <div>添加自适应缩放模式（默认关闭）</div>
