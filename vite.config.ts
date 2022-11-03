@@ -42,6 +42,7 @@ export default defineConfig(({ mode, command }) => ({
         background_color: "#ffffff",
         display: "standalone",
       },
+      selfDestroying: mode !== "production",
       devOptions: {
         enabled: true,
       },
