@@ -2,10 +2,10 @@
   <header
     class="header z-1 fixed top-0 flex items-center justify-between p-x-6 box-border text-default backdrop-saturate-50 backdrop-blur-8 bg-opacity-70 bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250"
   >
-    <div class="flex items-center">
+    <div class="flex items-center overflow-hidden">
       <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
-        <div class="title">
+        <div class="text-6 truncate">
           Bilibili Fans
         </div>
         <div class="display-none lg:inline">
@@ -141,10 +141,6 @@ const onDropdownItem = (key: string) => {
   width: calc(100% - v-bind("sidebarWidth"));
   font-family: "Inter var experimental", "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-}
-
-.title {
-  @apply text-6;
 }
 
 .divide-vertical {
