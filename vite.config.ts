@@ -42,6 +42,9 @@ export default defineConfig(({ mode, command }) => ({
         background_color: "#ffffff",
         display: "standalone",
       },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,png,jpg,svg,ttf}"],
+      },
       devOptions: {
         enabled: true,
       },
