@@ -16,6 +16,7 @@
     "coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install"
   },
   "dependencies": {
