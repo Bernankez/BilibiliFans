@@ -7,10 +7,14 @@
       <div>
         默认背景图来源：<a
           class="text-default dark:text-darkdefault hover:text-primary"
-          href="https://space.bilibili.com/5659864"
-          target="_blank"
+          href="https://space.bilibili.com/5659864" target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.3.5">
+        <LogCardItem title="Bug Fixes">
+          <div>修复黑暗模式下导航栏不透明问题</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.3.4">
         <LogCardItem title="Improvements">
           <div>优化pwa缓存</div>
