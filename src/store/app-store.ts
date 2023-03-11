@@ -18,7 +18,7 @@ export const useAppStore = defineStore("app", () => {
       _autoAdjust = v;
     },
   });
-  _autoAdjust = localStorage.getItem(AUTO_ADJUST_KEY) ? JSON.parse(localStorage.getItem(AUTO_ADJUST_KEY)!) : _autoAdjust;
+  // _autoAdjust = localStorage.getItem(AUTO_ADJUST_KEY) ? JSON.parse(localStorage.getItem(AUTO_ADJUST_KEY)!) : _autoAdjust;
 
   const preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const saved = localStorage.getItem(APPEARANCE_KEY);

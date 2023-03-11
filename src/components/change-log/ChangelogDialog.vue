@@ -10,6 +10,13 @@
           href="https://space.bilibili.com/5659864" target="_blank"
         >鹿野灸</a>
       </div>
+      <LogCard title="v0.4.0">
+        <LogCardItem title="Features">
+          <div>更换了默认背景图、默认装扮链接等，鹿野灸装扮要开售啦</div>
+          <div>可以添加右侧渐变了</div>
+          <div>暂时去掉了自适应缩放（因为不好用）</div>
+        </LogCardItem>
+      </LogCard>
       <LogCard title="v0.3.5">
         <LogCardItem title="Bug Fixes">
           <div>修复黑暗模式下导航栏不透明问题</div>

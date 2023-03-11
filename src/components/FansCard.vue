@@ -4,6 +4,7 @@
       <slot></slot>
     </div>
     <div v-if="gradient" class="gradient"></div>
+    <div v-if="gradient" class="gradient-right"></div>
     <div class="relative h-full flex flex-col justify-between h-full">
       <div class="flex">
         <img class="avatar" :src="avatar" alt="avatar" />
@@ -43,6 +44,8 @@ const {
   gradient = true,
   gradientColor = "#333",
   gradientStart = "10%",
+  gradientStartRight = "0%",
+  gradientEndRight = "27%",
   gradientEnd = "40%",
   textColor = "#ffffff",
   baseFontSize = 16,
@@ -56,6 +59,8 @@ const {
   gradientColor?: string;
   gradientStart?: string;
   gradientEnd?: string;
+  gradientStartRight?: string;
+  gradientEndRight?: string;
   textColor?: string;
   baseFontSize?: number;
 }>();
@@ -119,6 +124,20 @@ defineExpose({
     to right,
     v-bind("gradientColor") v-bind("gradientStart"),
     transparent v-bind("gradientEnd")
+  );
+  width: 100%;
+}
+
+.gradient-right {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    v-bind("gradientColor") v-bind("gradientStartRight"),
+    transparent v-bind("gradientEndRight")
   );
   width: 100%;
 }

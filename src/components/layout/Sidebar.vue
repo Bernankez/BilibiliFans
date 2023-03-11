@@ -9,6 +9,12 @@
                 <NInput v-model:value="options.anchorName" />
               </NFormItem>
               <NFormItem label="装扮链接">
+                <template #label>
+                  装扮链接
+                  <NButton quaternary size="small" type="primary" @click="onResetLink">
+                    重置为默认装扮链接
+                  </NButton>
+                </template>
                 <NInput v-model:value="options.customLink" />
               </NFormItem>
             </NForm>
@@ -45,8 +51,11 @@
                   </div>
                 </div>
               </NFormItem>
-              <NFormItem :label="`渐变范围（${options.gradientStart} —— ${options.gradientEnd}）`">
+              <NFormItem :label="`渐变范围（左）（${options.gradientStart} —— ${options.gradientEnd}）`">
                 <NSlider v-model:value="gradientRange" :disabled="withoutGradient" range :step="1" />
+              </NFormItem>
+              <NFormItem :label="`渐变范围（右）（${options.gradientEndRight} —— ${options.gradientStartRight}）`">
+                <NSlider v-model:value="gradientRangeRight" :disabled="withoutGradient" range :step="1" :format-tooltip="(v) => 100 - v" />
               </NFormItem>
               <NFormItem label="字体颜色">
                 <NColorPicker
@@ -239,6 +248,11 @@ const onReset = () => {
   });
 };
 
+const onResetLink = () => {
+  options.customLink = "https://www.bilibili.com/h5/mall/home?navhide=1";
+  message.success("重置成功");
+};
+
 const onAvatar = (data: { fileList: UploadFileInfo[] }) => {
   if (data?.fileList.length > 0) { options.avatar = data.fileList[0].file!; }
 };
@@ -305,6 +319,19 @@ const gradientRange = $computed({
     const max = Math.max(...range);
     options.gradientStart = `${min}%`;
     options.gradientEnd = `${max}%`;
+  },
+});
+
+const gradientRangeRight = $computed({
+  get() {
+    const { gradientStartRight, gradientEndRight } = options;
+    return [100 - Number(gradientStartRight?.slice(0, -1)), 100 - Number(gradientEndRight?.slice(0, -1))];
+  },
+  set(range: number[]) {
+    const min = Math.min(...range);
+    const max = Math.max(...range);
+    options.gradientStartRight = `${100 - max}%`;
+    options.gradientEndRight = `${100 - min}%`;
   },
 });
 </script>

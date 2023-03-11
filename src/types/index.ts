@@ -21,6 +21,10 @@ export interface CardOption {
   gradientStart?: string;
   /** 渐变结束位置% */
   gradientEnd?: string;
+  /** 右侧渐变起始位置% */
+  gradientStartRight?: string;
+  /** 右侧渐变结束位置% */
+  gradientEndRight?: string;
   /** 用户名 */
   nickname?: string;
   /** 头像 */

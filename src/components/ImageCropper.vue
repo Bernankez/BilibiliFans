@@ -69,10 +69,10 @@ const imgLoad = () => {
   });
 };
 const setCrop = () => {
-  vueCropperEl.cropOffsertX = 104;
-  vueCropperEl.cropOffsertY = 107;
-  vueCropperEl.cropW = 294;
-  vueCropperEl.cropH = 120;
+  vueCropperEl.cropOffsertX = 75;
+  vueCropperEl.cropOffsertY = 43;
+  vueCropperEl.cropW = 250;
+  vueCropperEl.cropH = 103;
 };
 const setDefaultCrop = () => {
   if (imgLoaded) {

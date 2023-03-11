@@ -3,17 +3,25 @@
     class="header z-1 fixed top-0 flex items-center justify-between p-x-6 box-border text-default backdrop-saturate-50 backdrop-blur-8 bg-opacity-70 dark:bg-opacity-70 bg-background-lighter dark:bg-darkbackground dark:text-darkdefault cursor-default transition-all duration-250"
   >
     <div class="flex items-center overflow-hidden">
-      <img class="h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
+      <img class="display-none md:inline h-8 w-8 m-r-2 rounded-1" src="/logo.png" alt="Bilibili Fans logo" />
       <NSpace align="baseline">
-        <div class="text-6 truncate">
+        <div class="display-none text-6 truncate">
           Bilibili Fans
         </div>
-        <div class="display-none lg:inline">
-          一键制作你的粉丝装扮卡片
+        <div>
+          <NButton class="text-4" text tag="a" href="https://space.bilibili.com/5659864" target="_blank">
+            <strong>鹿野灸</strong>
+          </NButton>
+          装扮
+          <strong>3月12日 19:00</strong>
+          开售
+          <NButton class="text-4" type="primary" text tag="a" href="https://www.bilibili.com/h5/mall/suit/detail?navhide=1&id=106232701&native.theme=1&night=0" target="_blank">
+            <span class="font-bold">点这里买一个喵🥺</span>
+          </NButton>
         </div>
       </NSpace>
     </div>
-    <NSpace class="display-none! md:flex!" align="center">
+    <NSpace class="display-none! lg:flex!" align="center">
       <div
         role="button"
         class="text-5 cursor-pointer text-default-light dark:text-darkdefault hover:text-default hover:dark:text-darkdefault-lighter transition-all duration-250"
@@ -21,8 +29,8 @@
       >
         v{{ version }}
       </div>
-      <div class="divide-vertical"></div>
-      <NPopover trigger="hover" :keep-alive-on-hover="false">
+      <!-- <div class="divide-vertical"></div> -->
+      <!-- <NPopover trigger="hover" :keep-alive-on-hover="false">
         <template #trigger>
           <NSwitch v-model:value="autoAdjust" :rail-style="railStyle" title="自适应缩放">
             <template #unchecked-icon>
@@ -34,7 +42,7 @@
           </NSwitch>
         </template>
         <span>自适应缩放</span>
-      </NPopover>
+      </NPopover> -->
       <div class="divide-vertical"></div>
       <NSwitch v-model:value="isDark" :rail-style="railStyle">
         <template #unchecked-icon>
@@ -54,7 +62,7 @@
       </a>
     </NSpace>
     <div
-      class="md:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light"
+      class="lg:display-none p-1 box-border rounded-1 cursor-pointer hover:bg-background hover:dark:bg-darkbackground-light"
     >
       <NDropdown trigger="click" :options="dropdownItems" @select="onDropdownItem">
         <div class="i-uil:align-right text-5"></div>
@@ -65,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { NDropdown, NPopover, NSpace, NSwitch } from "naive-ui";
+import { NButton, NDropdown, NPopover, NSpace, NSwitch } from "naive-ui";
 import type { CSSProperties } from "vue";
 import ChangelogDialog from "@/components/change-log/ChangelogDialog.vue";
 import { useAppStore } from "@/store/app-store";
@@ -104,10 +112,10 @@ const dropdownItems = $computed(() => [
     label: `v${version}`,
     key: "version",
   },
-  {
-    label: `${autoAdjust ? "关闭" : "开启"}自适应缩放`,
-    key: "autoAdjust",
-  },
+  // {
+  //   label: `${autoAdjust ? "关闭" : "开启"}自适应缩放`,
+  //   key: "autoAdjust",
+  // },
   {
     label: `切换至${isDark ? "亮色☀️" : "暗色🌙"}`,
     key: "appearance",
