@@ -19,7 +19,7 @@ import Main from "@/components/layout/Main.vue";
 import Sidebar from "@/components/layout/Sidebar.vue";
 import { colorBackground, colorDarkBackground, colorDisabled, colorPrimary } from "@/style/theme";
 
-const mainEl = $ref<typeof Main>();
+const mainEl = $ref<InstanceType<typeof Main>>();
 const onGenerate = () => {
   mainEl?.generate();
 };
