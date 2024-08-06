@@ -2,72 +2,48 @@
   "name": "bilibili-fans",
   "type": "module",
   "version": "0.4.0",
+  "private": true,
+  "packageManager": "pnpm@9.6.0",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prepare": "simple-git-hooks",
     "dev": "vite",
-    "mock": "vite --mode mock",
-    "taze": "taze -f",
-    "release": "bumpp --no-push",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "pnpm typecheck && vite build",
+    "typecheck": "vue-tsc -b",
     "preview": "vite preview",
-    "build:github": "vue-tsc --noEmit && vite build --base /BilibiliFans/",
-    "preview:github": "vite preview --base /BilibiliFans/",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . -f mo",
+    "fix": "eslint . -f mo --fix"
   },
   "dependencies": {
-    "clipboard": "^2.0.11",
-    "dayjs": "^1.11.6",
-    "dom-to-image": "^2.6.0",
-    "mockjs": "^1.1.0",
-    "pinia": "^2.0.23",
-    "rgbaster": "^2.1.1",
-    "vue": "^3.2.41",
-    "vue-cropper": "^1.0.5"
+    "@bernankez/utils": "^0.6.4",
+    "@unocss/reset": "^0.61.9",
+    "@vueuse/core": "^10.11.0",
+    "pinia": "^2.2.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "unocss": "^0.61.9",
+    "vue": "^3.4.31",
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.4.2"
   },
   "devDependencies": {
-    "@bernankez/eslint-config": "^0.0.8",
-    "@iconify-json/uil": "^1.1.2",
-    "@types/dom-to-image": "^2.6.4",
-    "@types/lodash-es": "^4.17.6",
-    "@types/minimist": "^1.2.2",
-    "@types/node": "^18.11.8",
-    "@types/shelljs": "^0.8.11",
-    "@unocss/preset-rem-to-px": "^0.45.30",
-    "@vitejs/plugin-legacy": "^2.3.0",
-    "@vitejs/plugin-vue": "^3.2.0",
-    "bumpp": "^8.2.1",
-    "changelogithub": "^0.12.4",
-    "eslint": "^8.26.0",
-    "lint-staged": "^13.0.3",
-    "lodash-es": "^4.17.21",
-    "naive-ui": "^2.33.5",
-    "sass": "^1.55.0",
-    "simple-git-hooks": "^2.8.1",
-    "taze": "^0.8.2",
-    "terser": "^5.15.1",
-    "typescript": "^4.8.4",
-    "unocss": "^0.45.30",
-    "vfonts": "^0.0.3",
-    "vite": "^3.2.2",
-    "vite-plugin-mock": "^2.9.6",
-    "vite-plugin-pwa": "^0.13.1",
-    "vitest": "^0.22.1",
-    "vue-tsc": "^0.39.5"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "rollup"
-      ]
-    }
+    "@bernankez/eslint-config": "^1.6.1",
+    "@types/node": "^22.1.0",
+    "@unocss/eslint-plugin": "^0.61.9",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "eslint": "^9.8.0",
+    "eslint-formatter-mo": "^1.2.0",
+    "eslint-plugin-format": "^0.1.2",
+    "lint-staged": "^15.2.8",
+    "naive-ui": "^2.39.0",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.5.4",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.3",
+    "vite": "^5.3.4",
+    "vite-plugin-vue-devtools": "^7.3.7",
+    "vue-tsc": "^2.0.24"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
     "*": [

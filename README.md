@@ -1,19 +1,5 @@
-<div align="center">
-  <h1>Bilibili Fans</h1>
-</div>
+# Vue 3 + TypeScript + Vite
 
-<p align="center">
-  <strong><samp>制作你的粉丝装扮卡片🪄</samp></strong>
-</p>
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-<p align="center">
-  <samp>点击 <a href="https://bilibili-fans.keke.cc" target="_blank">bilibili-fans.keke.cc</a> 或 <a href="https://bernankez.github.io/BilibiliFans" target="_blank">Github Pages</a> 或 <a href="https://bilibili-fans.vercel.app" target="_blank">Vercel</a> 开始制作🎉</samp>
-</p>
-
-<p align="center">
-  <samp><a href="https://www.bilibili.com/video/BV1AB4y1J75V/" target="_blank">教程</a></samp>
-</p>
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/23058788/191068507-c8a145ae-c43e-4b5f-9486-bdf368e52967.png">
-</p>
+Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
