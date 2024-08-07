@@ -3,5 +3,5 @@
 </script>
 
 <template>
-  <slot></slot>
+  <div class="w-[var(--activity-bar-width)]"></div>
 </template>

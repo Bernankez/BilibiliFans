@@ -29,7 +29,7 @@ export default defineConfig({
           ],
         },
       ],
-      dirs: ["./src/composables/**", "./src/utils/**"],
+      dirs: ["./src/composables/**", "./src/utils/**", "./src/store/**"],
       vueTemplate: true,
       resolvers: [UtilsResolver()],
     }),
