@@ -12,11 +12,6 @@ const emit = defineEmits<{
 const sidebarStore = useSidebarStore();
 const { show, activeAction } = storeToRefs(sidebarStore);
 
-watchEffect(() => {
-  console.log("activeAction", activeAction.value);
-  console.log("id", props.id);
-});
-
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
 </script>
 

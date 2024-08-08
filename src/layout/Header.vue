@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const toggle = useToggle(isDark);
+
+// TODO i18n NSwitch tooltip
 </script>
 
 <template>
