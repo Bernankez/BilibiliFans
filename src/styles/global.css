@@ -1,5 +1,50 @@
 :root {
-  --header-height: 64px;
-  --side-bar-width: 256px;
-  --activity-bar-width: 48px;
+  --header-height: 60px;
+  --sidebar-width: 256px;
+  --actions-width: 48px;
+}
+
+:root {
+  --background: 254 254 254;
+  --foreground: 2 16 9;
+  --primary: 24 160 88;
+  --primary-foreground: 234 246 240;
+  --secondary: 221 235 225;
+  --secondary-foreground: 12 80 44;
+  --accent: 242 247 244;
+  --accent-foreground: 8 51 28;
+  --muted: 245 245 245;
+  --muted-foreground: 115 115 115;
+  --border: 229 231 235;
+  --info: 0 179 240;
+  --info-foreground: 255 255 255;
+  --success: 0 169 111;
+  --success-foreground: 255 255 255;
+  --warning: 255 194 45;
+  --warning-foreground: 0 0 0;
+  --error: 255 111 112;
+  --error-foreground: 255 255 255;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 2 16 9;
+  --foreground: 254 254 254;
+  --primary: 23 152 83;
+  --primary-foreground: 235 246 240;
+  --secondary: 12 80 44;
+  --secondary-foreground: 221 235 225;
+  --accent: 8 51 28;
+  --accent-foreground: 242 247 244;
+  --muted: 38 38 38;
+  --muted-foreground: 250 250 250;
+  --border: 41 37 36;
+  --info: 0 179 240;
+  --info-foreground: 255 255 255;
+  --success: 0 169 111;
+  --success-foreground: 255 255 255;
+  --warning: 255 194 45;
+  --warning-foreground: 0 0 0;
+  --error: 255 111 112;
+  --error-foreground: 255 255 255;
 }

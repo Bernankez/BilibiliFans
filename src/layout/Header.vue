@@ -1,14 +1,13 @@
 <script setup lang="ts">
-const appStore = useAppStore();
-const { showSideBar } = storeToRefs(appStore);
+const toggle = useToggle(isDark);
 </script>
 
 <template>
-  <header class="h-[var(--header-height)] flex items-center justify-between p-2 shadow">
+  <header class="h-[var(--header-height)] flex items-center justify-between b-b-1 b-border b-solid p-2">
     <div></div>
     <div>
-      <NButton text class="text-3xl" @click="showSideBar = !showSideBar">
-        <div :class="[showSideBar ? 'i-uil-left-indent' : 'i-uil-align']"></div>
+      <NButton circle text @click="() => toggle()">
+        <div class="text-2xl" :class="[isDark ? 'i-uil-moon' : 'i-uil-sun']"></div>
       </NButton>
     </div>
   </header>
