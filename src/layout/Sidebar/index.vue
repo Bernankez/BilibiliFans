@@ -10,12 +10,16 @@ const { sm } = useBreakpoints(breakpointsTailwind);
 </script>
 
 <template>
-  <aside v-if="!sm" class="flex shrink-0 transition-all">
-    <SidebarPanel class="fixed bottom-0 right-[var(--actions-width)] top-0 transition-all" :class="[show ? 'w-[calc(100%_-_var(--actions-width))]' : 'w-0']" />
+  <aside v-if="!sm" class="flex shrink-0">
+    <div class="fixed bottom-0 right-[var(--actions-width)] top-0 overflow-hidden transition-max-width" :class="[show ? 'max-w-[calc(100%_-_var(--actions-width))]' : 'max-w-0']">
+      <SidebarPanel class="h-full w-[calc(100vw_-_var(--actions-width))]" />
+    </div>
     <ActionPanel />
   </aside>
-  <aside v-else class="w-[calc(var(--sidebar-width)_+_var(--actions-width))] flex shrink-0 transition-all" :class="[show ? 'max-w-[calc(var(--sidebar-width)_+_var(--actions-width))]' : 'max-w-[var(--actions-width)]']">
-    <SidebarPanel class="w-full" />
+  <aside v-else class="flex shrink-0">
+    <div class="overflow-hidden transition-max-width" :class="[show ? 'max-w-[var(--sidebar-width)]' : 'max-w-0']">
+      <SidebarPanel class="h-full w-[var(--sidebar-width)]" />
+    </div>
     <ActionPanel />
   </aside>
 </template>

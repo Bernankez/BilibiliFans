@@ -1,4 +1,6 @@
-<script setup lang="ts" generic="T extends string | number">
+<script setup lang="ts" generic="T extends Actions">
+import type { Actions } from "@/store/sidebar";
+
 const props = defineProps<{
   id?: T;
   icon: string;
