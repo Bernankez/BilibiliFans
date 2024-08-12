@@ -7,4 +7,5 @@ const toggle = useToggle(isDark);
   <div @click="() => toggle()">
     toggle
   </div>
+  <FansCard />
 </template>

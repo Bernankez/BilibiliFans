@@ -8,21 +8,18 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ConfigProvider: typeof import('./src/components/global/ConfigProvider.vue')['default']
+    FansCard: typeof import('./src/components/common/FansCard.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
-    NDropdown: typeof import('naive-ui')['NDropdown']
     NForm: typeof import('naive-ui')['NForm']
-    NFormControl: typeof import('naive-ui')['NFormControl']
     NFormItem: typeof import('naive-ui')['NFormItem']
-    NFormLabel: typeof import('naive-ui')['NFormLabel']
     NInput: typeof import('naive-ui')['NInput']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
-    NSplit: typeof import('naive-ui')['NSplit']
+    NPopselect: typeof import('naive-ui')['NPopselect']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Split: typeof import('./src/components/ui/Split.vue')['default']
   }
 }

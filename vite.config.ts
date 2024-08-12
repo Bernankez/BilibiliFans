@@ -7,6 +7,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { UtilsResolver } from "@bernankez/utils/resolver";
+import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -36,6 +37,15 @@ export default defineConfig({
     Components({
       dirs: ["./src/components/**"],
       resolvers: [NaiveUiResolver()],
+    }),
+    FontCarrier({
+      fonts: [
+        {
+          path: "./src/assets/font/Kenney-Mini-Square.ttf",
+          input: numberChars,
+        },
+      ],
+      type: "woff2",
     }),
     VueDevTools(),
   ],

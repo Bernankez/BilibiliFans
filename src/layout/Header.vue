@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
+import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
 import type { CSSProperties } from "vue";
 
 const toggle = useToggle(isDark);
@@ -14,33 +14,15 @@ function railStyle({ focused }: { focused: boolean; checked: boolean }) {
   return style;
 }
 
-function icon(i: string, as: "svg" | "emoji" = "svg") {
-  if (as === "svg") {
-    return () => {
-      return h("div", {
-        class: i,
-      });
-    };
-  } else {
-    return () => {
-      return h("span", {
-        class: "text-lg",
-      }, i);
-    };
-  }
-}
-
 // @unocss-include
-const langs = ref<DropdownMixedOption[]>([
+const langs = ref<SelectMixedOption[]>([
   {
-    icon: icon("🇨🇳", "emoji"),
     label: "简体中文",
-    key: "zh-CN",
+    value: "zh-CN",
   },
   {
-    icon: icon("🇺🇸", "emoji"),
     label: "English",
-    key: "en-US",
+    value: "en-US",
   },
 ]);
 </script>
@@ -50,11 +32,11 @@ const langs = ref<DropdownMixedOption[]>([
     <div>
     </div>
     <div class="flex items-center gap-3">
-      <NDropdown placement="bottom-end" trigger="click" :options="langs" @select="key => locale = key">
+      <NPopselect v-model:value="locale" trigger="click" :options="langs">
         <NButton text>
-          <component :is="langs.find(lang => lang.key === locale)?.icon" />
+          <div class="i-uil-english-to-chinese text-2xl"></div>
         </NButton>
-      </NDropdown>
+      </NPopselect>
       <NTooltip>
         <template #trigger>
           <NSwitch :value="isDark" :rail-style="railStyle" @update:value="toggle">
