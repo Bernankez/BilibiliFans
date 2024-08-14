@@ -95,5 +95,5 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="divRef" class="w-full"></div>
+  <div ref="divRef"></div>
 </template>
