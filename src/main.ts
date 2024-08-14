@@ -16,6 +16,13 @@ import "@unocss/reset/tailwind-compat.css";
 import zhCN from "./locale/zh-CN";
 import enUS from "./locale/en-US";
 
+// TODO
+// @see https://lokalise.com/blog/vue-i18n/
+// @see https://github.com/intlify/routing
+// switch locale with router prefix
+// guess prefer lang
+// use json as messages
+// use lazy import
 const i18n = createI18n<[typeof zhCN], "zh-CN" | "en-US">({
   legacy: false,
   locale: "zh-CN",
