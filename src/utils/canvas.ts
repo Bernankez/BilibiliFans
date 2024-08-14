@@ -13,11 +13,22 @@ export function getContext(canvas: HTMLCanvasElement | OffscreenCanvas) {
   return ctx;
 }
 
+export function resizeCanvas(canvas: HTMLCanvasElement | OffscreenCanvas, width: number, height: number) {
+  if (canvas instanceof OffscreenCanvas) {
+    canvas.width = width;
+    canvas.height = height;
+    return canvas;
+  } else {
+    const ratio = window.devicePixelRatio;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    return canvas;
+  }
+}
+
 export function createCanvas(width: number, height: number) {
   const canvas = document.createElement("canvas");
-  const ratio = window.devicePixelRatio;
-  canvas.width = width * ratio;
-  canvas.height = height * ratio;
+  resizeCanvas(canvas, width, height);
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
   return canvas;

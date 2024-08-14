@@ -145,13 +145,13 @@ export async function loadFont() {
   fonts.add(font);
 }
 
-export async function render(options: RawDrawOptions) {
+export async function render(options: RawDrawOptions, canvas?: HTMLCanvasElement | OffscreenCanvas) {
   const drawOptions = await resolveOptions(options);
   await loadFont();
   const { width, height, background, foreground } = drawOptions;
   const { image, origin = [0, 0], size = [width, height], color: backgroundColor } = background;
-  const canvas = create(width, height);
-  const ctx = getContext(canvas);
+  const _canvas = canvas || create(width, height);
+  const ctx = getContext(_canvas);
   clipBackground(ctx, drawOptions);
   if (backgroundColor) {
     // Background color
@@ -168,7 +168,7 @@ export async function render(options: RawDrawOptions) {
   drawUser(ctx, drawOptions);
   drawFansNo(ctx, drawOptions);
   drawDate(ctx, drawOptions);
-  return canvas;
+  return _canvas;
 }
 
 export function clipBackground(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, options: DrawOptions) {

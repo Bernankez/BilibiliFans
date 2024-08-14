@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const toggle = useToggle(isDark);
+const nickname = ref("");
 </script>
 
 <template>
   <div>Hello</div>
-  <div @click="() => toggle()">
-    toggle
+  <div>
+    <NInput v-model:value="nickname" />
   </div>
-  <FansCard />
+  <FansCard :nickname />
 </template>
