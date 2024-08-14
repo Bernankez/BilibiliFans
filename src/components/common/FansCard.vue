@@ -3,13 +3,15 @@ import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 import Avatar from "@/assets/img/avatar.jpg";
 import Background from "@/assets/img/background.jpeg";
 import type { RawDrawOptions } from "@/utils/draw";
+// @see https://github.com/vitejs/vite/issues/11823
+import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
 
 const divRef = ref<HTMLDivElement>();
 
 const KenneyMiniFont = "kenney mini";
 const { loaded } = useFont(KenneyMiniFont, `url(${KenneyMini})`);
 
-const { post, data } = useWebWorker(new URL("@/workers/draw.ts", import.meta.url).toString(), {
+const { post, data } = useWebWorker(DrawWorkerUrl, {
   type: "module",
 });
 
@@ -38,7 +40,11 @@ const rawOptions = shallowRef<RawDrawOptions>({
   },
 });
 
-post(rawOptions.value);
+watchEffect(() => {
+  if (loaded.value) {
+    post(rawOptions.value);
+  }
+});
 
 watchEffect(async () => {
   if (divRef.value && loaded.value && data.value) {
