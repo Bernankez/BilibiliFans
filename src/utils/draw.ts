@@ -1,5 +1,7 @@
 import { resolveImage } from "./cache";
 import { create, getContext } from "./canvas";
+import { isWebWorker } from "./is";
+import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 
 export interface RawDrawOptions {
   // font size should be inferred from width
@@ -121,8 +123,31 @@ export async function resolveOptions(options: RawDrawOptions) {
   };
 }
 
+export async function loadFont() {
+  const kenney = "kenney mini";
+  const _isWebWorker = isWebWorker();
+  const fonts = _isWebWorker ? globalThis.fonts : document.fonts;
+  for (const font of fonts) {
+    if (font.family === kenney) {
+      return;
+    }
+  }
+  let font: FontFace;
+  if (_isWebWorker) {
+    const response = await fetch(KenneyMini);
+    const blob = await response.blob();
+    const buffer = await blob.arrayBuffer();
+    font = new FontFace(kenney, buffer);
+  } else {
+    font = new FontFace(kenney, KenneyMini);
+  }
+  await font.load();
+  fonts.add(font);
+}
+
 export async function render(options: RawDrawOptions) {
   const drawOptions = await resolveOptions(options);
+  await loadFont();
   const { width, height, background, foreground } = drawOptions;
   const { image, origin = [0, 0], size = [width, height], color: backgroundColor } = background;
   const canvas = create(width, height);
