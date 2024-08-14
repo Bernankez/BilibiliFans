@@ -17,6 +17,9 @@ importers:
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.35(typescript@5.5.4))
+      lru-cache:
+        specifier: ^11.0.0
+        version: 11.0.0
       pinia:
         specifier: ^2.2.1
         version: 2.2.1(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
@@ -82,8 +85,8 @@ importers:
         specifier: ^5.3.4
         version: 5.3.5(@types/node@22.1.0)
       vite-plugin-font-carrier:
-        specifier: ^0.1.2
-        version: 0.1.2(vite@5.3.5(@types/node@22.1.0))
+        specifier: ^0.1.4
+        version: 0.1.4(vite@5.3.5(@types/node@22.1.0))
       vite-plugin-vue-devtools:
         specifier: ^7.3.7
         version: 7.3.7(rollup@4.20.0)(vite@5.3.5(@types/node@22.1.0))(vue@3.4.35(typescript@5.5.4))
@@ -2305,6 +2308,10 @@ packages:
   lowlight@1.17.0:
     resolution: {integrity: sha512-vmtBgYKD+QVNy7tIa7ulz5d//Il9R4MooOVh4nkOf9R9Cb/Dk5TXMSTieg/vDulkBkIWj59/BIlyFQxT9X1oAQ==}
 
+  lru-cache@11.0.0:
+    resolution: {integrity: sha512-Qv32eSV1RSCfhY3fpPE2GNZ8jgM9X7rdAfemLWqTUxwiyIC4jJ6Sy0fZ8H+oLWevO6i4/bizg7c8d8i6bxrzbA==}
+    engines: {node: 20 || >=22}
+
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
@@ -3182,8 +3189,8 @@ packages:
     peerDependencies:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0
 
-  vite-plugin-font-carrier@0.1.2:
-    resolution: {integrity: sha512-ygpLWxXmJbVey68wjes1lTlybJi442vfKf/NiQeAPhSzF8bmR81EdOCb6gAObScQEVRNfaVB72wqEK5MxS7aRQ==}
+  vite-plugin-font-carrier@0.1.4:
+    resolution: {integrity: sha512-5YDpD7Ocz+S68SLILNiU5vIMRcCl7wmeiNK2b1jHSAq/NOxpWOcGkwhYp8NvHVpn3UZln0u/7PfGSRA2jHf20Q==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
@@ -5979,6 +5986,8 @@ snapshots:
       fault: 1.0.4
       highlight.js: 10.4.1
 
+  lru-cache@11.0.0: {}
+
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -6902,7 +6911,7 @@ snapshots:
     dependencies:
       vite: 5.3.5(@types/node@22.1.0)
 
-  vite-plugin-font-carrier@0.1.2(vite@5.3.5(@types/node@22.1.0)):
+  vite-plugin-font-carrier@0.1.4(vite@5.3.5(@types/node@22.1.0)):
     dependencies:
       '@types/font-carrier': 0.3.3
       font-carrier: 0.3.1
