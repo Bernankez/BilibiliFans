@@ -7,5 +7,5 @@ const nickname = ref("");
   <div>
     <NInput v-model:value="nickname" />
   </div>
-  <FansCard :nickname />
+  <!-- <FansCard :nickname /> -->
 </template>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
 import type { CSSProperties } from "vue";
+import { type AvailableLocales, setLocale } from "@/utils/i18n";
 
 const toggle = useToggle(isDark);
 const { t, locale } = useI18n();
+const router = useRouter();
 
 function railStyle({ focused }: { focused: boolean; checked: boolean }) {
   const style: CSSProperties = {};
@@ -12,6 +14,16 @@ function railStyle({ focused }: { focused: boolean; checked: boolean }) {
     style.boxShadow = `0 0 0 2px rgb(var(--primary))`;
   }
   return style;
+}
+
+async function switchLocale(val: AvailableLocales) {
+  await setLocale(val);
+  try {
+    await router.replace({ params: { locale: val } });
+  } catch (e) {
+    console.error(e);
+    router.push("/");
+  }
 }
 
 // @unocss-include
@@ -32,7 +44,7 @@ const langs = ref<SelectMixedOption[]>([
     <div>
     </div>
     <div class="flex items-center gap-3">
-      <NPopselect v-model:value="locale" trigger="click" :options="langs">
+      <NPopselect :value="locale" trigger="click" :options="langs" @update:value="switchLocale">
         <NButton text>
           <div class="i-uil-english-to-chinese text-2xl"></div>
         </NButton>

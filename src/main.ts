@@ -6,32 +6,14 @@ import "./styles/global.css";
 /** It's because vue-i18n@9 exports ComponentCustomProperties from '@vue/runtime-core' */
 /** vue-i18n@10 has re-exported ComponentCustomProperties from 'vue' */
 /** After the release of vue-i18n@10, the import order here can be changed */
-import { createI18n } from "vue-i18n";
+// eslint-disable-next-line import/order
+import { i18n } from "@/utils/i18n";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import App from "./App.vue";
 import { router } from "./router";
 import "virtual:uno.css";
 import "@unocss/reset/tailwind-compat.css";
-import zhCN from "./locale/zh-CN";
-import enUS from "./locale/en-US";
-
-// TODO
-// @see https://lokalise.com/blog/vue-i18n/
-// @see https://github.com/intlify/routing
-// switch locale with router prefix
-// guess prefer lang
-// use json as messages
-// use lazy import
-const i18n = createI18n<[typeof zhCN], "zh-CN" | "en-US">({
-  legacy: false,
-  locale: "zh-CN",
-  fallbackLocale: "en-US",
-  messages: {
-    "zh-CN": zhCN,
-    "en-US": enUS,
-  },
-});
 
 const app = createApp(App);
 const pinia = createPinia();

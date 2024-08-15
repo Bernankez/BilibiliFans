@@ -1,7 +1,7 @@
-import app from "./app";
-import sidebar from "./sidebar";
+import app from "./app.json";
+import sidebar from "./sidebar.json";
 
-export default {
+export const zhCN = {
   app,
   sidebar,
 };
