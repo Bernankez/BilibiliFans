@@ -45,9 +45,7 @@ const langs = ref<SelectMixedOption[]>([
     </div>
     <div class="flex items-center gap-3">
       <NPopselect :value="locale" trigger="click" :options="langs" @update:value="switchLocale">
-        <NButton text>
-          <div class="i-uil-english-to-chinese text-2xl"></div>
-        </NButton>
+        <Button icon="i-uil-english-to-chinese" :auto-collapse="false" />
       </NPopselect>
       <NTooltip>
         <template #trigger>
