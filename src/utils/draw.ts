@@ -62,21 +62,21 @@ export async function resolveOptions(options: RawDrawOptions) {
     text: options.nickname,
     fontSize: 1.125 * fontSize,
     x: padding.left + avatar.width + 0.8 * fontSize,
-    y: padding.top + 1.1 * fontSize,
+    y: padding.top + 1.87 * fontSize,
   };
   const no = {
     title: {
       text: "FANS NO.",
       fontSize: 1 * fontSize,
       x: padding.left,
-      y: padding.top + 4.1 * fontSize,
+      y: padding.top + 4.825 * fontSize,
     },
     number: {
       text: options.no.toString().padStart(6, "0"),
       fontSize: 1.8125 * fontSize,
       letterSpacing: 0.0625 * fontSize,
       x: padding.left,
-      y: padding.top + 5.75 * fontSize,
+      y: padding.top + 7.15 * fontSize,
     },
   };
   const date = {
@@ -84,14 +84,14 @@ export async function resolveOptions(options: RawDrawOptions) {
       text: "DATE",
       fontSize: 1 * fontSize,
       x: padding.left,
-      y: padding.top + 8.6 * fontSize,
+      y: padding.top + 9.35 * fontSize,
     },
     date: {
       text: options.date,
       fontSize: 1 * fontSize,
       letterSpacing: 0.04 * fontSize,
       x: padding.left,
-      y: padding.top + 10 * fontSize,
+      y: padding.top + 10.725 * fontSize,
     },
   };
 
@@ -235,7 +235,6 @@ export function drawUser(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
   ctx.save();
   ctx.fillStyle = color;
   ctx.font = `${nickname.fontSize}px ${font.normal.fontFamily}`;
-  ctx.textBaseline = "top";
   ctx.fillText(nickname.text, nickname.x, nickname.y);
   ctx.restore();
 }
@@ -248,14 +247,12 @@ export function drawFansNo(ctx: CanvasRenderingContext2D | OffscreenCanvasRender
   ctx.fillStyle = color;
   ctx.font = `${title.fontSize}px ${font.mono.fontFamily}`;
   ctx.globalAlpha = font.mono.opacity;
-  ctx.textBaseline = "top";
   ctx.fillText(title.text, title.x, title.y);
   ctx.restore();
   // number
   ctx.save();
   ctx.fillStyle = color;
   ctx.font = `${number.fontSize}px ${font.kenney.fontFamily}`;
-  ctx.textBaseline = "top";
   ctx.letterSpacing = `${number.letterSpacing}px`;
   ctx.fillText(number.text, number.x, number.y);
   ctx.restore();
@@ -269,14 +266,12 @@ export function drawDate(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
   ctx.fillStyle = color;
   ctx.font = `${title.fontSize}px ${font.mono.fontFamily}`;
   ctx.globalAlpha = font.mono.opacity;
-  ctx.textBaseline = "top";
   ctx.fillText(title.text, title.x, title.y);
   ctx.restore();
   // date
   ctx.save();
   ctx.fillStyle = color;
   ctx.font = `${dateText.fontSize}px ${font.normal.fontFamily}`;
-  ctx.textBaseline = "top";
   ctx.letterSpacing = `${dateText.letterSpacing}px`;
   ctx.fillText(dateText.text, dateText.x, dateText.y);
   ctx.restore();
