@@ -51,11 +51,12 @@ watch(options, () => {
 });
 
 useResizeObserver(divRef, (entries) => {
+  if (!divRef.value || divRef.value.style.display === "none") {
+    return;
+  }
   const { width: w } = entries[0].contentRect;
   const h = Math.round(w * 0.4115);
-  if (divRef.value) {
-    divRef.value.style.height = `${h}px`;
-  }
+  divRef.value.style.height = `${h}px`;
   width.value = w;
   height.value = h;
   requestAnimationFrame(() => {
