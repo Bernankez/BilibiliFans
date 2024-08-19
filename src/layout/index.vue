@@ -5,9 +5,9 @@ import Sidebar from "./Sidebar/index.vue";
 
 <template>
   <div class="h-full w-full flex">
-    <div class="h-full w-0 flex flex-1 flex-col">
+    <div class="w-0 flex-1 flex-col">
       <Header />
-      <main class="h-full">
+      <main class="h-[calc(100%_-_var(--header-height))] overflow-auto">
         <slot></slot>
       </main>
     </div>
