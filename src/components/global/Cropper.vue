@@ -2,6 +2,7 @@
 import { CircleStencil, Cropper, RectangleStencil } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 import Background from "@/assets/img/background.jpeg";
+import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<{
   type?: "circle" | "rectangle";
@@ -61,6 +62,9 @@ useResizeObserver(cropperWrapperRef, (entries) => {
 });
 
 function refresh() {
+  if (!cropperWrapperRef.value || !checkVisibility(cropperWrapperRef.value)) {
+    return;
+  }
   cropperRef.value?.refresh();
 }
 
@@ -114,15 +118,54 @@ function handleZoom(zoom: number, oldZoom: number) {
     cropperRef.value.zoom((imageWidth - oldZoom * (imageWidth - minWidth)) / (imageWidth - zoom * (imageWidth - minWidth)) || 0);
   }
 }
+
+function handleMove(direction: "up" | "down" | "left" | "right", offset?: number) {
+  if (!cropperRef.value) {
+    return;
+  }
+  const imageSize = cropperRef.value.imageSize as { width: number | null; height: number | null };
+  if (!imageSize.height || !imageSize.width) {
+    return;
+  }
+  if (!offset) {
+    if (direction === "up" || direction === "down") {
+      offset = imageSize.height / 10;
+    } else {
+      offset = imageSize.width / 10;
+    }
+  }
+  switch (direction) {
+    case "up":
+      cropperRef.value.move(0, -offset);
+      break;
+    case "down":
+      cropperRef.value.move(0, offset);
+      break;
+    case "left":
+      cropperRef.value.move(-offset, 0);
+      break;
+    case "right":
+      cropperRef.value.move(offset, 0);
+      break;
+  }
+}
 </script>
 
 <template>
   <div ref="cropperWrapperRef" class="flex flex-col gap-8">
     <Cropper ref="cropperRef" class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
-    <div class="flex items-center gap-4">
-      <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
-      <NSlider :value="zoom" :tooltip="false" @update:value="onZoom" />
-      <div class="i-uil-search-plus shrink-0 cursor-pointer text-2xl transition hover:text-primary" @click="plus"></div>
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-4">
+        <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
+        <NSlider :value="zoom" :tooltip="false" @update:value="onZoom" />
+        <div class="i-uil-search-plus shrink-0 cursor-pointer text-2xl transition hover:text-primary" @click="plus"></div>
+      </div>
+      <div class="flex items-center justify-center gap-4">
+        <Button icon="i-uil-arrow-up" @click="handleMove('up')" />
+        <Button icon="i-uil-arrow-down" @click="handleMove('down')" />
+        <Button icon="i-uil-arrow-left" @click="handleMove('left')" />
+        <Button icon="i-uil-arrow-right" @click="handleMove('right')" />
+      </div>
     </div>
   </div>
 </template>

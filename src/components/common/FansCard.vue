@@ -6,6 +6,7 @@ import { resizeCanvas } from "@/utils/canvas";
 import type { RawDrawOptions } from "@/utils/draw";
 // @see https://github.com/vitejs/vite/issues/11823
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
+import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<Omit<RawDrawOptions, "width" | "height">>(), {
   avatar: Avatar,
@@ -49,21 +50,6 @@ watch(options, () => {
 }, {
   deep: true,
 });
-
-function checkVisibility(element: HTMLElement) {
-  if (typeof element.checkVisibility === "function") {
-    return element.checkVisibility();
-  }
-  let e: HTMLElement | null = element;
-  while (e) {
-    // NOTE more conditions can be added
-    if (window.getComputedStyle(e).display === "none") {
-      return false;
-    }
-    e = e.parentElement;
-  }
-  return true;
-}
 
 useResizeObserver(divRef, (entries) => {
   if (!divRef.value || !checkVisibility(divRef.value)) {
