@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
 import type { CSSProperties } from "vue";
+import type { DropdownOption } from "naive-ui";
 import { type AvailableLocales, setLocale } from "@/utils/i18n";
 
 const toggle = useToggle(isDark);
@@ -27,16 +27,27 @@ async function switchLocale(val: AvailableLocales) {
 }
 
 // @unocss-include
-const langs = ref<SelectMixedOption[]>([
+const langs = ref<DropdownOption[]>([
   {
     label: "简体中文",
-    value: "zh-CN",
+    key: "zh-CN",
+    icon: renderIcon("🇨🇳", "text"),
   },
   {
     label: "English",
-    value: "en-US",
+    key: "en-US",
+    icon: renderIcon("🇺🇸", "text"),
   },
 ]);
+
+function renderIcon(icon: string, as: "icon" | "text" = "icon") {
+  if (as === "icon") {
+    return () => h("div", {
+      class: `${icon} text-2xl`,
+    });
+  }
+  return () => icon;
+}
 </script>
 
 <template>
@@ -44,9 +55,9 @@ const langs = ref<SelectMixedOption[]>([
     <div>
     </div>
     <div class="flex items-center gap-3">
-      <NPopselect :value="locale" trigger="click" :options="langs" @update:value="switchLocale">
-        <Button icon="i-uil-english-to-chinese" :auto-collapse="false" />
-      </NPopselect>
+      <NDropdown trigger="click" :options="langs" @select="switchLocale">
+        <Button :icon="langs.find(lang => lang.key === locale)?.icon" :auto-collapse="false" />
+      </NDropdown>
       <NTooltip>
         <template #trigger>
           <NSwitch :value="isDark" :rail-style="railStyle" @update:value="toggle">
