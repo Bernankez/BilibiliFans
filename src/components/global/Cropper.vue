@@ -117,10 +117,8 @@ function handleZoom(zoom: number, oldZoom: number) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
-    <div ref="cropperWrapperRef">
-      <Cropper ref="cropperRef" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
-    </div>
+  <div ref="cropperWrapperRef" class="flex flex-col gap-8">
+    <Cropper ref="cropperRef" class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
     <div class="flex items-center gap-4">
       <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
       <NSlider :value="zoom" :tooltip="false" @update:value="onZoom" />

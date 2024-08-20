@@ -11,6 +11,6 @@ import Sidebar from "./Sidebar/index.vue";
         <slot></slot>
       </main>
     </div>
-    <Sidebar />
+    <Sidebar class="z-10" />
   </div>
 </template>
