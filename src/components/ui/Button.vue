@@ -38,7 +38,10 @@ const showSlot = computed(() => {
 
 <template>
   <component :is="as" tabindex="0" title v-bind="linkProps" class="flex cursor-pointer select-none items-center gap-1.5 rounded-lg p-1.5 transition focus:bg-accent hover:bg-accent hover:text-primary" @click="onClick">
-    <div v-if="icon" class="text-2xl" :class="[icon]"></div>
+    <div v-if="icon && typeof icon !== 'function'" class="text-2xl" :class="[icon]"></div>
+    <template v-if="typeof icon === 'function'">
+      <component :is="icon" class="text-2xl" />
+    </template>
     <slot v-if="showSlot"></slot>
   </component>
 </template>
