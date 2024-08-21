@@ -21,12 +21,17 @@ export interface RawDrawOptions {
     color?: string;
   };
   foreground?: {
-    color: string;
-    gradient?: {
-      leftStart?: number;
-      leftEnd?: number;
-      rightStart?: number;
-      rightEnd?: number;
+    gradient: {
+      left?: {
+        color: string;
+        start: number;
+        end: number;
+      };
+      right?: {
+        color: string;
+        start: number;
+        end: number;
+      };
     };
   };
 }
@@ -190,25 +195,31 @@ export function clipBackground(ctx: CanvasRenderingContext2D | OffscreenCanvasRe
 export function drawForeground(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, options: DrawOptions) {
   const { width, height, foreground } = options;
   if (foreground) {
-    const { color, gradient } = foreground || {};
-    const { leftStart = 0, leftEnd = 0, rightStart = 0, rightEnd = 0 } = gradient || {};
+    const { gradient } = foreground || {};
+    const { left, right } = gradient || {};
 
     ctx.save();
-    const gradientLeft = ctx.createLinearGradient(0, 0, width, 0);
-    gradientLeft.addColorStop(0, color);
-    gradientLeft.addColorStop(leftStart, color);
-    gradientLeft.addColorStop(leftEnd, "#ffffff00");
-    gradientLeft.addColorStop(1, "#ffffff00");
-    ctx.fillStyle = gradientLeft;
-    ctx.fillRect(0, 0, width, height);
+    if (left) {
+      const { color, start, end } = left;
+      const gradient = ctx.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(start, color);
+      gradient.addColorStop(end, "#ffffff00");
+      gradient.addColorStop(1, "#ffffff00");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+    }
 
-    const gradientRight = ctx.createLinearGradient(width, 0, 0, 0);
-    gradientRight.addColorStop(0, color);
-    gradientRight.addColorStop(rightStart, color);
-    gradientRight.addColorStop(rightEnd, "#ffffff00");
-    gradientRight.addColorStop(1, "#ffffff00");
-    ctx.fillStyle = gradientRight;
-    ctx.fillRect(0, 0, width, height);
+    if (right) {
+      const { color, start, end } = right;
+      const gradient = ctx.createLinearGradient(width, 0, 0, 0);
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(start, color);
+      gradient.addColorStop(end, "#ffffff00");
+      gradient.addColorStop(1, "#ffffff00");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+    }
     ctx.restore();
   }
 }

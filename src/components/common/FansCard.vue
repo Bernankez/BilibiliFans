@@ -20,12 +20,17 @@ const props = withDefaults(defineProps<Omit<RawDrawOptions, "width" | "height">>
     size: [1125, 463],
   }),
   foreground: () => ({
-    color: "#eaba80",
     gradient: {
-      leftStart: 0.19,
-      leftEnd: 0.35,
-      rightStart: 0,
-      rightEnd: 0.27,
+      left: {
+        color: "#eaba80",
+        start: 0.19,
+        end: 0.35,
+      },
+      right: {
+        color: "#eaba80",
+        start: 0,
+        end: 0.27,
+      },
     },
   }),
 });
