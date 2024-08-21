@@ -2,5 +2,11 @@
   "theme": {
     "light": "Light",
     "dark": "Dark"
+  },
+  "interface": {
+    "toggleEdit": "Switch to edit mode",
+    "togglePreview": "Switch to preview mode",
+    "splitWindow": "Split window",
+    "mergeWindow": "Merge window"
   }
 }
