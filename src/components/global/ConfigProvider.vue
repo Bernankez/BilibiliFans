@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NGlobalStyle, darkTheme, dateEnUS, dateZhCN, enUS, lightTheme, zhCN } from "naive-ui";
+import { darkTheme, dateEnUS, dateZhCN, enUS, lightTheme, zhCN } from "naive-ui";
 
 const { locale } = useI18n();
 
