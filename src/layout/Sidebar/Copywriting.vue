@@ -4,19 +4,27 @@ const { t } = useI18n();
 
 <template>
   <div>
+    <NH2>
+      {{ t("action.copywriting.title") }}
+    </NH2>
     <NForm label-width="auto">
-      <NFormItem :label="t('sidebar.sharingCopywriting.vtuberName')">
+      <ActionFormItem :label="t('action.copywriting.form.vtuberName.title')">
         <NInput />
-      </NFormItem>
-      <NFormItem :label="t('sidebar.sharingCopywriting.themeLink')">
+      </ActionFormItem>
+      <ActionFormItem>
         <template #label>
-          {{ t('sidebar.sharingCopywriting.themeLink') }}
-          <NButton quaternary size="small" type="primary">
-            {{ t('sidebar.sharingCopywriting.resetThemeLink') }}
-          </NButton>
+          <div class="w-full flex items-center justify-between">
+            {{ t('action.copywriting.form.themeLink.title') }}
+            <NButton quaternary size="small" type="primary">
+              {{ t('action.copywriting.form.themeLink.reset') }}
+            </NButton>
+          </div>
         </template>
         <NInput type="textarea" />
-      </NFormItem>
+      </ActionFormItem>
+      <ActionFormItem :label="t('action.copywriting.form.post.title')">
+        <NInput type="textarea" />
+      </ActionFormItem>
     </NForm>
   </div>
 </template>

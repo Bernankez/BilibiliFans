@@ -17,7 +17,9 @@ function active(e: MouseEvent, id?: Actions) {
 
 <template>
   <div class="w-[var(--actions-width)] shrink-0 b-l-1 b-border b-solid">
+    <Action id="template" icon="i-uil-postcard" @click="active" />
     <Action id="copywriting" icon="i-uil-text-fields" @click="active" />
-    <Action id="styles" icon="i-uil-postcard" @click="active" />
+    <Action id="card" icon="i-uil-palette" @click="active" />
+    <Action id="user" icon="i-uil-user" @click="active" />
   </div>
 </template>

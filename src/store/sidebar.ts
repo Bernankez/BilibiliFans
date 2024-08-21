@@ -1,4 +1,4 @@
-export type Actions = "copywriting" | "styles";
+export type Actions = "template" | "copywriting" | "card" | "user";
 
 export const useSidebarStore = defineStore("sidebar", () => {
   const show = ref(false);

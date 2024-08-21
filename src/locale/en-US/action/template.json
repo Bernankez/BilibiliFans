@@ -1,0 +1,25 @@
+{
+  "title": "Template",
+  "current": "Current template",
+  "none": "None",
+  "saveAs": {
+    "title": "Save as new template"
+  },
+  "save": {
+    "title": "Cover current template",
+    "confirm": "Are you sure to cover current template?"
+  },
+  "export": {
+    "title": "Export"
+  },
+  "select": {
+    "title": "Load template",
+    "placeholder": {
+      "default": "Default templates",
+      "custom": "Custom templates"
+    }
+  },
+  "load": {
+    "title": "Load"
+  }
+}

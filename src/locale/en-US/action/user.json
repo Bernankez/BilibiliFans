@@ -1,0 +1,16 @@
+{
+  "title": "Your Information",
+  "nickname": {
+    "title": "Nickname"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "placeholder": "Click or drag file here to upload"
+  },
+  "no": {
+    "title": "NO."
+  },
+  "date": {
+    "title": "Date"
+  }
+}

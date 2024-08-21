@@ -1,0 +1,15 @@
+{
+  "title": "Copywriting",
+  "form": {
+    "vtuberName": {
+      "title": "Vtuber Name"
+    },
+    "themeLink": {
+      "title": "Theme Link",
+      "reset": "Reset"
+    },
+    "post": {
+      "title": "Post"
+    }
+  }
+}

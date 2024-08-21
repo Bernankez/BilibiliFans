@@ -1,0 +1,25 @@
+{
+  "title": "模版",
+  "current": "当前模版",
+  "none": "无",
+  "saveAs": {
+    "title": "另存为新模版"
+  },
+  "save": {
+    "title": "覆盖当前模版",
+    "confirm": "确定要覆盖当前模版吗？"
+  },
+  "export": {
+    "title": "导出"
+  },
+  "select": {
+    "title": "加载模版",
+    "placeholder": {
+      "default": "默认模版",
+      "custom": "自定义模版"
+    }
+  },
+  "load": {
+    "title": "加载"
+  }
+}
