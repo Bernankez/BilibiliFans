@@ -12,6 +12,16 @@ const nickname = ref("科科Cole");
 const mode = ref<"preview" | "edit">("preview");
 
 const image = ref(Background);
+
+const origin = ref<[number, number]>();
+const width = ref<number>();
+const height = ref<number>();
+
+function onCropperChange(_origin: [number, number], _width: number, _height: number) {
+  origin.value = _origin;
+  width.value = _width;
+  height.value = _height;
+}
 </script>
 
 <template>
@@ -68,7 +78,7 @@ const image = ref(Background);
       </Transition>
       <Transition name="card">
         <div v-show="mode === 'edit'" class="h-full max-w-200 w-full flex items-center p-4">
-          <Cropper class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" />
+          <Cropper :origin :width :height class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
         </div>
       </Transition>
     </template>
@@ -83,7 +93,7 @@ const image = ref(Background);
       <template #2>
         <div class="h-full flex items-center justify-center">
           <div class="h-full max-w-200 w-full flex items-center p-4">
-            <Cropper class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" />
+            <Cropper :origin :width :height class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
           </div>
         </div>
       </template>

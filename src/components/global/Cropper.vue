@@ -5,6 +5,9 @@ import Background from "@/assets/img/background.jpeg";
 import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<{
+  origin?: [number, number];
+  width?: number;
+  height?: number;
   type?: "circle" | "rectangle";
   img?: string;
   /** 0-100 */
@@ -23,10 +26,34 @@ const props = withDefaults(defineProps<{
   imageRestriction: "fit",
 });
 
+const emit = defineEmits<{
+  change: [origin: [number, number], width: number, height: number];
+}>();
+
 const controlledZoom = defineModel<number>("zoom");
 const uncontrolledZoom = ref(props.defaultZoom);
 
 const zoom = useMergedState(controlledZoom, uncontrolledZoom);
+
+const defaultSize = computed(() => {
+  if (!props.width || !props.height) {
+    return undefined;
+  }
+  return {
+    width: props.width,
+    height: props.height,
+  };
+});
+
+const defaultPosition = computed(() => {
+  if (!props.origin) {
+    return undefined;
+  }
+  return {
+    left: props.origin[0],
+    top: props.origin[1],
+  };
+});
 
 const stencilProps = computed(() => ({
   // lines: {},
@@ -61,6 +88,20 @@ useResizeObserver(cropperWrapperRef, (entries) => {
   }
 });
 
+onMounted(() => {
+  if (!cropperRef.value) {
+    return;
+  }
+  if (defaultPosition.value && defaultSize.value) {
+    cropperRef.value?.setCoordinates({
+      left: defaultPosition.value.left,
+      top: defaultPosition.value.top,
+      width: defaultSize.value.width,
+      height: defaultSize.value.height,
+    });
+  }
+});
+
 function refresh() {
   if (!cropperWrapperRef.value || !checkVisibility(cropperWrapperRef.value)) {
     return;
@@ -85,6 +126,9 @@ function onCropperChange(e: any) {
     _zoom = (imageSize.width - coordinates.width) / (imageSize.width - sizeRestrictions.minWidth);
   }
   zoom.value = _zoom * 100;
+  if (coordinates.width && coordinates.height) {
+    emit("change", [Math.round(coordinates.left), Math.round(coordinates.top)], Math.round(coordinates.width), Math.round(coordinates.height));
+  }
 }
 
 function minus() {
@@ -153,7 +197,7 @@ function handleMove(direction: "up" | "down" | "left" | "right", offset?: number
 
 <template>
   <div ref="cropperWrapperRef" class="flex flex-col gap-8">
-    <Cropper ref="cropperRef" class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
+    <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
     <div class="flex flex-col gap-2">
       <div class="flex items-center gap-4">
         <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
