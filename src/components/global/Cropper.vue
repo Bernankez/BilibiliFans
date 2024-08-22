@@ -6,8 +6,7 @@ import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<{
   origin?: [number, number];
-  width?: number;
-  height?: number;
+  size?: [number, number];
   type?: "circle" | "rectangle";
   img?: string;
   /** 0-100 */
@@ -27,8 +26,10 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits<{
-  change: [origin: [number, number], width: number, height: number];
+  change: [origin: [number, number], size: [number, number]];
 }>();
+
+const { t } = useI18n();
 
 const controlledZoom = defineModel<number>("zoom");
 const uncontrolledZoom = ref(props.defaultZoom);
@@ -36,12 +37,12 @@ const uncontrolledZoom = ref(props.defaultZoom);
 const zoom = useMergedState(controlledZoom, uncontrolledZoom);
 
 const defaultSize = computed(() => {
-  if (!props.width || !props.height) {
+  if (!props.size) {
     return undefined;
   }
   return {
-    width: props.width,
-    height: props.height,
+    width: props.size[0],
+    height: props.size[1],
   };
 });
 
@@ -127,7 +128,7 @@ function onCropperChange(e: any) {
   }
   zoom.value = _zoom * 100;
   if (coordinates.width && coordinates.height) {
-    emit("change", [Math.round(coordinates.left), Math.round(coordinates.top)], Math.round(coordinates.width), Math.round(coordinates.height));
+    emit("change", [Math.round(coordinates.left), Math.round(coordinates.top)], [Math.round(coordinates.width), Math.round(coordinates.height)]);
   }
 }
 
@@ -209,6 +210,11 @@ function handleMove(direction: "up" | "down" | "left" | "right", offset?: number
         <Button icon="i-uil-arrow-down" @click="handleMove('down')" />
         <Button icon="i-uil-arrow-left" @click="handleMove('left')" />
         <Button icon="i-uil-arrow-right" @click="handleMove('right')" />
+      </div>
+      <div class="flex items-center justify-center">
+        <NCheckbox :checked="imageRestriction === 'fit'">
+          {{ t('cropper.restrictImage') }}
+        </NCheckbox>
       </div>
     </div>
   </div>
