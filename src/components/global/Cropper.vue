@@ -85,24 +85,10 @@ const cropperWrapperRef = ref<HTMLDivElement>();
 const cropperRef = ref<InstanceType<typeof Cropper>>();
 useResizeObserver(cropperWrapperRef, (entries) => {
   if (entries[0]) {
+    // TODO FIX 大屏下，初始化时没有dom，后来有dom之后refresh时，框选位置不正确
     requestAnimationFrame(refresh);
   }
 });
-
-// onMounted(() => {
-//   if (!cropperRef.value) {
-//     return;
-//   }
-//   if (defaultPosition.value && defaultSize.value) {
-//     console.log(cropperRef.value);
-//     cropperRef.value?.setCoordinates({
-//       left: defaultPosition.value.left,
-//       top: defaultPosition.value.top,
-//       width: defaultSize.value.width,
-//       height: defaultSize.value.height,
-//     });
-//   }
-// });
 
 function refresh() {
   if (!cropperWrapperRef.value || !checkVisibility(cropperWrapperRef.value)) {
