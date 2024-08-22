@@ -4,10 +4,12 @@ import copywriting from "./action/copywriting.json";
 import card from "./action/card.json";
 import user from "./action/user.json";
 import template from "./action/template.json";
+import cropper from "./cropper.json";
 
 export const enUS = {
   app,
   sidebar,
+  cropper,
   action: {
     template,
     copywriting,
