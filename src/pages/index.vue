@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
-import Background from "@/assets/img/background.jpeg";
 
 const { t } = useI18n();
 const appStore = useAppStore();
@@ -11,14 +10,18 @@ const { sm } = useBreakpoints(breakpointsTailwind);
 const nickname = ref("科科Cole");
 const mode = ref<"preview" | "edit">("preview");
 
-const image = ref(Background);
-
-const origin = ref<[number, number]>();
-const size = ref<[number, number]>();
+const templateStore = useTemplateStore();
+const { currentTemplate } = storeToRefs(templateStore);
 
 function onCropperChange(_origin: [number, number], _size: [number, number]) {
-  origin.value = _origin;
-  size.value = _size;
+  if (currentTemplate.value?.cardStyle.background) {
+    // Trigger effect
+    currentTemplate.value.cardStyle.background = {
+      ...currentTemplate.value.cardStyle.background,
+      origin: [..._origin],
+      size: [..._size],
+    };
+  }
 }
 </script>
 
@@ -71,12 +74,12 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
     <template v-if="!split">
       <Transition name="card">
         <div v-show="mode === 'preview'" class="max-w-200 w-full p-4">
-          <FansCard :nickname />
+          <FansCard :nickname :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
         </div>
       </Transition>
       <Transition name="card">
         <div v-show="mode === 'edit'" class="h-full max-w-200 w-full flex items-center p-4">
-          <Cropper :origin :size class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
+          <Cropper :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
         </div>
       </Transition>
     </template>
@@ -85,14 +88,14 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
       <template #1>
         <div class="h-full flex items-center justify-center">
           <div class="max-w-200 w-full p-4">
-            <FansCard :nickname />
+            <FansCard :nickname :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
           </div>
         </div>
       </template>
       <template #2>
         <div class="h-full flex items-center justify-center">
           <div class="h-full max-w-200 w-full flex items-center p-4">
-            <Cropper :origin :size class="max-h-full w-full" :img="image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
+            <Cropper :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
           </div>
         </div>
       </template>

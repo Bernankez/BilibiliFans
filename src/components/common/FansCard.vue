@@ -86,7 +86,9 @@ useResizeObserver(divRef, (entries) => {
 });
 
 function render() {
-  console.log(options.value);
+  if (!options.value.template?.cardStyle.background) {
+    return;
+  }
   post(options.value);
 }
 

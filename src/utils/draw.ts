@@ -1,7 +1,6 @@
 import { resolveImage } from "./cache";
 import { create, getContext } from "./canvas";
 import { isWebWorker } from "./is";
-import type { TemplateManifest } from "@/types/template";
 import type { User } from "@/types/user";
 import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 
