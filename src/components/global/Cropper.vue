@@ -89,25 +89,52 @@ useResizeObserver(cropperWrapperRef, (entries) => {
   }
 });
 
-onMounted(() => {
-  if (!cropperRef.value) {
-    return;
-  }
-  if (defaultPosition.value && defaultSize.value) {
-    cropperRef.value?.setCoordinates({
-      left: defaultPosition.value.left,
-      top: defaultPosition.value.top,
-      width: defaultSize.value.width,
-      height: defaultSize.value.height,
-    });
-  }
-});
+// onMounted(() => {
+//   if (!cropperRef.value) {
+//     return;
+//   }
+//   if (defaultPosition.value && defaultSize.value) {
+//     console.log(cropperRef.value);
+//     cropperRef.value?.setCoordinates({
+//       left: defaultPosition.value.left,
+//       top: defaultPosition.value.top,
+//       width: defaultSize.value.width,
+//       height: defaultSize.value.height,
+//     });
+//   }
+// });
 
 function refresh() {
   if (!cropperWrapperRef.value || !checkVisibility(cropperWrapperRef.value)) {
     return;
   }
   cropperRef.value?.refresh();
+}
+
+let onReadyFn: (() => void) | undefined;
+const stop = watchEffect(() => {
+  if (defaultPosition.value && defaultSize.value && cropperRef.value) {
+    nextTick(() => stop());
+    const cropper = cropperRef.value;
+    const position = defaultPosition.value;
+    const size = defaultSize.value;
+    onReadyFn = () => {
+      cropper.setCoordinates({
+        left: position.left,
+        top: position.top,
+        width: size.width,
+        height: size.height,
+      });
+    };
+  }
+});
+
+function onCropperReady() {
+  if (!cropperRef.value || !checkVisibility(cropperRef.value.$el)) {
+    return;
+  }
+  onReadyFn?.();
+  onReadyFn = undefined;
 }
 
 function onCropperChange(e: any) {
@@ -198,7 +225,7 @@ function handleMove(direction: "up" | "down" | "left" | "right", offset?: number
 
 <template>
   <div ref="cropperWrapperRef" class="flex flex-col gap-8">
-    <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" />
+    <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="img" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" @ready="onCropperReady" />
     <div class="flex flex-col gap-2">
       <div class="flex items-center gap-4">
         <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
