@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import Avatar from "@/assets/img/avatar.jpg";
-import Background from "@/assets/img/background.jpeg";
 import { resizeCanvas } from "@/utils/canvas";
 // @see https://github.com/vitejs/vite/issues/11823
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
@@ -9,17 +8,18 @@ import { checkVisibility } from "@/utils/dom";
 import type { RawDrawOptions } from "@/utils/draw";
 
 export interface FansCardProps {
-  avatar: string;
-  nickname: string;
-  no: number;
-  date: string;
-  color: string;
-  background: {
-    image: string;
-    origin: [number, number];
-    size: [number, number];
+  avatar?: string;
+  nickname?: string;
+  no?: number;
+  date?: string;
+  color?: string;
+  background?: {
+    image?: string;
+    origin?: [number, number];
+    size?: [number, number];
+    color?: string;
   };
-  foreground: {
+  foreground?: {
     gradient: {
       [K in "left" | "right"]?: {
         color: string;
@@ -36,25 +36,6 @@ const props = withDefaults(defineProps<FansCardProps>(), {
   no: 1,
   date: dayjs().format("YYYY/MM/DD"),
   color: "#fff",
-  background: () => ({
-    image: Background,
-    origin: [0, 200] as [number, number],
-    size: [1125, 463] as [number, number],
-  }),
-  foreground: () => ({
-    gradient: {
-      left: {
-        color: "#eaba80",
-        start: 0.19,
-        end: 0.35,
-      },
-      right: {
-        color: "#eaba80",
-        start: 0,
-        end: 0.27,
-      },
-    },
-  }),
 });
 
 const width = ref(0);
@@ -68,8 +49,8 @@ const options = computed<RawDrawOptions>(() => ({
   template: {
     cardStyle: {
       color: props.color,
-      background: props.background,
-      foreground: props.foreground,
+      background: toRaw(props.background),
+      foreground: toRaw(props.foreground),
     },
   },
   user: {
@@ -105,6 +86,7 @@ useResizeObserver(divRef, (entries) => {
 });
 
 function render() {
+  console.log(options.value);
   post(options.value);
 }
 

@@ -5,7 +5,10 @@ const cache = new LRUCache<string, ImageBitmap | HTMLImageElement>({
   max: 10,
 });
 
-export async function resolveImage(image: string, alt?: string) {
+export async function resolveImage(image?: string, alt?: string) {
+  if (!image) {
+    return;
+  }
   const _isWebWorker = isWebWorker();
   const key = `${image}?${_isWebWorker ? "worker" : "browser"}`;
   if (cache.has(key)) {

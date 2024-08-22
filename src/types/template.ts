@@ -5,7 +5,7 @@ export interface TemplateManifest {
   copywriting: {
     name: string;
     link: string;
-    post: string;
+    post?: string;
   };
   cardStyle: {
     color: string;

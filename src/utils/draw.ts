@@ -8,8 +8,27 @@ import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 export interface RawDrawOptions {
   width: number;
   height: number;
-  template: Pick<TemplateManifest, "cardStyle">;
-  user: User;
+  template?: {
+    cardStyle: {
+      color?: string;
+      foreground?: {
+        gradient: {
+          [K in "left" | "right"]?: {
+            start: number;
+            end: number;
+            color: string;
+          };
+        };
+      };
+      background?: {
+        image?: string;
+        origin?: [number, number];
+        size?: [number, number];
+        color?: string;
+      };
+    };
+  };
+  user?: Partial<User>;
 }
 
 export interface DrawOptions {
@@ -46,15 +65,15 @@ export interface DrawOptions {
         };
       };
     };
-    background: {
-      image: ImageBitmap | HTMLImageElement;
+    background?: {
+      image?: ImageBitmap | HTMLImageElement;
       origin: [number, number];
       size: [number, number];
       color?: string;
     };
   };
   user: {
-    nickname: {
+    nickname?: {
       text: string;
       style: {
         fontSize: number;
@@ -62,7 +81,7 @@ export interface DrawOptions {
         y: number;
       };
     };
-    avatar: {
+    avatar?: {
       image: ImageBitmap | HTMLImageElement;
       style: {
         width: number;
@@ -84,7 +103,7 @@ export interface DrawOptions {
           y: number;
         };
       };
-      number: {
+      number?: {
         text: string;
         style: {
           fontSize: number;
@@ -103,7 +122,7 @@ export interface DrawOptions {
           y: number;
         };
       };
-      date: {
+      date?: {
         text: string;
         style: {
           fontSize: number;
@@ -118,11 +137,11 @@ export interface DrawOptions {
 
 export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptions> {
   const { template, user, width, height } = options;
-  const { cardStyle } = template;
-  const { background } = cardStyle;
+  const { cardStyle } = template || {};
+  const { background } = cardStyle || {};
 
-  const backgroundImage = await resolveImage(background.image);
-  const avatarImage = await resolveImage(user.avatar);
+  const backgroundImage = background && await resolveImage(background.image);
+  const avatarImage = user && await resolveImage(user.avatar);
 
   const fontSize = width / 30.375;
   const padding: DrawOptions["cardStyle"]["padding"] = {
@@ -131,27 +150,31 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
     bottom: 0.4375 * fontSize,
     left: 1.125 * fontSize,
   };
-  const avatar: DrawOptions["user"]["avatar"] = {
-    image: avatarImage,
-    style: {
-      width: 1.9375 * fontSize,
-      height: 1.9375 * fontSize,
-      outline: {
-        color: "#fff",
-        width: 0.0625 * fontSize,
-      },
-      x: padding.left,
-      y: padding.top,
-    },
-  };
-  const nickname: DrawOptions["user"]["nickname"] = {
-    text: user.nickname,
-    style: {
-      fontSize: 1.125 * fontSize,
-      x: padding.left + avatar.style.width + 0.8 * fontSize,
-      y: padding.top + 1.87 * fontSize,
-    },
-  };
+  const avatar: DrawOptions["user"]["avatar"] = avatarImage
+    ? {
+        image: avatarImage,
+        style: {
+          width: 1.9375 * fontSize,
+          height: 1.9375 * fontSize,
+          outline: {
+            color: "#fff",
+            width: 0.0625 * fontSize,
+          },
+          x: padding.left,
+          y: padding.top,
+        },
+      }
+    : undefined;
+  const nickname: DrawOptions["user"]["nickname"] = (user?.nickname && avatar)
+    ? {
+        text: user.nickname,
+        style: {
+          fontSize: 1.125 * fontSize,
+          x: padding.left + avatar.style.width + 0.8 * fontSize,
+          y: padding.top + 1.87 * fontSize,
+        },
+      }
+    : undefined;
   const no: DrawOptions["user"]["no"] = {
     title: {
       text: "FANS NO.",
@@ -161,15 +184,17 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
         y: padding.top + 4.825 * fontSize,
       },
     },
-    number: {
-      text: user.no.toString().padStart(6, "0"),
-      style: {
-        fontSize: 1.8125 * fontSize,
-        letterSpacing: 0.0625 * fontSize,
-        x: padding.left,
-        y: padding.top + 7.15 * fontSize,
-      },
-    },
+    number: isDefined(user?.no)
+      ? {
+          text: user.no.toString().padStart(6, "0"),
+          style: {
+            fontSize: 1.8125 * fontSize,
+            letterSpacing: 0.0625 * fontSize,
+            x: padding.left,
+            y: padding.top + 7.15 * fontSize,
+          },
+        }
+      : undefined,
   };
   const date: DrawOptions["user"]["date"] = {
     title: {
@@ -180,15 +205,17 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
         y: padding.top + 9.35 * fontSize,
       },
     },
-    date: {
-      text: user.date,
-      style: {
-        fontSize: 1 * fontSize,
-        letterSpacing: 0.04 * fontSize,
-        x: padding.left,
-        y: padding.top + 10.725 * fontSize,
-      },
-    },
+    date: isDefined(user?.date)
+      ? {
+          text: user.date,
+          style: {
+            fontSize: 1 * fontSize,
+            letterSpacing: 0.04 * fontSize,
+            x: padding.left,
+            y: padding.top + 10.725 * fontSize,
+          },
+        }
+      : undefined,
   };
 
   return {
@@ -196,7 +223,7 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
     height,
     fontSize,
     cardStyle: {
-      color: cardStyle.color,
+      color: cardStyle?.color || "#ffffff",
       borderRadius: fontSize * 0.375,
       font: {
         normal: {
@@ -211,10 +238,12 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
         },
       },
       padding,
-      foreground: cardStyle.foreground,
+      foreground: cardStyle?.foreground,
       background: {
-        ...background,
         image: backgroundImage,
+        origin: background?.origin || [0, 0],
+        size: background?.size || [width, height],
+        color: background?.color,
       },
     },
     user: {
@@ -252,19 +281,23 @@ export async function render(options: RawDrawOptions, canvas?: HTMLCanvasElement
   const drawOptions = await resolveOptions(options);
   await loadFont();
   const { width, height, cardStyle } = drawOptions;
-  const { image, origin = [0, 0], size = [width, height], color: backgroundColor } = cardStyle.background;
   const _canvas = canvas || create(width, height);
   const ctx = getContext(_canvas);
   clipBackground(ctx, drawOptions);
-  if (backgroundColor) {
-    // Background color
-    ctx.save();
-    ctx.fillStyle = backgroundColor;
-    ctx.fill();
-    ctx.restore();
+  if (cardStyle.background) {
+    const { image, origin = [0, 0], size = [width, height], color: backgroundColor } = cardStyle.background;
+    if (backgroundColor) {
+      // Background color
+      ctx.save();
+      ctx.fillStyle = backgroundColor;
+      ctx.fill();
+      ctx.restore();
+    }
+    // Background image
+    if (image) {
+      ctx.drawImage(image, origin[0], origin[1], size[0], size[1], 0, 0, width, height);
+    }
   }
-  // Background image
-  ctx.drawImage(image, origin[0], origin[1], size[0], size[1], 0, 0, width, height);
   if (cardStyle.foreground) {
     drawForeground(ctx, drawOptions);
   }
@@ -327,33 +360,37 @@ export function drawUser(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
   const { cardStyle, user } = options;
   const { color, padding, font } = cardStyle;
   const { avatar, nickname } = user;
-  const { outline } = avatar.style;
-  // outline
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(padding.left + avatar.style.width / 2, padding.top + avatar.style.height / 2, avatar.style.width / 2 + outline.width, 0, Math.PI * 2);
-  ctx.strokeStyle = outline.color;
-  ctx.lineWidth = outline.width;
-  ctx.stroke();
-  ctx.restore();
-  // avatar
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(padding.left + avatar.style.width / 2, padding.top + avatar.style.height / 2, avatar.style.width / 2, 0, Math.PI * 2);
-  ctx.clip();
-  ctx.drawImage(avatar.image, padding.left, padding.top, avatar.style.width, avatar.style.height);
-  ctx.restore();
-  // nickname
-  ctx.save();
-  ctx.fillStyle = color;
-  ctx.font = `${nickname.style.fontSize}px ${font.normal.fontFamily}`;
-  ctx.fillText(nickname.text, nickname.style.x, nickname.style.y);
-  ctx.restore();
+  if (avatar) {
+    const { outline } = avatar.style;
+    // outline
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(padding.left + avatar.style.width / 2, padding.top + avatar.style.height / 2, avatar.style.width / 2 + outline.width, 0, Math.PI * 2);
+    ctx.strokeStyle = outline.color;
+    ctx.lineWidth = outline.width;
+    ctx.stroke();
+    ctx.restore();
+    // avatar
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(padding.left + avatar.style.width / 2, padding.top + avatar.style.height / 2, avatar.style.width / 2, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.drawImage(avatar.image, padding.left, padding.top, avatar.style.width, avatar.style.height);
+    ctx.restore();
+  }
+  if (nickname) {
+    // nickname
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.font = `${nickname.style.fontSize}px ${font.normal.fontFamily}`;
+    ctx.fillText(nickname.text, nickname.style.x, nickname.style.y);
+    ctx.restore();
+  }
 }
 
 export function drawFansNo(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, options: DrawOptions) {
   const { cardStyle, user } = options;
-  const { color, font } = cardStyle;
+  const { color = "#ffffff", font } = cardStyle;
   const { no } = user;
   const { title, number } = no;
   // FANS NO.
@@ -363,18 +400,20 @@ export function drawFansNo(ctx: CanvasRenderingContext2D | OffscreenCanvasRender
   ctx.globalAlpha = font.mono.opacity;
   ctx.fillText(title.text, title.style.x, title.style.y);
   ctx.restore();
-  // number
-  ctx.save();
-  ctx.fillStyle = color;
-  ctx.font = `${number.style.fontSize}px ${font.kenney.fontFamily}`;
-  ctx.letterSpacing = `${number.style.letterSpacing}px`;
-  ctx.fillText(number.text, number.style.x, number.style.y);
-  ctx.restore();
+  if (number) {
+    // number
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.font = `${number.style.fontSize}px ${font.kenney.fontFamily}`;
+    ctx.letterSpacing = `${number.style.letterSpacing}px`;
+    ctx.fillText(number.text, number.style.x, number.style.y);
+    ctx.restore();
+  }
 }
 
 export function drawDate(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, options: DrawOptions) {
   const { cardStyle, user } = options;
-  const { color, font } = cardStyle;
+  const { color = "#ffffff", font } = cardStyle;
   const { date } = user;
   const { title, date: dateText } = date;
   // DATE
@@ -384,11 +423,13 @@ export function drawDate(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
   ctx.globalAlpha = font.mono.opacity;
   ctx.fillText(title.text, title.style.x, title.style.y);
   ctx.restore();
+  if (dateText) {
   // date
-  ctx.save();
-  ctx.fillStyle = color;
-  ctx.font = `${dateText.style.fontSize}px ${font.normal.fontFamily}`;
-  ctx.letterSpacing = `${dateText.style.letterSpacing}px`;
-  ctx.fillText(dateText.text, dateText.style.x, dateText.style.y);
-  ctx.restore();
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.font = `${dateText.style.fontSize}px ${font.normal.fontFamily}`;
+    ctx.letterSpacing = `${dateText.style.letterSpacing}px`;
+    ctx.fillText(dateText.text, dateText.style.x, dateText.style.y);
+    ctx.restore();
+  }
 }
