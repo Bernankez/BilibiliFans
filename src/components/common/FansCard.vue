@@ -3,12 +3,34 @@ import dayjs from "dayjs";
 import Avatar from "@/assets/img/avatar.jpg";
 import Background from "@/assets/img/background.jpeg";
 import { resizeCanvas } from "@/utils/canvas";
-import type { RawDrawOptions } from "@/utils/draw";
 // @see https://github.com/vitejs/vite/issues/11823
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
 import { checkVisibility } from "@/utils/dom";
+import type { RawDrawOptions } from "@/utils/draw";
 
-const props = withDefaults(defineProps<Omit<RawDrawOptions, "width" | "height">>(), {
+export interface FansCardProps {
+  avatar: string;
+  nickname: string;
+  no: number;
+  date: string;
+  color: string;
+  background: {
+    image: string;
+    origin: [number, number];
+    size: [number, number];
+  };
+  foreground: {
+    gradient: {
+      [K in "left" | "right"]?: {
+        color: string;
+        start: number;
+        end: number;
+      };
+    };
+  };
+}
+
+const props = withDefaults(defineProps<FansCardProps>(), {
   avatar: Avatar,
   nickname: "科科Cole",
   no: 1,
@@ -16,8 +38,8 @@ const props = withDefaults(defineProps<Omit<RawDrawOptions, "width" | "height">>
   color: "#fff",
   background: () => ({
     image: Background,
-    origin: [0, 200],
-    size: [1125, 463],
+    origin: [0, 200] as [number, number],
+    size: [1125, 463] as [number, number],
   }),
   foreground: () => ({
     gradient: {
@@ -41,9 +63,21 @@ const height = ref(0);
 const divRef = ref<HTMLDivElement>();
 
 const options = computed<RawDrawOptions>(() => ({
-  ...props,
   width: width.value,
   height: height.value,
+  template: {
+    cardStyle: {
+      color: props.color,
+      background: props.background,
+      foreground: props.foreground,
+    },
+  },
+  user: {
+    avatar: props.avatar,
+    nickname: props.nickname,
+    no: props.no,
+    date: props.date,
+  },
 }));
 
 const { post, data } = useWebWorker<ImageBitmap>(DrawWorkerUrl, {
