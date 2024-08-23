@@ -23,7 +23,7 @@ const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
       <div class="text-2xl" :class="[icon]"></div>
     </div>
   </DefineTemplate>
-  <NTooltip v-if="tooltip" placement="left" :delay="1500" :keep-alive-on-hover="false" :duration="0">
+  <NTooltip v-if="tooltip" placement="left" :delay="1000" :keep-alive-on-hover="false" :duration="0">
     <template #trigger>
       <ReuseTemplate />
     </template>

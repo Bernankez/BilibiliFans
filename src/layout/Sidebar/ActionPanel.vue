@@ -2,6 +2,8 @@
 import Action from "./Action.vue";
 import type { Actions } from "@/store/sidebar";
 
+const { t } = useI18n();
+
 const sidebarStore = useSidebarStore();
 const { show, activeAction } = storeToRefs(sidebarStore);
 
@@ -13,13 +15,17 @@ function active(e: MouseEvent, id?: Actions) {
     show.value = true;
   }
 }
+
+function isSelfShow(id: Actions) {
+  return show.value && activeAction.value === id;
+}
 </script>
 
 <template>
   <div class="w-[var(--actions-width)] shrink-0 b-l-1 b-border b-solid">
-    <Action id="template" icon="i-uil-postcard" @click="active" />
-    <Action id="copywriting" icon="i-uil-text-fields" @click="active" />
-    <Action id="card" icon="i-uil-palette" @click="active" />
-    <Action id="user" icon="i-uil-user" @click="active" />
+    <Action id="template" :tooltip="isSelfShow('template') ? undefined : t('action.template.title')" icon="i-uil-postcard" @click="active" />
+    <Action id="copywriting" :tooltip="isSelfShow('copywriting') ? undefined : t('action.copywriting.title')" icon="i-uil-text-fields" @click="active" />
+    <Action id="card" :tooltip="isSelfShow('card') ? undefined : t('action.card.title')" icon="i-uil-palette" @click="active" />
+    <Action id="user" :tooltip="isSelfShow('user') ? undefined : t('action.user.title')" icon="i-uil-user" @click="active" />
   </div>
 </template>
