@@ -14,6 +14,8 @@ function asyncPanel(key?: Actions) {
       return defineAsyncComponent(() => import("./Card.vue"));
     case "user":
       return defineAsyncComponent(() => import("./User.vue"));
+    case "setting":
+      return defineAsyncComponent(() => import("./Setting.vue"));
   }
 }
 </script>

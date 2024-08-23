@@ -4,6 +4,7 @@ import copywriting from "./action/copywriting.json";
 import card from "./action/card.json";
 import user from "./action/user.json";
 import template from "./action/template.json";
+import setting from "./action/setting.json";
 import cropper from "./cropper.json";
 
 export const zhCN = {
@@ -15,5 +16,6 @@ export const zhCN = {
     copywriting,
     card,
     user,
+    setting,
   },
 };

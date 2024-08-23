@@ -27,5 +27,6 @@ function isSelfShow(id: Actions) {
     <Action id="copywriting" :tooltip="isSelfShow('copywriting') ? undefined : t('action.copywriting.title')" icon="i-uil-text-fields" @click="active" />
     <Action id="card" :tooltip="isSelfShow('card') ? undefined : t('action.card.title')" icon="i-uil-palette" @click="active" />
     <Action id="user" :tooltip="isSelfShow('user') ? undefined : t('action.user.title')" icon="i-uil-user" @click="active" />
+    <Action id="setting" :tooltip="isSelfShow('setting') ? undefined : t('action.setting.title')" icon="i-uil-setting" @click="active" />
   </div>
 </template>
