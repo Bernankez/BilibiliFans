@@ -85,7 +85,6 @@ const cropperWrapperRef = ref<HTMLDivElement>();
 const cropperRef = ref<InstanceType<typeof Cropper>>();
 useResizeObserver(cropperWrapperRef, (entries) => {
   if (entries[0]) {
-    // TODO FIX 大屏下，初始化时没有dom，后来有dom之后refresh时，框选位置不正确
     requestAnimationFrame(refresh);
   }
 });
