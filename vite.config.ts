@@ -8,6 +8,7 @@ import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { UtilsResolver } from "@bernankez/utils/resolver";
 import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
+import { transformLazyShow } from "v-lazy-show";
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -23,7 +24,15 @@ export default defineConfig(() => {
 
   return {
     plugins: [
-      vue(),
+      vue({
+        template: {
+          compilerOptions: {
+            nodeTransforms: [
+              transformLazyShow,
+            ],
+          },
+        },
+      }),
       UnoCSS(),
       AutoImport({
         imports: [
