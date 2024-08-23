@@ -5,7 +5,7 @@ const { t } = useI18n();
 const appStore = useAppStore();
 const { split, splitRatio } = storeToRefs(appStore);
 
-const { sm } = useBreakpoints(breakpointsTailwind);
+const { md } = useBreakpoints(breakpointsTailwind);
 
 const nickname = ref("科科Cole");
 const mode = ref<"preview" | "edit">("preview");
@@ -53,7 +53,7 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
           <template #trigger>
             <NButton secondary circle @click="split = true">
               <template #icon>
-                <div :class="sm ? 'i-material-symbols-view-column-2-outline' : 'i-material-symbols-view-agenda-outline'"></div>
+                <div :class="md ? 'i-material-symbols-view-column-2-outline' : 'i-material-symbols-view-agenda-outline'"></div>
               </template>
             </NButton>
           </template>
@@ -87,7 +87,7 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
       </Transition>
     </template>
     <!-- Split View -->
-    <NSplit v-else v-model:size="splitRatio" :max="0.7" :min="0.3" :direction="sm ? 'horizontal' : 'vertical'">
+    <NSplit v-else v-model:size="splitRatio" :max="0.7" :min="0.3" :direction="md ? 'horizontal' : 'vertical'">
       <template #1>
         <div class="h-full flex items-center justify-center">
           <div class="max-w-200 w-full p-4">
