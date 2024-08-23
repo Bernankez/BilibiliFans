@@ -48,7 +48,7 @@ function renderIcon(icon: string, as: "icon" | "text" = "icon") {
         <template #label>
           <div class="w-full flex items-center justify-between">
             <div>{{ t('action.setting.form.language') }}</div>
-            <NDropdown trigger="click" :options="langs" @select="switchLocale">
+            <NDropdown placement="bottom-end" trigger="click" :options="langs" @select="switchLocale">
               <Button :icon="langs.find(lang => lang.key === locale)?.icon" :auto-collapse="false" />
             </NDropdown>
           </div>
