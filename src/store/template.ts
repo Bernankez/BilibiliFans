@@ -36,7 +36,7 @@ export const useTemplateStore = defineStore("template", () => {
     }
   }
 
-  loadTemplate("luyejiu");
+  // loadTemplate("luyejiu");
 
   return {
     defaultTemplates,

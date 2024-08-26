@@ -16,13 +16,15 @@ const { open, reset, onChange } = useFileDialog({
   accept,
 });
 
-onChange((files) => {
+onChange(async (files) => {
   if (!files?.[0].name.endsWith(accept)) {
     message.error(t("action.template.import.error.invalidFile"));
     return;
   }
   const file = files[0];
-  importTemplate(file);
+  const template = await importTemplate(file);
+  // TODO add to custom templates
+  templateStore.currentTemplate = template;
 });
 
 const options = computed<(SelectOption | SelectGroupOption)[]>(() => [
@@ -58,7 +60,13 @@ const exporting = ref(false);
 async function onExport() {
   if (template.value) {
     exporting.value = true;
-    await exportTemplate(template.value);
+    const blob = await exportTemplate(template.value);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${template.value.name}${accept}`;
+    a.click();
+    URL.revokeObjectURL(url);
     exporting.value = false;
   }
 }
