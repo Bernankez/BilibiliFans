@@ -20,7 +20,7 @@ export interface RawDrawOptions {
         };
       };
       background?: {
-        image?: string;
+        image?: string | Blob;
         origin?: [number, number];
         size?: [number, number];
         color?: string;

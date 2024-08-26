@@ -1,4 +1,4 @@
-export interface TemplateManifest {
+export interface TemplateManifest<T extends string | Blob = string> {
   id: string;
   type: "default" | "custom";
   name: string;
@@ -19,7 +19,7 @@ export interface TemplateManifest {
       };
     };
     background: {
-      image: string;
+      image: T;
       origin: [number, number];
       size: [number, number];
       color?: string;

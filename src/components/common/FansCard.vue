@@ -14,7 +14,7 @@ export interface FansCardProps {
   date?: string;
   color?: string;
   background?: {
-    image?: string;
+    image?: string | Blob;
     origin?: [number, number];
     size?: [number, number];
     color?: string;
