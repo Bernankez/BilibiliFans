@@ -4,24 +4,32 @@ import type { Actions } from "@/store/sidebar";
 const sidebarStore = useSidebarStore();
 const { show, activeAction } = storeToRefs(sidebarStore);
 
+const Template = defineAsyncComponent(() => import("./Template.vue"));
+const Copywriting = defineAsyncComponent(() => import("./Copywriting.vue"));
+const Card = defineAsyncComponent(() => import("./Card.vue"));
+const User = defineAsyncComponent(() => import("./User.vue"));
+const Setting = defineAsyncComponent(() => import("./Setting.vue"));
+
 function asyncPanel(key?: Actions) {
   switch (key) {
     case "template":
-      return defineAsyncComponent(() => import("./Template.vue"));
+      return Template;
     case "copywriting":
-      return defineAsyncComponent(() => import("./Copywriting.vue"));
+      return Copywriting;
     case "card":
-      return defineAsyncComponent(() => import("./Card.vue"));
+      return Card;
     case "user":
-      return defineAsyncComponent(() => import("./User.vue"));
+      return User;
     case "setting":
-      return defineAsyncComponent(() => import("./Setting.vue"));
+      return Setting;
   }
 }
 </script>
 
 <template>
   <div class="box-border overflow-auto b-border b-solid bg-background p-4" :class="[show ? 'b-l-1' : '']">
-    <component :is="asyncPanel(activeAction)" />
+    <KeepAlive>
+      <component :is="asyncPanel(activeAction)" />
+    </KeepAlive>
   </div>
 </template>
