@@ -1,25 +1,25 @@
 {
   "title": "Template",
-  "current": "Current template",
-  "none": "None",
-  "saveAs": {
-    "title": "Save as new template"
+  "import": {
+    "title": "Import template",
+    "error": {
+      "invalidFile": "Invalid template file"
+    }
   },
-  "save": {
-    "title": "Cover current template",
-    "confirm": "Are you sure to cover current template?"
+  "rename": {
+    "title": "Rename"
   },
   "export": {
     "title": "Export"
   },
+  "delete": {
+    "title": "Delete",
+    "confirm": "Are you sure to delete current template?"
+  },
   "select": {
-    "title": "Load template",
     "placeholder": {
       "default": "Default templates",
       "custom": "Custom templates"
     }
-  },
-  "load": {
-    "title": "Load"
   }
 }
