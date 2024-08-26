@@ -1,17 +1,5 @@
 <script setup lang="ts">
-import type { CSSProperties } from "vue";
-
-const toggle = useToggle(isDark);
 const { t } = useI18n();
-
-function railStyle({ focused }: { focused: boolean; checked: boolean }) {
-  const style: CSSProperties = {};
-  style.background = `rgb(var(--muted))`;
-  if (focused) {
-    style.boxShadow = `0 0 0 2px rgb(var(--primary))`;
-  }
-  return style;
-}
 </script>
 
 <template>
@@ -19,19 +7,9 @@ function railStyle({ focused }: { focused: boolean; checked: boolean }) {
     <div>
     </div>
     <div class="flex items-center gap-3">
-      <NTooltip>
-        <template #trigger>
-          <NSwitch :value="isDark" :rail-style="railStyle" @update:value="toggle">
-            <template #unchecked-icon>
-              <div class="i-uil:brightness"></div>
-            </template>
-            <template #checked-icon>
-              <div class="i-uil:moon rotate-y-180"></div>
-            </template>
-          </NSwitch>
-        </template>
-        {{ isDark ? t('app.theme.dark') : t('app.theme.light') }}
-      </NTooltip>
+      <NButton type="primary">
+        {{ t("app.interface.generate") }}
+      </NButton>
     </div>
   </header>
 </template>

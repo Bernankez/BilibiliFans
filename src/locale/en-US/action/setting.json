@@ -1,6 +1,11 @@
 {
   "title": "Settings",
   "form": {
-    "language": "Language"
+    "language": {
+      "title": "Language"
+    },
+    "theme": {
+      "title": "Theme"
+    }
   }
 }

@@ -1,6 +1,11 @@
 {
   "title": "设置",
   "form": {
-    "language": "语言"
+    "language": {
+      "title": "语言"
+    },
+    "theme": {
+      "title": "主题"
+    }
   }
 }
