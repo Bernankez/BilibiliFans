@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "@bernankez/eslint-config": "^1.6.1",
+    "@iconify-json/fluent-emoji": "^1.1.19",
+    "@iconify-json/fluent-emoji-flat": "^1.1.17",
     "@iconify-json/material-symbols": "^1.1.88",
     "@iconify-json/uil": "^1.1.9",
     "@types/node": "^22.1.0",
