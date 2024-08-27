@@ -8,7 +8,7 @@ const { t } = useI18n();
 const message = useMessage();
 
 const templateStore = useTemplateStore();
-const { defaultTemplates } = storeToRefs(templateStore);
+const { defaultTemplates, customTemplates, loading } = storeToRefs(templateStore);
 
 const id = ref<string>();
 
@@ -23,8 +23,7 @@ onChange(async (files) => {
   }
   const file = files[0];
   const template = await importTemplate(file);
-  // TODO add to custom templates
-  templateStore.currentTemplate = template;
+  customTemplates.value.push(template);
 });
 
 const options = computed<(SelectOption | SelectGroupOption)[]>(() => [
@@ -36,11 +35,10 @@ const options = computed<(SelectOption | SelectGroupOption)[]>(() => [
   {
     type: "group",
     name: t("action.template.select.placeholder.custom"),
-    children: [
-    ],
+    children: customTemplates.value,
   },
 ]);
-const template = computed(() => defaultTemplates.value.find(item => item.id === id.value));
+const template = computed(() => [...defaultTemplates.value, ...customTemplates.value].find(item => item.id === id.value));
 const currentTemplate = ref<TemplateManifest<Blob | string>>();
 watch(template, (template) => {
   if (template) {
@@ -88,20 +86,20 @@ async function onExport() {
       </div>
       <NDivider />
       <div class="flex flex-col gap-4">
-        <NSelect v-model:value="id" clearable label-field="name" value-field="id" :options />
+        <NSelect v-model:value="id" :loading clearable label-field="name" value-field="id" :options />
         <template v-if="currentTemplate">
           <DemoFansCard :template="currentTemplate" nickname="xxxxxx" />
           <div v-if="currentTemplate.type !== 'default'" class="flex gap-2">
             <NInput v-model:value="currentTemplate.name" />
-            <NButton quaternary type="primary" @click="rename">
+            <NButton secondary type="primary" @click="rename">
               {{ t('action.template.rename.title') }}
             </NButton>
           </div>
           <div class="flex gap-2">
-            <NButton v-if="currentTemplate.type !== 'default'" class="flex-1" quaternary type="error">
+            <NButton v-if="currentTemplate.type !== 'default'" class="flex-1" secondary type="error">
               {{ t('action.template.delete.title') }}
             </NButton>
-            <NButton :loading="exporting" class="flex-1" quaternary type="primary" @click="onExport">
+            <NButton :loading="exporting" class="flex-1" secondary type="primary" @click="onExport">
               {{ t('action.template.export.title') }}
             </NButton>
           </div>

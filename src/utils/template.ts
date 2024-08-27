@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import JSON5 from "json5";
+import { nanoid } from "nanoid";
 import type { TemplateManifest } from "@/types/template";
 
 export const accept = ".bilifans";
@@ -12,8 +13,10 @@ export async function importTemplate(file: File): Promise<TemplateManifest<Blob>
   const manifestContent = await manifest.async("string");
   const manifestJson = JSON5.parse(manifestContent);
   const backgroundBlob = await background.async("blob");
-  const template = {
+  const template: TemplateManifest<Blob> = {
     ...manifestJson,
+    id: nanoid(),
+    type: "custom",
     cardStyle: {
       ...manifestJson.cardStyle,
       background: {

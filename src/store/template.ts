@@ -1,19 +1,24 @@
 import { defineStore } from "pinia";
 import { klona } from "klona";
+import { useIDBKeyval } from "@vueuse/integrations/useIDBKeyval";
+/**
+ * @see https://github.com/microsoft/TypeScript/issues/47663#issuecomment-1519138189
+ */
+// eslint-disable-next-line unused-imports/no-unused-imports
+import type { RemovableRef } from "@vueuse/shared";
 import type { TemplateManifest } from "@/types/template";
 import { resolveDefaultTemplates } from "@/templates";
 
 export const useTemplateStore = defineStore("template", () => {
   const defaultTemplates = ref<TemplateManifest<string>[]>([]);
-  // TODO store using localforage
-  // const customTemplates = ref<TemplateSelectItem<Blob>[]>([]);
-  // TODO store using localforage
+  const { data: customTemplates, isFinished: resolvingCustomTemplates } = useIDBKeyval<TemplateManifest<Blob>[]>("bilifans-custom-template", []);
   const currentTemplate = ref<TemplateManifest<string | Blob>>();
-  const loading = ref(true);
+  const resolvingDefaultTemplates = ref(true);
+  const loading = computed(() => !resolvingCustomTemplates.value || resolvingDefaultTemplates.value);
 
   resolveDefaultTemplates().then((templates) => {
     defaultTemplates.value = templates;
-    loading.value = false;
+    resolvingDefaultTemplates.value = false;
   });
 
   function loadTemplate(id: string) {
@@ -30,8 +35,11 @@ export const useTemplateStore = defineStore("template", () => {
 
     function setTemplate() {
       const _defaultTemplate = defaultTemplates.value.find(item => item.id === id);
+      const _customTemplate = customTemplates.value.find(item => item.id === id);
       if (_defaultTemplate) {
         currentTemplate.value = klona(_defaultTemplate);
+      } else if (_customTemplate) {
+        currentTemplate.value = klona(_customTemplate);
       }
     }
   }
@@ -40,6 +48,7 @@ export const useTemplateStore = defineStore("template", () => {
 
   return {
     defaultTemplates,
+    customTemplates,
     currentTemplate,
     loading,
 

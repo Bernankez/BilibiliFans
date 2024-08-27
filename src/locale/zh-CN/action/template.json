@@ -1,5 +1,5 @@
 {
-  "title": "模版",
+  "title": "模版管理",
   "import": {
     "title": "导入模版",
     "error": {
@@ -7,7 +7,7 @@
     }
   },
   "rename": {
-    "title": "改名"
+    "title": "重命名"
   },
   "export": {
     "title": "导出"
