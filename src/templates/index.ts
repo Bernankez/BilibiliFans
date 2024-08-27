@@ -13,7 +13,7 @@ export async function resolveDefaultTemplates() {
     const dirname = module.split("/")[1];
     const json = await manifestModules[module]() as string;
     const manifest = JSON5.parse<TemplateManifest>(json);
-    const backgroundImage = (await import(`./${dirname}/${manifest.cardStyle.background.image}.png`)).default;
+    const backgroundImage = (await import(`./${dirname}/background.png`)).default;
     templates.push({
       ...manifest,
       type: "default",

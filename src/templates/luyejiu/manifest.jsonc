@@ -18,7 +18,6 @@
       }
     },
     "background": {
-      "image": "background",
       "origin": [0, 200],
       "size": [1125, 463]
     }
