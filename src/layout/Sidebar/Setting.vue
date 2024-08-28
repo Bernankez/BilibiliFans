@@ -86,6 +86,13 @@ function renderIcon(icon: string, as: "icon" | "text" = "icon") {
           </div>
         </template>
       </ActionFormItem>
+      <ActionFormItem>
+        <div class="flex justify-end">
+          <a href="https://github.com/Bernankez/BilibiliFans" target="_blank">
+            <div class="i-uil-github text-3xl transition hover:text-primary"></div>
+          </a>
+        </div>
+      </ActionFormItem>
     </NForm>
   </div>
 </template>

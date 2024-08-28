@@ -24,6 +24,7 @@ declare module 'vue' {
     NDropdown: typeof import('naive-ui')['NDropdown']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
+    NH1: typeof import('naive-ui')['NH1']
     NH2: typeof import('naive-ui')['NH2']
     NH3: typeof import('naive-ui')['NH3']
     NH4: typeof import('naive-ui')['NH4']
@@ -38,6 +39,7 @@ declare module 'vue' {
     NTooltip: typeof import('naive-ui')['NTooltip']
     NUpload: typeof import('naive-ui')['NUpload']
     NUploadDragger: typeof import('naive-ui')['NUploadDragger']
+    ResponsiveButton: typeof import('./src/components/ui/ResponsiveButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

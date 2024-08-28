@@ -4,10 +4,12 @@
     "dark": "暗色"
   },
   "interface": {
+    "chooseTemplate": "选择一个模版",
     "toggleEdit": "切换至编辑模式",
     "togglePreview": "切换至预览模式",
     "splitWindow": "拆分窗口",
     "mergeWindow": "合并窗口",
-    "generate": "生成卡片并复制动态"
+    "generate": "生成卡片并复制动态",
+    "new": "新建"
   }
 }

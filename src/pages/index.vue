@@ -5,7 +5,7 @@ const { t } = useI18n();
 const appStore = useAppStore();
 const { split, splitRatio } = storeToRefs(appStore);
 const templateStore = useTemplateStore();
-const { currentTemplate } = storeToRefs(templateStore);
+const { currentTemplate, defaultTemplates, customTemplates } = storeToRefs(templateStore);
 
 const { md } = useBreakpoints(breakpointsTailwind);
 
@@ -104,9 +104,19 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
         </template>
       </NSplit>
     </template>
-    <template v-else>
-      ffff
-    </template>
+    <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4">
+      <div class="grid grid-cols-1 w-fit justify-items-center gap-4 2xl:grid-cols-4 md:grid-cols-2 xl:grid-cols-3">
+        <NH2 class="col-span-1 mb-0 w-full px-3 2xl:col-span-4 md:col-span-2 xl:col-span-3">
+          {{ t("app.interface.chooseTemplate") }}
+        </NH2>
+        <div v-for="template in [...defaultTemplates, ...customTemplates]" :key="template.id" class="w-90 flex flex-col cursor-pointer gap-1 rounded-md p-3 transition hover:bg-muted">
+          <DemoFansCard :template="template" nickname="科科Cole" />
+          <div class="flex justify-center">
+            {{ template.name }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

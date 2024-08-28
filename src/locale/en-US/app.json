@@ -4,10 +4,12 @@
     "dark": "Dark"
   },
   "interface": {
+    "chooseTemplate": "Choose a template",
     "toggleEdit": "Switch to edit mode",
     "togglePreview": "Switch to preview mode",
     "splitWindow": "Split window",
     "mergeWindow": "Merge window",
-    "generate": "Generate card and copy post"
+    "generate": "Generate card and copy post",
+    "new": "New"
   }
 }
