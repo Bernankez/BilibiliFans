@@ -103,9 +103,9 @@ async function onExport() {
             </NButton>
           </div>
           <div class="flex gap-2">
-            <NPopconfirm placement="bottom-start" :positive-text="t('action.template.delete.confirmText')" @positive-click="onDelete">
+            <NPopconfirm v-if="currentTemplate.type !== 'default'" placement="bottom-start" :positive-text="t('action.template.delete.confirmText')" @positive-click="onDelete">
               <template #trigger>
-                <NButton v-if="currentTemplate.type !== 'default'" class="flex-1" secondary type="error">
+                <NButton class="flex-1" secondary type="error">
                   {{ t('action.template.delete.title') }}
                 </NButton>
               </template>
