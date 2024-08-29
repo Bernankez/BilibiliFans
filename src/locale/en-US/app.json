@@ -9,7 +9,13 @@
     "togglePreview": "Switch to preview mode",
     "splitWindow": "Split window",
     "mergeWindow": "Merge window",
-    "new": "New",
+    "new": {
+      "title": "New",
+      "confirm": {
+        "title": "Creating a new card will discard the current unsaved changes, continue?",
+        "confirm": "Continue"
+      }
+    },
     "save": {
       "title": "Save",
       "saveImage": "Save image",

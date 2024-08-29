@@ -9,7 +9,13 @@
     "togglePreview": "切换至预览模式",
     "splitWindow": "拆分窗口",
     "mergeWindow": "合并窗口",
-    "new": "新建",
+    "new": {
+      "title": "新建",
+      "confirm": {
+        "title": "新建卡片会丢失当前未保存的更改，是否继续？",
+        "confirm": "继续"
+      }
+    },
     "save": {
       "title": "保存",
       "saveImage": "保存图片",

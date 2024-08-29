@@ -46,6 +46,10 @@ const showNameDialog = ref(false);
 const type = ref<"export" | "saveTemplate">();
 const templateName = ref("");
 
+function onNew() {
+  currentTemplate.value = null;
+}
+
 function onSelect(key: string) {
   switch (key) {
     case "saveCard":
@@ -103,13 +107,18 @@ async function onConfirm(name: string) {
     </div>
     <div class="flex items-center gap-3">
       <template v-if="currentTemplate">
-        <ResponsiveButton secondary type="primary" :tooltip="t('app.interface.new')">
-          <template #icon>
-            <div class="i-uil-plus-square"></div>
+        <NPopconfirm :width="300" :positive-text="t('app.interface.new.confirm.confirm')" placement="bottom" @positive-click="onNew">
+          <template #trigger>
+            <ResponsiveButton secondary type="primary" :tooltip="t('app.interface.new.title')">
+              <template #icon>
+                <div class="i-uil-plus-square"></div>
+              </template>
+              {{ t("app.interface.new.title") }}
+            </ResponsiveButton>
           </template>
-          {{ t("app.interface.new") }}
-        </ResponsiveButton>
-        <NDropdown trigger="click" :options="exportMenus" @select="onSelect">
+          {{ t("app.interface.new.confirm.title") }}
+        </NPopconfirm>
+        <NDropdown trigger="click" placement="bottom" :options="exportMenus" @select="onSelect">
           <ResponsiveButton placement="bottom-end" type="primary" :tooltip="t('app.interface.save.title')">
             <template #icon>
               <div class="i-uil-save"></div>
