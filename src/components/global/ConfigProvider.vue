@@ -28,7 +28,7 @@ const naiveDateLocale = computed(() => {
 
 <template>
   <NConfigProvider abstract :theme="isDark ? darkTheme : lightTheme" :locale="naiveLocale" :date-locale="naiveDateLocale">
-    <NMessageProvider>
+    <NMessageProvider placement="bottom-right">
       <NDialogProvider>
         <slot></slot>
       </NDialogProvider>

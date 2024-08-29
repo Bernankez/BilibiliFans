@@ -13,6 +13,7 @@ declare module 'vue' {
     Cropper: typeof import('./src/components/global/Cropper.vue')['default']
     DemoFansCard: typeof import('./src/components/common/DemoFansCard.vue')['default']
     FansCard: typeof import('./src/components/common/FansCard.vue')['default']
+    NameDialog: typeof import('./src/components/common/NameDialog.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCheckbox: typeof import('naive-ui')['NCheckbox']
     NCollapseTransition: typeof import('naive-ui')['NCollapseTransition']
@@ -32,6 +33,8 @@ declare module 'vue' {
     NInput: typeof import('naive-ui')['NInput']
     NInputNumber: typeof import('naive-ui')['NInputNumber']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NModal: typeof import('naive-ui')['NModal']
+    NPopconfirm: typeof import('naive-ui')['NPopconfirm']
     NSelect: typeof import('naive-ui')['NSelect']
     NSlider: typeof import('naive-ui')['NSlider']
     NSplit: typeof import('naive-ui')['NSplit']
@@ -42,5 +45,6 @@ declare module 'vue' {
     ResponsiveButton: typeof import('./src/components/ui/ResponsiveButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WelcomeFansCard: typeof import('./src/components/common/WelcomeFansCard.vue')['default']
   }
 }

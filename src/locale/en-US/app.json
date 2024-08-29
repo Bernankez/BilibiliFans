@@ -9,7 +9,24 @@
     "togglePreview": "Switch to preview mode",
     "splitWindow": "Split window",
     "mergeWindow": "Merge window",
-    "generate": "Generate card and copy post",
-    "new": "New"
+    "new": "New",
+    "save": {
+      "title": "Save",
+      "saveImage": "Save image",
+      "export": {
+        "title": "Export as .bilifans file",
+        "success": "Exported successfully"
+      },
+      "saveTemplate": {
+        "title": "Save as new template",
+        "success": "Saved successfully"
+      }
+    },
+    "nameDialog": {
+      "title": "Please enter the template name",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "empty": "Template name cannot be empty"
+    }
   }
 }

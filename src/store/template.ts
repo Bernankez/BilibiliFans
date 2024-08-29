@@ -6,8 +6,10 @@ import { useIDBKeyval } from "@vueuse/integrations/useIDBKeyval";
  */
 // eslint-disable-next-line unused-imports/no-unused-imports
 import type { RemovableRef } from "@vueuse/shared";
+import { nanoid } from "nanoid";
 import type { TemplateManifest } from "@/types/template";
 import { resolveDefaultTemplates } from "@/templates";
+import { imageToBlob } from "@/utils/template";
 
 export const useTemplateStore = defineStore("template", () => {
   const defaultTemplates = ref<TemplateManifest<string>[]>([]);
@@ -27,8 +29,8 @@ export const useTemplateStore = defineStore("template", () => {
     }
 
     const stop = watchEffect(() => {
-      if (defaultTemplates.value.length) {
-        nextTick(stop);
+      if (!loading.value) {
+        nextTick(() => stop());
         setTemplate();
       }
     });
@@ -44,7 +46,22 @@ export const useTemplateStore = defineStore("template", () => {
     }
   }
 
-  // loadTemplate("luyejiu");
+  async function addCustomTemplate(template: Omit<TemplateManifest<Blob | string>, "type" | "id">) {
+    const backgroundImage = await imageToBlob(template.cardStyle.background.image);
+    const targetTemplate: TemplateManifest<Blob> = {
+      ...template,
+      type: "custom",
+      id: nanoid(),
+      cardStyle: {
+        ...template.cardStyle,
+        background: {
+          ...template.cardStyle.background,
+          image: backgroundImage,
+        },
+      },
+    };
+    customTemplates.value.push(klona(targetTemplate));
+  }
 
   return {
     defaultTemplates,
@@ -53,5 +70,6 @@ export const useTemplateStore = defineStore("template", () => {
     loading,
 
     loadTemplate,
+    addCustomTemplate,
   };
 });

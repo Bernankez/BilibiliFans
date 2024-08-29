@@ -21,20 +21,22 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 </script>
 
 <template>
-  <NTooltip v-if="!breakpoints[breakpoint].value" :placement>
-    <template #trigger>
-      <NButton v-bind="{ ...props, ...$attrs }">
-        <template #icon>
-          <slot name="icon"></slot>
-        </template>
-      </NButton>
-    </template>
-    {{ tooltip }}
-  </NTooltip>
-  <NButton v-else v-bind="{ ...props, ...$attrs }">
-    <template #icon>
-      <slot name="icon"></slot>
-    </template>
-    <slot></slot>
-  </NButton>
+  <div>
+    <NTooltip v-if="!breakpoints[breakpoint].value" :placement>
+      <template #trigger>
+        <NButton v-bind="{ ...props, ...$attrs }">
+          <template #icon>
+            <slot name="icon"></slot>
+          </template>
+        </NButton>
+      </template>
+      {{ tooltip }}
+    </NTooltip>
+    <NButton v-else v-bind="{ ...props, ...$attrs }">
+      <template #icon>
+        <slot name="icon"></slot>
+      </template>
+      <slot></slot>
+    </NButton>
+  </div>
 </template>

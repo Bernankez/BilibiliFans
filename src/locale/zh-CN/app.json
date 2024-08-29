@@ -9,7 +9,24 @@
     "togglePreview": "切换至预览模式",
     "splitWindow": "拆分窗口",
     "mergeWindow": "合并窗口",
-    "generate": "生成卡片并复制动态",
-    "new": "新建"
+    "new": "新建",
+    "save": {
+      "title": "保存",
+      "saveImage": "保存图片",
+      "export": {
+        "title": "导出为.bilifans文件",
+        "success": "导出成功"
+      },
+      "saveTemplate": {
+        "title": "保存为新模版",
+        "success": "保存成功"
+      }
+    },
+    "nameDialog": {
+      "title": "请输入模版名称",
+      "confirm": "确定",
+      "cancel": "取消",
+      "empty": "模版名称不能为空"
+    }
   }
 }

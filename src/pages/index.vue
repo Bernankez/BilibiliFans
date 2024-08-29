@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
+import type { TemplateManifest } from "@/types/template";
 
 const { t } = useI18n();
 const appStore = useAppStore();
@@ -21,6 +22,10 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
       size: [..._size],
     };
   }
+}
+
+function onTemplate(template: TemplateManifest<Blob | string>) {
+  templateStore.loadTemplate(template.id);
 }
 </script>
 
@@ -104,17 +109,12 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
         </template>
       </NSplit>
     </template>
-    <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4">
-      <div class="grid grid-cols-1 w-fit justify-items-center gap-4 2xl:grid-cols-4 md:grid-cols-2 xl:grid-cols-3">
-        <NH2 class="col-span-1 mb-0 w-full px-3 2xl:col-span-4 md:col-span-2 xl:col-span-3">
+    <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4 @container">
+      <div class="grid grid-cols-1 w-fit justify-items-center gap-4 @3xl:grid-cols-2 @6xl:grid-cols-3">
+        <NH2 class="col-span-1 mb-0 w-full px-3 @3xl:col-span-2 @6xl:col-span-3">
           {{ t("app.interface.chooseTemplate") }}
         </NH2>
-        <div v-for="template in [...defaultTemplates, ...customTemplates]" :key="template.id" class="w-90 flex flex-col cursor-pointer gap-1 rounded-md p-3 transition hover:bg-muted">
-          <DemoFansCard :template="template" nickname="科科Cole" />
-          <div class="flex justify-center">
-            {{ template.name }}
-          </div>
-        </div>
+        <WelcomeFansCard v-for="template in [...defaultTemplates, ...customTemplates]" :key="template.id" :template @click="onTemplate" />
       </div>
     </div>
   </div>

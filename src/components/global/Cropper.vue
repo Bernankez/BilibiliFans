@@ -212,7 +212,7 @@ const { url } = useBlobUrl(() => props.img);
 
 <template>
   <div ref="cropperWrapperRef" class="flex flex-col gap-8">
-    <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="url" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" @ready="onCropperReady" />
+    <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1 shadow-lg" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="url" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" @ready="onCropperReady" />
     <div class="flex flex-col gap-2">
       <div class="flex items-center gap-4">
         <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>

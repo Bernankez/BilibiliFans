@@ -3,6 +3,7 @@ import type { DropdownOption } from "naive-ui";
 import type { CSSProperties } from "vue";
 import type { AvailableLocales } from "@/utils/i18n";
 import { setLocale } from "@/utils/i18n";
+import { version } from "~/package.json";
 
 const toggle = useToggle(isDark);
 
@@ -87,7 +88,10 @@ function renderIcon(icon: string, as: "icon" | "text" = "icon") {
         </template>
       </ActionFormItem>
       <ActionFormItem>
-        <div class="flex justify-end">
+        <div class="flex items-center justify-end gap-2">
+          <div class="text-xl">
+            v{{ version }}
+          </div>
           <a href="https://github.com/Bernankez/BilibiliFans" target="_blank">
             <div class="i-uil-github text-3xl transition hover:text-primary"></div>
           </a>
