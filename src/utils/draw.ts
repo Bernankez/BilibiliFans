@@ -1,3 +1,4 @@
+import { isDefined } from "@bernankez/utils";
 import { resolveImage } from "./cache";
 import { create, getContext } from "./canvas";
 import { isWebWorker } from "./is";

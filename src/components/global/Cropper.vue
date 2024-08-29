@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { CircleStencil, Cropper, RectangleStencil } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
-import Background from "@/assets/img/background.jpeg";
 import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<{
@@ -19,7 +18,6 @@ const props = withDefaults(defineProps<{
   minHeight?: number;
 }>(), {
   type: "rectangle",
-  img: Background,
   defaultZoom: 50,
   aspectRatio: 1,
   imageRestriction: "fit",

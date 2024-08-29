@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from "vue";
 
-export function useBlobUrl(blob: MaybeRefOrGetter<Blob | string>) {
+export function useBlobUrl(blob: MaybeRefOrGetter<Blob | string | undefined>) {
   const url = ref<string>();
   watchEffect(() => {
     const value = toValue(blob);
