@@ -14,9 +14,9 @@ import { imageToBlob } from "@/utils/template";
 export const useTemplateStore = defineStore("template", () => {
   const defaultTemplates = ref<TemplateManifest<string>[]>([]);
   const { data: customTemplates, isFinished: resolvingCustomTemplates } = useIDBKeyval<TemplateManifest<Blob>[]>("bilifans-custom-template", []);
-  const currentTemplate = ref<TemplateManifest<string | Blob>>();
+  const { data: currentTemplate, isFinished: resolvingCurrentTemplate } = useIDBKeyval<TemplateManifest<Blob | string> | undefined>("bilifans-current-template", undefined);
   const resolvingDefaultTemplates = ref(true);
-  const loading = computed(() => !resolvingCustomTemplates.value || resolvingDefaultTemplates.value);
+  const loading = computed(() => !resolvingCustomTemplates.value || resolvingDefaultTemplates.value || !resolvingCurrentTemplate.value);
 
   resolveDefaultTemplates().then((templates) => {
     defaultTemplates.value = templates;
