@@ -10,7 +10,7 @@ const message = useMessage();
 const templateStore = useTemplateStore();
 const { defaultTemplates, customTemplates, loading } = storeToRefs(templateStore);
 
-const id = ref<string>();
+const id = ref<string | null>(null);
 
 const { open, reset, onChange } = useFileDialog({
   accept,
@@ -51,6 +51,13 @@ watch(template, (template) => {
 function rename() {
   if (template.value && currentTemplate.value) {
     template.value.name = currentTemplate.value.name;
+  }
+}
+
+function onDelete() {
+  if (template.value) {
+    templateStore.removeCustomTemplate(template.value.id);
+    id.value = null;
   }
 }
 
@@ -96,9 +103,14 @@ async function onExport() {
             </NButton>
           </div>
           <div class="flex gap-2">
-            <NButton v-if="currentTemplate.type !== 'default'" class="flex-1" secondary type="error">
-              {{ t('action.template.delete.title') }}
-            </NButton>
+            <NPopconfirm placement="bottom-start" :positive-text="t('action.template.delete.confirmText')" @positive-click="onDelete">
+              <template #trigger>
+                <NButton v-if="currentTemplate.type !== 'default'" class="flex-1" secondary type="error">
+                  {{ t('action.template.delete.title') }}
+                </NButton>
+              </template>
+              {{ t('action.template.delete.confirm') }}
+            </NPopconfirm>
             <NButton :loading="exporting" class="flex-1" secondary type="primary" @click="onExport">
               {{ t('action.template.export.title') }}
             </NButton>

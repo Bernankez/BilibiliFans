@@ -63,6 +63,10 @@ export const useTemplateStore = defineStore("template", () => {
     customTemplates.value.push(klona(targetTemplate));
   }
 
+  function removeCustomTemplate(id: string) {
+    customTemplates.value = klona(customTemplates.value.filter(item => item.id !== id));
+  }
+
   return {
     defaultTemplates,
     customTemplates,
@@ -71,5 +75,6 @@ export const useTemplateStore = defineStore("template", () => {
 
     loadTemplate,
     addCustomTemplate,
+    removeCustomTemplate,
   };
 });

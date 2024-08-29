@@ -14,7 +14,8 @@
   },
   "delete": {
     "title": "Delete",
-    "confirm": "Are you sure to delete current template?"
+    "confirm": "Are you sure to delete current template?",
+    "confirmText": "Confirm"
   },
   "select": {
     "placeholder": {

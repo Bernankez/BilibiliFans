@@ -14,7 +14,8 @@
   },
   "delete": {
     "title": "删除",
-    "confirm": "确定要删除当前模版吗？"
+    "confirm": "确定要删除当前模版吗？",
+    "confirmText": "确定"
   },
   "select": {
     "placeholder": {
