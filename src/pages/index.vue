@@ -110,11 +110,20 @@ function onTemplate(template: TemplateManifest<Blob | string>) {
       </NSplit>
     </template>
     <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4 @container">
-      <div class="grid grid-cols-1 w-fit justify-items-center gap-4 @3xl:grid-cols-2 @6xl:grid-cols-3">
-        <NH2 class="col-span-1 mb-0 w-full px-3 @3xl:col-span-2 @6xl:col-span-3">
-          {{ t("app.interface.chooseTemplate") }}
-        </NH2>
-        <WelcomeFansCard v-for="template in [...defaultTemplates, ...customTemplates]" :key="template.id" :template @click="onTemplate" />
+      <NH2>
+        {{ t("app.interface.chooseTemplate") }}
+      </NH2>
+      <div class="grid grid-cols-1 w-fit justify-items-center gap-x-4 gap-y-1 @3xl:grid-cols-2 @6xl:grid-cols-3">
+        <div class="col-span-1 mb-0 w-full px-3 text-muted-foreground @3xl:col-span-2 @6xl:col-span-3">
+          {{ t("action.template.select.placeholder.default") }}
+        </div>
+        <WelcomeFansCard v-for="template in defaultTemplates" :key="template.id" :template @click="onTemplate" />
+      </div>
+      <div class="grid grid-cols-1 w-fit justify-items-center gap-x-4 gap-y-1 @3xl:grid-cols-2 @6xl:grid-cols-3">
+        <div class="col-span-1 mb-0 w-full px-3 text-muted-foreground @3xl:col-span-2 @6xl:col-span-3">
+          {{ t("action.template.select.placeholder.custom") }}
+        </div>
+        <WelcomeFansCard v-for="template in customTemplates" :key="template.id" :template @click="onTemplate" />
       </div>
     </div>
   </div>
