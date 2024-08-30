@@ -120,6 +120,7 @@ function onTemplate(template: TemplateManifest<Blob | string>) {
         <WelcomeFansCard v-for="template in defaultTemplates" :key="template.id" :template @click="onTemplate" />
       </div>
       <div class="grid grid-cols-1 w-fit justify-items-center gap-x-4 gap-y-1 @3xl:grid-cols-2 @6xl:grid-cols-3">
+        <!-- TODO add from drag to welcome page -->
         <div class="col-span-1 mb-0 w-full px-3 text-muted-foreground @3xl:col-span-2 @6xl:col-span-3">
           {{ t("action.template.select.placeholder.custom") }}
         </div>
