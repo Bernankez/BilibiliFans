@@ -14,7 +14,7 @@ import { imageToBlob } from "@/utils/template";
 export const useTemplateStore = defineStore("template", () => {
   const defaultTemplates = ref<TemplateManifest<string>[]>([]);
   const { data: customTemplates, isFinished: resolvingCustomTemplates } = useIDBKeyval<TemplateManifest<Blob>[]>("bilifans-custom-template", []);
-  const { data: currentTemplate, isFinished: resolvingCurrentTemplate } = useIDBKeyval<TemplateManifest<Blob | string> | undefined>("bilifans-current-template", undefined);
+  const { data: currentTemplate, isFinished: resolvingCurrentTemplate } = useIDBKeyval<TemplateManifest<string> | undefined>("bilifans-current-template", undefined);
   const resolvingDefaultTemplates = ref(true);
   const loading = computed(() => !resolvingCustomTemplates.value || resolvingDefaultTemplates.value || !resolvingCurrentTemplate.value);
 
@@ -39,11 +39,25 @@ export const useTemplateStore = defineStore("template", () => {
       const _defaultTemplate = defaultTemplates.value.find(item => item.id === id);
       const _customTemplate = customTemplates.value.find(item => item.id === id);
       if (_defaultTemplate) {
-        currentTemplate.value = klona(_defaultTemplate);
+        setCurrentTemplate(_defaultTemplate);
       } else if (_customTemplate) {
-        currentTemplate.value = klona(_customTemplate);
+        setCurrentTemplate(_customTemplate);
       }
     }
+  }
+
+  function setCurrentTemplate(template: TemplateManifest<Blob | string>) {
+    if (currentTemplate.value) {
+      const lastImage = currentTemplate.value.cardStyle.background.image;
+      if (typeof lastImage === "string") {
+        URL.revokeObjectURL(lastImage);
+      }
+    }
+    const image = template.cardStyle.background.image;
+    if (image instanceof Blob) {
+      template.cardStyle.background.image = URL.createObjectURL(image);
+    }
+    currentTemplate.value = klona(template) as TemplateManifest<string>;
   }
 
   async function addCustomTemplate(template: Omit<TemplateManifest<Blob | string>, "type" | "id">) {
@@ -74,6 +88,7 @@ export const useTemplateStore = defineStore("template", () => {
     loading,
 
     loadTemplate,
+    setCurrentTemplate,
     addCustomTemplate,
     removeCustomTemplate,
   };

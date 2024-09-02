@@ -42,7 +42,7 @@ function fileValidate(file: UploadSettledFileInfo) {
 async function importFile(file: UploadSettledFileInfo) {
   if (file.file) {
     const manifest = await importTemplate(file.file);
-    currentTemplate.value = manifest;
+    templateStore.setCurrentTemplate(manifest);
   }
 }
 </script>
@@ -129,7 +129,7 @@ async function importFile(file: UploadSettledFileInfo) {
     </template>
     <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4 @container">
       <div class="w-90 px-3 @3xl:w-184 @6xl:w-278">
-        <NUpload directory-dnd :show-file-list="false" :default-upload="false" @before-upload="v => fileValidate(v.file)" @change="v => importFile(v.file)">
+        <NUpload :accept directory-dnd :show-file-list="false" :default-upload="false" @before-upload="v => fileValidate(v.file)" @change="v => importFile(v.file)">
           <NUploadDragger>
             <div class="w-full flex flex-col items-center justify-center gap-5">
               <div class="i-uil-file-import text-4xl"></div>
