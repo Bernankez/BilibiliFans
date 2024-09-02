@@ -4,7 +4,11 @@
     "dark": "Dark"
   },
   "interface": {
-    "chooseTemplate": "Choose a template",
+    "dragFileToOpen": {
+      "placeholder": "Drag the .bilifans file here to open",
+      "typeValidate": "Only .bilifans files can be uploaded"
+    },
+    "chooseTemplate": "Or choose a template",
     "toggleEdit": "Switch to edit mode",
     "togglePreview": "Switch to preview mode",
     "splitWindow": "Split window",

@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
+import type { UploadSettledFileInfo } from "naive-ui";
 import type { TemplateManifest } from "@/types/template";
+import { accept, importTemplate } from "@/utils/template";
 
 const { t } = useI18n();
+const message = useMessage();
 const appStore = useAppStore();
 const { split, splitRatio } = storeToRefs(appStore);
 const templateStore = useTemplateStore();
@@ -26,6 +29,21 @@ function onCropperChange(_origin: [number, number], _size: [number, number]) {
 
 function onTemplate(template: TemplateManifest<Blob | string>) {
   templateStore.loadTemplate(template.id);
+}
+
+function fileValidate(file: UploadSettledFileInfo) {
+  const type = `.${file.name.split(".")[1]}`;
+  if (type !== accept) {
+    message.error(t("app.interface.dragFileToOpen.typeValidate"));
+    return false;
+  }
+}
+
+async function importFile(file: UploadSettledFileInfo) {
+  if (file.file) {
+    const manifest = await importTemplate(file.file);
+    currentTemplate.value = manifest;
+  }
 }
 </script>
 
@@ -110,9 +128,21 @@ function onTemplate(template: TemplateManifest<Blob | string>) {
       </NSplit>
     </template>
     <div v-else class="h-full w-full flex flex-col items-center overflow-auto p-4 @container">
-      <NH2>
-        {{ t("app.interface.chooseTemplate") }}
-      </NH2>
+      <div class="w-90 px-3 @3xl:w-184 @6xl:w-278">
+        <NUpload directory-dnd :show-file-list="false" :default-upload="false" @before-upload="v => fileValidate(v.file)" @change="v => importFile(v.file)">
+          <NUploadDragger>
+            <div class="w-full flex flex-col items-center justify-center gap-5">
+              <div class="i-uil-file-import text-4xl"></div>
+              <NText>
+                {{ t("app.interface.dragFileToOpen.placeholder") }}
+              </NText>
+            </div>
+          </NUploadDragger>
+        </NUpload>
+        <NH2>
+          {{ t("app.interface.chooseTemplate") }}
+        </NH2>
+      </div>
       <div class="grid grid-cols-1 w-fit justify-items-center gap-x-4 gap-y-1 @3xl:grid-cols-2 @6xl:grid-cols-3">
         <div class="col-span-1 mb-0 w-full px-3 text-muted-foreground @3xl:col-span-2 @6xl:col-span-3">
           {{ t("action.template.select.placeholder.default") }}
@@ -120,7 +150,6 @@ function onTemplate(template: TemplateManifest<Blob | string>) {
         <WelcomeFansCard v-for="template in defaultTemplates" :key="template.id" :template @click="onTemplate" />
       </div>
       <div class="grid grid-cols-1 w-fit justify-items-center gap-x-4 gap-y-1 @3xl:grid-cols-2 @6xl:grid-cols-3">
-        <!-- TODO add from drag to welcome page -->
         <div class="col-span-1 mb-0 w-full px-3 text-muted-foreground @3xl:col-span-2 @6xl:col-span-3">
           {{ t("action.template.select.placeholder.custom") }}
         </div>

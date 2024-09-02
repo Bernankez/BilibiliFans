@@ -4,7 +4,11 @@
     "dark": "暗色"
   },
   "interface": {
-    "chooseTemplate": "选择一个模版",
+    "dragFileToOpen": {
+      "placeholder": "拖动.bilifans文件到这里",
+      "typeValidate": "只可以上传.bilifans格式的文件"
+    },
+    "chooseTemplate": "或者选择一个模版",
     "toggleEdit": "切换至编辑模式",
     "togglePreview": "切换至预览模式",
     "splitWindow": "拆分窗口",
