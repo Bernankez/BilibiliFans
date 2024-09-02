@@ -1,7 +1,51 @@
 <script setup lang="ts">
+import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import BlankImage from "@/templates/default/background.png";
+
 const { t } = useI18n();
+const message = useMessage();
+
+const templateStore = useTemplateStore();
+const { currentTemplate } = storeToRefs(templateStore);
 
 const showForeground = ref(true);
+
+const { url: backgroundImageUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
+const fileList = computed<UploadFileInfo[]>(() => {
+  if (currentTemplate.value?.cardStyle.background.image) {
+    if (currentTemplate.value.cardStyle.background.image === BlankImage) {
+      return [];
+    }
+    return [{
+      id: "background",
+      name: "background",
+      url: backgroundImageUrl.value,
+      status: "finished",
+    }];
+  }
+  return [];
+});
+
+function beforeUpload(file: UploadSettledFileInfo) {
+  if (!file.type?.includes("image/")) {
+    message.error(t("action.card.form.backgroundImage.typeValidate"));
+    return false;
+  }
+}
+
+async function handleBackground(fileList: UploadFileInfo[]) {
+  if (!currentTemplate.value) {
+    return;
+  }
+  if (fileList.length) {
+    const background = fileList[0].file;
+    if (background) {
+      currentTemplate.value.cardStyle.background.image = background;
+    }
+  } else {
+    currentTemplate.value.cardStyle.background.image = BlankImage;
+  }
+}
 </script>
 
 <template>
@@ -11,12 +55,10 @@ const showForeground = ref(true);
     </NH2>
     <NForm label-width="auto">
       <ActionFormItem :label="t('action.card.form.fontColor.title')">
-        <NColorPicker />
+        <NColorPicker :value="currentTemplate?.cardStyle.color" :show-alpha="false" show-preview />
       </ActionFormItem>
       <ActionFormItem :label="t('action.card.form.backgroundImage.title')">
-        <NUpload
-          directory-dnd :max="1" list-type="image-card" :default-upload="false"
-        >
+        <NUpload :file-list accept="image/*" directory-dnd :max="1" list-type="image-card" :default-upload="false" @before-upload="v => beforeUpload(v.file)" @update:file-list="handleBackground">
           <NUploadDragger>
             <div>{{ t('action.card.form.backgroundImage.placeholder') }}</div>
           </NUploadDragger>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { SelectGroupOption, SelectOption } from "naive-ui";
-import { klona } from "klona";
 import type { TemplateManifest } from "@/types/template";
 import { accept, exportTemplate, importTemplate } from "@/utils/template";
 
@@ -42,7 +41,7 @@ const template = computed(() => [...defaultTemplates.value, ...customTemplates.v
 const currentTemplate = ref<TemplateManifest<Blob | string>>();
 watch(template, (template) => {
   if (template) {
-    currentTemplate.value = klona(template);
+    currentTemplate.value = template;
   } else {
     currentTemplate.value = undefined;
   }

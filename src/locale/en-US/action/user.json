@@ -5,7 +5,8 @@
   },
   "avatar": {
     "title": "Avatar",
-    "placeholder": "Click or drag file here to upload"
+    "placeholder": "Click or drag file here to upload",
+    "typeValidate": "Please upload image file"
   },
   "no": {
     "title": "NO."

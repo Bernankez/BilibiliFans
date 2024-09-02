@@ -1,4 +1,5 @@
 import { isDefined } from "@bernankez/utils";
+import Compressor from "compressorjs";
 import { resolveImage } from "./cache";
 import { create, getContext } from "./canvas";
 import { isWebWorker } from "./is";
@@ -432,4 +433,28 @@ export function drawDate(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
     ctx.fillText(dateText.text, dateText.style.x, dateText.style.y);
     ctx.restore();
   }
+}
+
+export function compressImage(file: Blob, options?: { limit?: number; log?: boolean }) {
+  const { limit, log = true } = options || {};
+  const size = file.size;
+  if (limit && size < limit) {
+    return file;
+  }
+  const quality = limit ? (limit / size) : 0.9;
+  return new Promise<File | Blob>((resolve, reject) => {
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    const compressor = new Compressor(file, {
+      quality,
+      success(result) {
+        if (log) {
+          console.log("compressed");
+        }
+        resolve(result);
+      },
+      error(err) {
+        reject(err);
+      },
+    });
+  });
 }

@@ -9,7 +9,8 @@
     },
     "backgroundImage": {
       "title": "Background Image",
-      "placeholder": "Click or drag file here to upload"
+      "placeholder": "Click or drag file here to upload",
+      "typeValidate": "Please upload image file"
     },
     "foreground": {
       "title": "Foreground Color",

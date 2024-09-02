@@ -5,7 +5,8 @@
   },
   "avatar": {
     "title": "头像",
-    "placeholder": "点击或拖动文件到此处上传"
+    "placeholder": "点击或拖动文件到此处上传",
+    "typeValidate": "请上传图片文件"
   },
   "no": {
     "title": "装扮编号"

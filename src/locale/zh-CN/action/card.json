@@ -9,7 +9,8 @@
     },
     "backgroundImage": {
       "title": "背景图片",
-      "placeholder": "点击或拖动文件到此处上传"
+      "placeholder": "点击或拖动文件到此处上传",
+      "typeValidate": "请上传图片文件"
     },
     "foreground": {
       "title": "前景色",

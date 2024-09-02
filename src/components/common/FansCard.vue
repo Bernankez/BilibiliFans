@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
+import { klona } from "klona";
 import Avatar from "@/assets/img/avatar.jpg";
 import { resizeCanvas } from "@/utils/canvas";
 // @see https://github.com/vitejs/vite/issues/11823
@@ -85,11 +86,16 @@ useResizeObserver(divRef, (entries) => {
   });
 });
 
+const { url } = useBlobUrl(computed(() => options.value.template?.cardStyle.background?.image));
 function render() {
   if (!options.value.template?.cardStyle.background) {
     return;
   }
-  post(options.value);
+  const _options = klona(options.value);
+  if (_options.template?.cardStyle.background) {
+    _options.template.cardStyle.background.image = url.value;
+  }
+  post(_options);
 }
 
 watch(data, (imageBitmap) => {
