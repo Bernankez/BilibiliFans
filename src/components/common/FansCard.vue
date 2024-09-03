@@ -50,8 +50,8 @@ const options = computed<RawDrawOptions>(() => ({
   template: {
     cardStyle: {
       color: props.color,
-      background: toRaw(props.background),
-      foreground: toRaw(props.foreground),
+      background: props.background,
+      foreground: props.foreground,
     },
   },
   user: {
@@ -66,6 +66,8 @@ const { post, data } = useWebWorker<ImageBitmap>(DrawWorkerUrl, {
   type: "module",
 });
 
+// NOTE useBlobUrl should place before watch options
+const { url } = useBlobUrl(computed(() => options.value.template?.cardStyle.background?.image));
 watch(options, () => {
   render();
 }, {
@@ -86,7 +88,6 @@ useResizeObserver(divRef, (entries) => {
   });
 });
 
-const { url } = useBlobUrl(computed(() => options.value.template?.cardStyle.background?.image));
 function render() {
   if (!options.value.template?.cardStyle.background) {
     return;
