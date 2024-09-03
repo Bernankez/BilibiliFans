@@ -9,6 +9,7 @@ const templateStore = useTemplateStore();
 const { currentTemplate } = storeToRefs(templateStore);
 
 const { url: backgroundUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
+const { palette } = usePalette(backgroundUrl, 10);
 const fileList = computed<UploadFileInfo[]>(() => {
   if (backgroundUrl.value) {
     return [{
@@ -20,6 +21,13 @@ const fileList = computed<UploadFileInfo[]>(() => {
   }
   return [];
 });
+
+function setBackgroundGradientLeftColor(color: string) {
+  if (currentTemplate.value?.cardStyle.foreground?.gradient.left) {
+    currentTemplate.value.cardStyle.foreground.gradient.left.color = color;
+    currentTemplate.value.cardStyle.color = inferFontColor(color);
+  }
+}
 
 const leftGradient = computed({
   get: () => {
@@ -103,18 +111,19 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
       <ActionFormItem :label="t('action.card.form.background.title')">
         <NColorPicker :value="currentTemplate?.cardStyle.background.color || '#ffffffff'" show-preview @update:value="v => currentTemplate && (currentTemplate.cardStyle.background.color = v)" />
       </ActionFormItem>
-      <div>
-        <NCollapseTransition :show="true">
-          <div class="mt-4">
-            <ActionFormItem :label="t('action.card.form.foreground.left.title')">
-              <NColorPicker :value="currentTemplate?.cardStyle.foreground?.gradient.left?.color" show-preview @update:value="v => currentTemplate?.cardStyle.foreground?.gradient.left && (currentTemplate.cardStyle.foreground.gradient.left.color = v)" />
-            </ActionFormItem>
-            <ActionFormItem :label="`${t('action.card.form.foreground.leftGradient.title')}（${leftGradient[0]}% - ${leftGradient[1]}%）`">
-              <NSlider v-model:value="leftGradient" range :step="1" />
-            </ActionFormItem>
+      <NCollapseTransition :show="true">
+        <ActionFormItem :label="t('action.card.form.foreground.left.title')">
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-wrap gap-2">
+              <Palette v-for="color in palette" :key="color.color" :color="color.color" @click="setBackgroundGradientLeftColor(color.color)" />
+            </div>
+            <NColorPicker :value="currentTemplate?.cardStyle.foreground?.gradient.left?.color" show-preview @update:value="v => currentTemplate?.cardStyle.foreground?.gradient.left && (currentTemplate.cardStyle.foreground.gradient.left.color = v)" />
           </div>
-        </NCollapseTransition>
-      </div>
+        </ActionFormItem>
+        <ActionFormItem :label="`${t('action.card.form.foreground.leftGradient.title')}（${leftGradient[0]}% - ${leftGradient[1]}%）`">
+          <NSlider v-model:value="leftGradient" range :step="1" />
+        </ActionFormItem>
+      </NCollapseTransition>
     </NForm>
   </div>
 </template>

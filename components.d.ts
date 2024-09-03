@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ActionFormItem: typeof import('./src/components/ui/ActionFormItem.vue')['default']
     Button: typeof import('./src/components/ui/Button.vue')['default']
+    ColorSquare: typeof import('./src/components/common/Palette.vue')['default']
     ConfigProvider: typeof import('./src/components/global/ConfigProvider.vue')['default']
     Cropper: typeof import('./src/components/global/Cropper.vue')['default']
     DemoFansCard: typeof import('./src/components/common/DemoFansCard.vue')['default']
@@ -39,6 +40,7 @@ declare module 'vue' {
     NTooltip: typeof import('naive-ui')['NTooltip']
     NUpload: typeof import('naive-ui')['NUpload']
     NUploadDragger: typeof import('naive-ui')['NUploadDragger']
+    Palette: typeof import('./src/components/common/Palette.vue')['default']
     ResponsiveButton: typeof import('./src/components/ui/ResponsiveButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
