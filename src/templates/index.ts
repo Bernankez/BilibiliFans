@@ -1,6 +1,5 @@
 import JSON5 from "json5";
 import type { TemplateManifest } from "@/types/template";
-import { clipBackground } from "@/utils/draw";
 
 export async function resolveDefaultTemplates() {
   const manifestModules = import.meta.glob("./**/manifest.jsonc", {

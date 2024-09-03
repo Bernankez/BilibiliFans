@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
 import type { UploadSettledFileInfo } from "naive-ui";
-import dayjs from "dayjs";
 import type { TemplateManifest } from "@/types/template";
 import { accept, importTemplate } from "@/utils/template";
 

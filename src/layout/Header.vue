@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
-import { klona } from "klona";
 import dayjs from "dayjs";
 import { accept, exportTemplate } from "@/utils/template";
 import { draw } from "@/utils/draw-worker";

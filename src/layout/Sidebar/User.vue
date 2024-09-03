@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
-import dayjs from "dayjs";
 import { useUserStore } from "@/store/user";
 import { compressImage } from "@/utils/draw";
 

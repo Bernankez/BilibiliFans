@@ -449,6 +449,7 @@ export function compressImage(file: Blob, options?: { limit?: number; log?: bool
       quality,
       success(result) {
         if (log) {
+          // eslint-disable-next-line no-console
           console.log("compressed");
         }
         resolve(result);
