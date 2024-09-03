@@ -1,6 +1,9 @@
 {
   "title": "Settings",
   "form": {
+    "quality": {
+      "title": "Image size"
+    },
     "language": {
       "title": "Language"
     },

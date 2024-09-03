@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import dayjs from "dayjs";
 import { useUserStore } from "@/store/user";
 import { compressImage } from "@/utils/draw";
 
@@ -16,8 +17,10 @@ const dateFormat = computed(() => {
   }
 });
 
+const templateStore = useTemplateStore();
+const { currentTemplate } = storeToRefs(templateStore);
 const userStore = useUserStore();
-const { nickname, avatar, no, date } = storeToRefs(userStore);
+const { nickname, avatar, no } = storeToRefs(userStore);
 
 const fileList = computed<UploadFileInfo[]>(() => {
   if (avatar.value) {
@@ -73,7 +76,7 @@ async function handleAvatar(fileList: UploadFileInfo[]) {
         <NInputNumber v-model:value="no" :min="1" :max="999999" />
       </ActionFormItem>
       <ActionFormItem :label="t('action.user.date.title')">
-        <NDatePicker v-model:formatted-value="date" value-format="yyyy/MM/dd" :format="dateFormat" />
+        <NDatePicker clearable :formatted-value="currentTemplate?.copywriting.date" value-format="yyyy/MM/dd" :format="dateFormat" @update:formatted-value="v => currentTemplate && (currentTemplate.copywriting.date = v ?? undefined)" />
       </ActionFormItem>
     </NForm>
   </div>

@@ -9,7 +9,11 @@
       "reset": "Reset"
     },
     "post": {
-      "title": "Post"
+      "title": "Post",
+      "reset": "Reset",
+      "copy": {
+        "success": "Copied successfully"
+      }
     }
   }
 }

@@ -151,27 +151,28 @@ export async function resolveOptions(options: RawDrawOptions): Promise<DrawOptio
     bottom: 0.4375 * fontSize,
     left: 1.125 * fontSize,
   };
+  const _avatarStyle = {
+    width: 1.9375 * fontSize,
+    height: 1.9375 * fontSize,
+    outline: {
+      color: "#fff",
+      width: 0.0625 * fontSize,
+    },
+    x: padding.left,
+    y: padding.top,
+  };
   const avatar: DrawOptions["user"]["avatar"] = avatarImage
     ? {
         image: avatarImage,
-        style: {
-          width: 1.9375 * fontSize,
-          height: 1.9375 * fontSize,
-          outline: {
-            color: "#fff",
-            width: 0.0625 * fontSize,
-          },
-          x: padding.left,
-          y: padding.top,
-        },
+        style: _avatarStyle,
       }
     : undefined;
-  const nickname: DrawOptions["user"]["nickname"] = (user?.nickname && avatar)
+  const nickname: DrawOptions["user"]["nickname"] = user?.nickname
     ? {
         text: user.nickname,
         style: {
           fontSize: 1.125 * fontSize,
-          x: padding.left + avatar.style.width + 0.8 * fontSize,
+          x: padding.left + _avatarStyle.width + 0.8 * fontSize,
           y: padding.top + 1.87 * fontSize,
         },
       }

@@ -22,7 +22,10 @@
     },
     "save": {
       "title": "保存",
-      "saveImage": "保存图片",
+      "saveImage": {
+        "title": "保存图片",
+        "success": "图片已保存，动态已复制"
+      },
       "export": {
         "title": "导出为.bilifans文件",
         "success": "导出成功"

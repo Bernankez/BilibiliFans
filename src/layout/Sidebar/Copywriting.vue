@@ -1,5 +1,31 @@
 <script setup lang="ts">
 const { t } = useI18n();
+const message = useMessage();
+const templateStore = useTemplateStore();
+const { currentTemplate } = storeToRefs(templateStore);
+const defaultLink = "https://www.bilibili.com/h5/mall/home?navhide=1";
+
+function resetLink() {
+  if (currentTemplate.value) {
+    currentTemplate.value.copywriting.link = defaultLink;
+  }
+}
+
+// eslint-disable-next-line no-template-curly-in-string
+const defaultPost = "我是#${name}#的NO.${no}号真爱粉，靓号在手，走路带风，解锁专属粉丝卡片，使用专属粉丝装扮，你也来生成你的专属秀起来吧！${link}";
+
+function resetPost() {
+  if (currentTemplate.value) {
+    currentTemplate.value.copywriting.post = defaultPost;
+  }
+}
+
+const { copy } = useClipboard();
+const { post } = usePost();
+async function copyPost() {
+  await copy(post.value);
+  message.success(t("action.copywriting.form.post.copy.success"));
+}
 </script>
 
 <template>
@@ -9,21 +35,34 @@ const { t } = useI18n();
     </NH2>
     <NForm label-width="auto">
       <ActionFormItem :label="t('action.copywriting.form.vtuberName.title')">
-        <NInput />
+        <NInput :value="currentTemplate?.copywriting.name" @update:value="v => currentTemplate && (currentTemplate.copywriting.name = v)" />
       </ActionFormItem>
       <ActionFormItem>
         <template #label>
           <div class="w-full flex items-center justify-between">
             {{ t('action.copywriting.form.themeLink.title') }}
-            <NButton quaternary size="small" type="primary">
+            <NButton quaternary size="small" type="primary" @click="resetLink">
               {{ t('action.copywriting.form.themeLink.reset') }}
             </NButton>
           </div>
         </template>
-        <NInput type="textarea" />
+        <NInput :value="currentTemplate?.copywriting.link" type="textarea" @update:value="v => currentTemplate && (currentTemplate.copywriting.link = v)" />
       </ActionFormItem>
-      <ActionFormItem :label="t('action.copywriting.form.post.title')">
-        <NInput type="textarea" />
+      <ActionFormItem>
+        <template #label>
+          <div class="w-full flex items-center justify-between">
+            {{ t('action.copywriting.form.post.title') }}
+            <NButton quaternary size="small" type="primary" @click="resetPost">
+              {{ t('action.copywriting.form.post.reset') }}
+            </NButton>
+          </div>
+        </template>
+        <NInput :value="currentTemplate?.copywriting.post" type="textarea" @update:value="v => currentTemplate && (currentTemplate.copywriting.post = v)" />
+      </ActionFormItem>
+      <ActionFormItem class="cursor-default rounded-md p-2 transition hover:bg-accent" @click="copyPost">
+        <span class="break-all">
+          {{ post }}
+        </span>
       </ActionFormItem>
     </NForm>
   </div>

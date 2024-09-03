@@ -22,7 +22,10 @@
     },
     "save": {
       "title": "Save",
-      "saveImage": "Save image",
+      "saveImage": {
+        "title": "Save image",
+        "success": "Image saved successfully and post copied to clipboard"
+      },
       "export": {
         "title": "Export as .bilifans file",
         "success": "Exported successfully"

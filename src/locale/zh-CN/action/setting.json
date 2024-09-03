@@ -1,6 +1,9 @@
 {
   "title": "设置",
   "form": {
+    "quality": {
+      "title": "生成图片大小"
+    },
     "language": {
       "title": "语言"
     },

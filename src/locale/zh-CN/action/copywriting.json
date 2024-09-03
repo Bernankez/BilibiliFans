@@ -9,7 +9,11 @@
       "reset": "重置"
     },
     "post": {
-      "title": "动态"
+      "title": "动态",
+      "reset": "重置",
+      "copy": {
+        "success": "复制成功"
+      }
     }
   }
 }

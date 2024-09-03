@@ -9,6 +9,8 @@ const toggle = useToggle(isDark);
 
 const { t, locale } = useI18n();
 const router = useRouter();
+const appStore = useAppStore();
+const { imageSize, imageSizeRef } = storeToRefs(appStore);
 
 function railStyle({ focused }: { focused: boolean; checked: boolean }) {
   const style: CSSProperties = {};
@@ -51,12 +53,35 @@ function renderIcon(icon: string, as: "icon" | "text" = "icon") {
   }
   return () => icon;
 }
+
+const marks = {
+  24: "小",
+  50: "中",
+  92: "大",
+};
+
+function formatTooltip(n: number) {
+  const points = Object.keys(marks).map(v => Number(v));
+  points.sort();
+  let cur = marks[points[0] as keyof typeof marks];
+  for (const i of points) {
+    if (n > i) {
+      cur = marks[i as keyof typeof marks];
+    } else {
+      break;
+    }
+  }
+  return cur;
+}
 </script>
 
 <template>
   <div>
     <NH2>{{ t('action.setting.title') }}</NH2>
     <NForm label-width="auto">
+      <ActionFormItem :label="`${t('action.setting.form.quality.title')}（${imageSize[0]} x ${imageSize[1]}）`">
+        <NSlider v-model:value="imageSizeRef" :min="1" :max="100" :marks :step="1" :format-tooltip />
+      </ActionFormItem>
       <ActionFormItem>
         <template #label>
           <div class="w-full flex items-center justify-between">

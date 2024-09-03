@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
 import type { UploadSettledFileInfo } from "naive-ui";
+import dayjs from "dayjs";
 import type { TemplateManifest } from "@/types/template";
 import { accept, importTemplate } from "@/utils/template";
 
@@ -10,10 +11,11 @@ const appStore = useAppStore();
 const { split, splitRatio } = storeToRefs(appStore);
 const templateStore = useTemplateStore();
 const { currentTemplate, defaultTemplates, customTemplates } = storeToRefs(templateStore);
+const userStore = useUserStore();
+const { nickname, avatar, no } = storeToRefs(userStore);
 
 const { md } = useBreakpoints(breakpointsTailwind);
 
-const nickname = ref("科科Cole");
 const mode = ref<"preview" | "edit">("preview");
 
 function onCropperChange(_origin: [number, number], _size: [number, number]) {
@@ -99,7 +101,7 @@ async function importFile(file: UploadSettledFileInfo) {
       <template v-if="!split">
         <Transition name="card">
           <div v-show="mode === 'preview'" class="max-w-200 w-full p-4">
-            <FansCard :nickname :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
+            <FansCard :nickname :avatar :no :date="currentTemplate.copywriting.date" :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
           </div>
         </Transition>
         <Transition name="card">
@@ -116,7 +118,7 @@ async function importFile(file: UploadSettledFileInfo) {
         <template #1>
           <div class="h-full flex items-center justify-center">
             <div class="max-w-200 w-full p-4">
-              <FansCard :nickname :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
+              <FansCard :nickname :avatar :no :date="currentTemplate.copywriting.date" :color="currentTemplate?.cardStyle.color" :background="currentTemplate?.cardStyle.background" :foreground="currentTemplate?.cardStyle.foreground" />
             </div>
           </div>
         </template>

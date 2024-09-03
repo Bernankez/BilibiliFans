@@ -6,6 +6,7 @@ export interface TemplateManifest<T extends string | Blob = string> {
     name: string;
     link: string;
     post?: string;
+    date?: string;
   };
   cardStyle: {
     color: string;
