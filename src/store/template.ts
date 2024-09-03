@@ -39,9 +39,9 @@ export const useTemplateStore = defineStore("template", () => {
       const _defaultTemplate = defaultTemplates.value.find(item => item.id === id);
       const _customTemplate = customTemplates.value.find(item => item.id === id);
       if (_defaultTemplate) {
-        currentTemplate.value = _defaultTemplate;
+        currentTemplate.value = klona(_defaultTemplate);
       } else if (_customTemplate) {
-        currentTemplate.value = _customTemplate;
+        currentTemplate.value = klona(_customTemplate);
       }
     }
   }
