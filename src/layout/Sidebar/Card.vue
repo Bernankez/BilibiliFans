@@ -9,13 +9,13 @@ const { currentTemplate } = storeToRefs(templateStore);
 
 const showForeground = ref(true);
 
-const { url: backgroundImageUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
+const { url: backgroundUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
 const fileList = computed<UploadFileInfo[]>(() => {
-  if (currentTemplate.value?.cardStyle.background.image) {
+  if (backgroundUrl.value) {
     return [{
       id: "background",
       name: "background",
-      url: backgroundImageUrl.value,
+      thumbnailUrl: backgroundUrl.value,
       status: "finished",
     }];
   }
@@ -54,7 +54,7 @@ async function handleBackground(fileList: UploadFileInfo[]) {
         <NColorPicker :value="currentTemplate?.cardStyle.color" :show-alpha="false" show-preview />
       </ActionFormItem>
       <ActionFormItem :label="t('action.card.form.backgroundImage.title')">
-        <NUpload :file-list accept="image/*" directory-dnd :max="1" list-type="image-card" :default-upload="false" @before-upload="v => beforeUpload(v.file)" @update:file-list="handleBackground">
+        <NUpload :file-list accept="image/*" object-fit="scale-down" :should-use-thumbnail-url="() => true" directory-dnd :max="1" list-type="image-card" :default-upload="false" @before-upload="v => beforeUpload(v.file)" @update:file-list="handleBackground">
           <NUploadDragger>
             <div>{{ t('action.card.form.backgroundImage.placeholder') }}</div>
           </NUploadDragger>
