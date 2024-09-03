@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
-import BlankImage from "@/templates/default/background.png";
 
 const { t } = useI18n();
 const message = useMessage();
@@ -13,9 +12,6 @@ const showForeground = ref(true);
 const { url: backgroundImageUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
 const fileList = computed<UploadFileInfo[]>(() => {
   if (currentTemplate.value?.cardStyle.background.image) {
-    if (currentTemplate.value.cardStyle.background.image === BlankImage) {
-      return [];
-    }
     return [{
       id: "background",
       name: "background",
@@ -43,7 +39,7 @@ async function handleBackground(fileList: UploadFileInfo[]) {
       currentTemplate.value.cardStyle.background.image = background;
     }
   } else {
-    currentTemplate.value.cardStyle.background.image = BlankImage;
+    currentTemplate.value.cardStyle.background.image = undefined;
   }
 }
 </script>

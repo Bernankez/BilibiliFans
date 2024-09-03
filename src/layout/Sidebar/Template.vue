@@ -22,7 +22,9 @@ onChange(async (files) => {
   }
   const file = files[0];
   const template = await importTemplate(file);
-  customTemplates.value.push(template);
+  if (template) {
+    customTemplates.value.push(template);
+  }
 });
 
 const options = computed<(SelectOption | SelectGroupOption)[]>(() => [

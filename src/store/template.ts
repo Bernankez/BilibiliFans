@@ -47,7 +47,8 @@ export const useTemplateStore = defineStore("template", () => {
   }
 
   async function addCustomTemplate(template: Omit<TemplateManifest<Blob | string>, "type" | "id">) {
-    const backgroundImage = await imageToBlob(template.cardStyle.background.image);
+    const image = template.cardStyle.background.image;
+    const backgroundImage = image ? await imageToBlob(image) : undefined;
     const targetTemplate: TemplateManifest<Blob> = {
       ...template,
       type: "custom",

@@ -42,7 +42,9 @@ function fileValidate(file: UploadSettledFileInfo) {
 async function importFile(file: UploadSettledFileInfo) {
   if (file.file) {
     const manifest = await importTemplate(file.file);
-    currentTemplate.value = manifest;
+    if (manifest) {
+      currentTemplate.value = manifest;
+    }
   }
 }
 </script>

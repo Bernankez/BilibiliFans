@@ -5,27 +5,29 @@ import type { TemplateManifest } from "@/types/template";
 
 export const accept = ".bilifans";
 
-export async function importTemplate(file: File): Promise<TemplateManifest<Blob>> {
+export async function importTemplate(file: File): Promise<TemplateManifest<Blob> | undefined> {
   const zip = new JSZip();
   const zipFile = await zip.loadAsync(file);
-  const manifest = zipFile.file("manifest.jsonc")!;
-  const background = zipFile.file("background.png")!;
-  const manifestContent = await manifest.async("string");
-  const manifestJson = JSON5.parse(manifestContent);
-  const backgroundBlob = await background.async("blob");
-  const template: TemplateManifest<Blob> = {
-    ...manifestJson,
-    id: nanoid(),
-    type: "custom",
-    cardStyle: {
-      ...manifestJson.cardStyle,
-      background: {
-        ...manifestJson.cardStyle.background,
-        image: backgroundBlob,
+  const manifest = zipFile.file("manifest.jsonc");
+  const background = zipFile.file("background.png");
+  if (manifest) {
+    const manifestContent = await manifest.async("string");
+    const manifestJson = JSON5.parse(manifestContent);
+    const backgroundBlob = background ? await background.async("blob") : undefined;
+    const template: TemplateManifest<Blob> = {
+      ...manifestJson,
+      id: nanoid(),
+      type: "custom",
+      cardStyle: {
+        ...manifestJson.cardStyle,
+        background: {
+          ...manifestJson.cardStyle.background,
+          image: backgroundBlob,
+        },
       },
-    },
-  };
-  return template;
+    };
+    return template;
+  }
 }
 
 export async function exportTemplate(template: TemplateManifest<string | Blob>): Promise<Blob> {
@@ -42,7 +44,9 @@ export async function exportTemplate(template: TemplateManifest<string | Blob>):
     },
   };
   zip.file("manifest.jsonc", JSON5.stringify(targetTemplate, null, 2));
-  zip.file("background.png", new File([await imageToBlob(template.cardStyle.background.image)], "background.png"));
+  if (template.cardStyle.background.image) {
+    zip.file("background.png", new File([await imageToBlob(template.cardStyle.background.image)], "background.png"));
+  }
   const blob = await zip.generateAsync({ type: "blob" });
   return blob;
 }

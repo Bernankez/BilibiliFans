@@ -19,7 +19,7 @@ export interface TemplateManifest<T extends string | Blob = string> {
       };
     };
     background: {
-      image: T;
+      image?: T;
       origin: [number, number];
       size: [number, number];
       color?: string;
