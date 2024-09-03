@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import { fitBackground } from "@/utils/draw";
 
 const { t } = useI18n();
 const message = useMessage();
@@ -37,10 +38,25 @@ async function handleBackground(fileList: UploadFileInfo[]) {
     const background = fileList[0].file;
     if (background) {
       currentTemplate.value.cardStyle.background.image = background;
+      const { width, height } = await getImageDimensions(background);
+      const { origin, size } = fitBackground(width, height);
+      currentTemplate.value.cardStyle.background.origin = origin;
+      currentTemplate.value.cardStyle.background.size = size;
     }
   } else {
     currentTemplate.value.cardStyle.background.image = undefined;
   }
+}
+
+function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
 }
 </script>
 

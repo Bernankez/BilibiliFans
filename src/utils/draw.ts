@@ -286,7 +286,7 @@ export async function render(options: RawDrawOptions, canvas?: HTMLCanvasElement
   const ctx = getContext(_canvas);
   clipBackground(ctx, drawOptions);
   if (cardStyle.background) {
-    const { image, origin = [0, 0], size = [width, height], color: backgroundColor } = cardStyle.background;
+    const { image, origin, size, color: backgroundColor } = cardStyle.background;
     if (backgroundColor) {
       // Background color
       ctx.save();
@@ -457,4 +457,27 @@ export function compressImage(file: Blob, options?: { limit?: number; log?: bool
       },
     });
   });
+}
+
+export function fitBackground(imageWidth: number, imageHeight: number) {
+  const aspectRatio = 1 / 0.4115;
+
+  let width, height, x, y;
+
+  if (imageWidth / imageHeight > aspectRatio) {
+    height = imageHeight;
+    width = height * aspectRatio;
+    x = (imageWidth - width) / 2;
+    y = 0;
+  } else {
+    width = imageWidth;
+    height = width / aspectRatio;
+    x = 0;
+    y = (imageHeight - height) / 2;
+  }
+
+  return {
+    origin: [x, y] as [number, number],
+    size: [width, height] as [number, number],
+  };
 }
