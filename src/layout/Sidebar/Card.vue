@@ -8,8 +8,6 @@ const message = useMessage();
 const templateStore = useTemplateStore();
 const { currentTemplate } = storeToRefs(templateStore);
 
-const showForeground = ref(true);
-
 const { url: backgroundUrl } = useBlobUrl(computed(() => currentTemplate.value?.cardStyle.background.image));
 const fileList = computed<UploadFileInfo[]>(() => {
   if (backgroundUrl.value) {
@@ -21,6 +19,31 @@ const fileList = computed<UploadFileInfo[]>(() => {
     }];
   }
   return [];
+});
+
+const leftGradient = computed({
+  get: () => {
+    const { start = 0, end = 0 } = currentTemplate.value?.cardStyle.foreground?.gradient.left || {};
+    return [Math.round(start * 100), Math.round(end * 100)];
+  },
+  set: (v) => {
+    const start = Math.min(...v);
+    const end = Math.max(...v);
+    if (currentTemplate.value) {
+      const left = {
+        start: Number((start / 100).toFixed(2)),
+        end: Number((end / 100).toFixed(2)),
+        color: currentTemplate.value!.cardStyle.foreground!.gradient.left!.color,
+      };
+      currentTemplate.value.cardStyle.foreground = {
+        ...currentTemplate.value.cardStyle.foreground,
+        gradient: {
+          ...currentTemplate.value.cardStyle.foreground?.gradient,
+          left,
+        },
+      };
+    }
+  },
 });
 
 function beforeUpload(file: UploadSettledFileInfo) {
@@ -53,6 +76,7 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
     const img = new Image();
     img.onload = () => {
       resolve({ width: img.width, height: img.height });
+      URL.revokeObjectURL(img.src);
     };
     img.onerror = reject;
     img.src = URL.createObjectURL(file);
@@ -67,7 +91,7 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
     </NH2>
     <NForm label-width="auto">
       <ActionFormItem :label="t('action.card.form.fontColor.title')">
-        <NColorPicker :value="currentTemplate?.cardStyle.color" :show-alpha="false" show-preview />
+        <NColorPicker :value="currentTemplate?.cardStyle.color" show-preview @update:value="v => currentTemplate && (currentTemplate.cardStyle.color = v)" />
       </ActionFormItem>
       <ActionFormItem :label="t('action.card.form.backgroundImage.title')">
         <NUpload :file-list accept="image/*" object-fit="scale-down" :should-use-thumbnail-url="() => true" directory-dnd :max="1" list-type="image-card" :default-upload="false" @before-upload="v => beforeUpload(v.file)" @update:file-list="handleBackground">
@@ -77,19 +101,16 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
         </NUpload>
       </ActionFormItem>
       <ActionFormItem :label="t('action.card.form.background.title')">
-        <NColorPicker />
+        <NColorPicker :value="currentTemplate?.cardStyle.background.color || '#ffffffff'" show-preview @update:value="v => currentTemplate && (currentTemplate.cardStyle.background.color = v)" />
       </ActionFormItem>
       <div>
-        <NCheckbox v-model:checked="showForeground" class="w-full">
-          <div>{{ t('action.card.form.foreground.title') }}</div>
-        </NCheckbox>
-        <NCollapseTransition :show="showForeground">
+        <NCollapseTransition :show="true">
           <div class="mt-4">
             <ActionFormItem :label="t('action.card.form.foreground.left.title')">
-              <NColorPicker />
+              <NColorPicker :value="currentTemplate?.cardStyle.foreground?.gradient.left?.color" show-preview @update:value="v => currentTemplate?.cardStyle.foreground?.gradient.left && (currentTemplate.cardStyle.foreground.gradient.left.color = v)" />
             </ActionFormItem>
-            <ActionFormItem :label="t('action.card.form.foreground.leftGradient.title')">
-              <NSlider :step="1" />
+            <ActionFormItem :label="`${t('action.card.form.foreground.leftGradient.title')}（${leftGradient[0]}% - ${leftGradient[1]}%）`">
+              <NSlider v-model:value="leftGradient" range :step="1" />
             </ActionFormItem>
           </div>
         </NCollapseTransition>

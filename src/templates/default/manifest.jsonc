@@ -7,11 +7,11 @@
     "post": "我是#${name}#的NO.${no}号真爱粉，靓号在手，走路带风，解锁专属粉丝卡片，使用专属粉丝装扮，你也来生成你的专属秀起来吧！${link}"
   },
   "cardStyle": {
-    "color": "#ffffff",
+    "color": "#ffffffff",
     "foreground": {
       "gradient": {
         "left": {
-          "color": "#333333",
+          "color": "#333333ff",
           "start": 0.19,
           "end": 0.35
         }
