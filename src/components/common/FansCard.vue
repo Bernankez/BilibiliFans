@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { klona } from "klona";
-import Avatar from "@/assets/img/avatar.jpg";
 import { resizeCanvas } from "@/utils/canvas";
 // @see https://github.com/vitejs/vite/issues/11823
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
@@ -32,7 +31,6 @@ export interface FansCardProps {
 }
 
 const props = withDefaults(defineProps<FansCardProps>(), {
-  avatar: Avatar,
   nickname: "科科Cole",
   no: 1,
   date: dayjs().format("YYYY/MM/DD"),

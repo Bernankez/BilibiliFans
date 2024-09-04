@@ -8,6 +8,8 @@ const message = useMessage();
 
 const templateStore = useTemplateStore();
 const { defaultTemplates, customTemplates, loading } = storeToRefs(templateStore);
+const userStore = useUserStore();
+const { nickname, avatar } = storeToRefs(userStore);
 
 const id = ref<string | null>(null);
 
@@ -96,7 +98,7 @@ async function onExport() {
       <div class="flex flex-col gap-4">
         <NSelect v-model:value="id" :loading clearable label-field="name" value-field="id" :options />
         <template v-if="currentTemplate">
-          <DemoFansCard :template="currentTemplate" nickname="xxxxxx" />
+          <DemoFansCard :template="currentTemplate" :nickname :avatar />
           <div v-if="currentTemplate.type !== 'default'" class="flex gap-2">
             <NInput v-model:value="currentTemplate.name" />
             <NButton secondary type="primary" @click="rename">
