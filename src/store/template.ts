@@ -65,7 +65,8 @@ export const useTemplateStore = defineStore("template", () => {
   }
 
   function removeCustomTemplate(id: string) {
-    customTemplates.value = customTemplates.value.filter(item => item.id !== id);
+    const index = customTemplates.value.findIndex(t => t.id === id);
+    customTemplates.value.splice(index, 1);
   }
 
   return {
