@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import { useDisabled } from "./useDisabled";
 import { useUserStore } from "@/store/user";
 import { compressImage } from "@/utils/draw";
 
@@ -55,6 +56,8 @@ async function handleAvatar(fileList: UploadFileInfo[]) {
     avatar.value = "";
   }
 }
+
+const { disabled } = useDisabled();
 </script>
 
 <template>
@@ -75,7 +78,7 @@ async function handleAvatar(fileList: UploadFileInfo[]) {
         <NInputNumber v-model:value="no" :min="1" :max="999999" />
       </ActionFormItem>
       <ActionFormItem :label="t('action.user.date.title')">
-        <NDatePicker clearable :formatted-value="currentTemplate?.copywriting.date" value-format="yyyy/MM/dd" :format="dateFormat" @update:formatted-value="v => currentTemplate && (currentTemplate.copywriting.date = v ?? undefined)" />
+        <NDatePicker :disabled clearable :formatted-value="currentTemplate?.copywriting.date" value-format="yyyy/MM/dd" :format="dateFormat" @update:formatted-value="v => currentTemplate && (currentTemplate.copywriting.date = v ?? undefined)" />
       </ActionFormItem>
     </NForm>
   </div>

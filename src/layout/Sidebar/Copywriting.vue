@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useDisabled } from "./useDisabled";
+
 const { t } = useI18n();
 const message = useMessage();
 const templateStore = useTemplateStore();
@@ -26,6 +28,8 @@ async function copyPost() {
   await copy(post.value);
   message.success(t("action.copywriting.form.post.copy.success"));
 }
+
+const { disabled } = useDisabled();
 </script>
 
 <template>
@@ -33,7 +37,7 @@ async function copyPost() {
     <NH2>
       {{ t("action.copywriting.title") }}
     </NH2>
-    <NForm label-width="auto">
+    <NForm :disabled label-width="auto">
       <ActionFormItem :label="t('action.copywriting.form.vtuberName.title')">
         <NInput :value="currentTemplate?.copywriting.name" @update:value="v => currentTemplate && (currentTemplate.copywriting.name = v)" />
       </ActionFormItem>
@@ -41,7 +45,7 @@ async function copyPost() {
         <template #label>
           <div class="w-full flex items-center justify-between">
             {{ t('action.copywriting.form.themeLink.title') }}
-            <NButton quaternary size="small" type="primary" @click="resetLink">
+            <NButton :disabled quaternary size="small" type="primary" @click="resetLink">
               {{ t('action.copywriting.form.themeLink.reset') }}
             </NButton>
           </div>
@@ -52,7 +56,7 @@ async function copyPost() {
         <template #label>
           <div class="w-full flex items-center justify-between">
             {{ t('action.copywriting.form.post.title') }}
-            <NButton quaternary size="small" type="primary" @click="resetPost">
+            <NButton :disabled quaternary size="small" type="primary" @click="resetPost">
               {{ t('action.copywriting.form.post.reset') }}
             </NButton>
           </div>

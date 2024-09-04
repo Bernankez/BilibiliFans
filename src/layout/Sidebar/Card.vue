@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import { useDisabled } from "./useDisabled";
 import { fitBackground } from "@/utils/draw";
 
 const { t } = useI18n();
@@ -90,6 +91,8 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
     img.src = URL.createObjectURL(file);
   });
 }
+
+const { disabled } = useDisabled();
 </script>
 
 <template>
@@ -97,7 +100,7 @@ function getImageDimensions(file: File): Promise<{ width: number; height: number
     <NH2>
       {{ t('action.card.title') }}
     </NH2>
-    <NForm label-width="auto">
+    <NForm :disabled label-width="auto">
       <ActionFormItem :label="t('action.card.form.fontColor.title')">
         <NColorPicker :value="currentTemplate?.cardStyle.color" show-preview @update:value="v => currentTemplate && (currentTemplate.cardStyle.color = v)" />
       </ActionFormItem>
