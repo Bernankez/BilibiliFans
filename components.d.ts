@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ActionFormItem: typeof import('./src/components/ui/ActionFormItem.vue')['default']
+    AvatarCropper: typeof import('./src/components/common/AvatarCropper.vue')['default']
     Button: typeof import('./src/components/ui/Button.vue')['default']
     ColorSquare: typeof import('./src/components/common/Palette.vue')['default']
     ConfigProvider: typeof import('./src/components/global/ConfigProvider.vue')['default']
