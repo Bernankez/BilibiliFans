@@ -13,14 +13,14 @@ const props = withDefaults(defineProps<{
   defaultZoom?: number;
   /** w/h */
   aspectRatio?: number;
-  imageRestriction?: "fit" | "none";
   minWidth?: number;
   minHeight?: number;
+  defaultImageRestriction?: "fit" | "none";
 }>(), {
   type: "rectangle",
   defaultZoom: 50,
   aspectRatio: 1,
-  imageRestriction: "fit",
+  defaultImageRestriction: "fit",
 });
 
 const emit = defineEmits<{
@@ -206,6 +206,12 @@ function handleMove(direction: "up" | "down" | "left" | "right", offset?: number
 }
 
 const { url } = useBlobUrl(() => props.img);
+
+const controlledImageRestriction = defineModel<"fit" | "none">("imageRestriction", {
+  required: false,
+});
+const uncontrolledImageRestriction = ref(props.defaultImageRestriction);
+const imageRestriction = useMergedState(controlledImageRestriction, uncontrolledImageRestriction);
 </script>
 
 <template>
@@ -224,7 +230,7 @@ const { url } = useBlobUrl(() => props.img);
         <Button icon="i-uil-arrow-right" @click="handleMove('right')" />
       </div>
       <div class="flex items-center justify-center">
-        <NCheckbox :checked="imageRestriction === 'fit'">
+        <NCheckbox :checked="imageRestriction === 'fit'" @update:checked="v => imageRestriction = v ? 'fit' : 'none'">
           {{ t('cropper.restrictImage') }}
         </NCheckbox>
       </div>

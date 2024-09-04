@@ -5,7 +5,7 @@
 - [ ] PWA support
 - [ ] Update README
 - [x] Auto generate foreground gradient color
-- [ ] Restrict stencil
+- [x] Restrict stencil
 - [ ] Favicon
 - [ ] Avatar cropper
 - [ ] Disabled when no current template
