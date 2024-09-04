@@ -106,6 +106,7 @@ const { disabled } = useDisabled();
         <NDatePicker :disabled clearable :formatted-value="currentTemplate?.copywriting.date" value-format="yyyy/MM/dd" :format="dateFormat" @update:formatted-value="v => currentTemplate && (currentTemplate.copywriting.date = v ?? undefined)" />
       </ActionFormItem>
     </NForm>
+    <!-- TODO fix content width -->
     <NModal v-model:show="showCropper" class="h-screen" :title="t('action.user.avatar.cropDialog.title')" preset="card">
       <div class="h-full w-full flex items-center justify-center">
         <AvatarCropper ref="cropperRef" :url="uncroppedAvatar" />
