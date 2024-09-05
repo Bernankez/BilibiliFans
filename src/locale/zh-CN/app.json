@@ -14,9 +14,9 @@
     "splitWindow": "拆分窗口",
     "mergeWindow": "合并窗口",
     "new": {
-      "title": "新建",
+      "title": "关闭",
       "confirm": {
-        "title": "新建卡片会丢失当前未保存的更改，是否继续？",
+        "title": "关闭会丢失当前未保存的更改，是否继续？",
         "confirm": "继续"
       }
     },

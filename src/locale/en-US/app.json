@@ -14,9 +14,9 @@
     "splitWindow": "Split window",
     "mergeWindow": "Merge window",
     "new": {
-      "title": "New",
+      "title": "Close",
       "confirm": {
-        "title": "Creating a new card will discard the current unsaved changes, continue?",
+        "title": "Closing will discard the current unsaved changes, continue?",
         "confirm": "Continue"
       }
     },

@@ -148,9 +148,9 @@ async function onConfirm(name: string) {
       <template v-if="currentTemplate">
         <NPopconfirm :width="300" :positive-text="t('app.interface.new.confirm.confirm')" placement="bottom" @positive-click="onNew">
           <template #trigger>
-            <ResponsiveButton secondary type="primary" :tooltip="t('app.interface.new.title')">
+            <ResponsiveButton secondary type="error" :tooltip="t('app.interface.new.title')">
               <template #icon>
-                <div class="i-uil-plus-square"></div>
+                <div class="i-uil-times-square"></div>
               </template>
               {{ t("app.interface.new.title") }}
             </ResponsiveButton>
