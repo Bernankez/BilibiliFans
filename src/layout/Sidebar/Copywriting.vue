@@ -1,3 +1,4 @@
+<!-- eslint-disable unused-imports/no-unused-vars -->
 <script setup lang="ts">
 import { useDisabled } from "./useDisabled";
 
@@ -47,9 +48,9 @@ const { disabled } = useDisabled();
         <template #label>
           <div class="w-full flex items-center justify-between">
             {{ t('action.copywriting.form.themeLink.title') }}
-            <NButton :disabled quaternary size="small" type="primary" @click="resetLink">
+            <!-- <NButton :disabled quaternary size="small" type="primary" @click="resetLink">
               {{ t('action.copywriting.form.themeLink.reset') }}
-            </NButton>
+            </NButton> -->
           </div>
         </template>
         <NInput :value="currentTemplate?.copywriting.link" type="textarea" @update:value="v => currentTemplate && (currentTemplate.copywriting.link = v)" />
@@ -58,9 +59,9 @@ const { disabled } = useDisabled();
         <template #label>
           <div class="w-full flex items-center justify-between">
             {{ t('action.copywriting.form.post.title') }}
-            <NButton :disabled quaternary size="small" type="primary" @click="resetPost">
+            <!-- <NButton :disabled quaternary size="small" type="primary" @click="resetPost">
               {{ t('action.copywriting.form.post.reset') }}
-            </NButton>
+            </NButton> -->
           </div>
         </template>
         <NInput :value="currentTemplate?.copywriting.post" type="textarea" @update:value="v => currentTemplate && (currentTemplate.copywriting.post = v)" />
