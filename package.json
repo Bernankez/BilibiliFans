@@ -59,6 +59,7 @@
     "v-lazy-show": "^0.2.4",
     "vite": "^5.4.3",
     "vite-plugin-font-carrier": "^0.1.4",
+    "vite-plugin-pwa": "^0.20.5",
     "vite-plugin-vue-devtools": "^7.4.0",
     "vue-tsc": "^2.1.4"
   },

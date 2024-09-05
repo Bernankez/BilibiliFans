@@ -10,6 +10,7 @@ import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { UtilsResolver } from "@bernankez/utils/resolver";
 import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
 import { transformLazyShow } from "v-lazy-show";
+import { VitePWA } from "vite-plugin-pwa";
 
 function createFontCarrier() {
   return FontCarrier({
@@ -63,6 +64,48 @@ export default defineConfig(() => {
         resolvers: [NaiveUiResolver()],
       }),
       createFontCarrier(),
+      VitePWA({
+        registerType: "autoUpdate",
+        includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
+        manifest: {
+          name: "BilibliFans",
+          short_name: "BilibliFans",
+          description: "A tool making bilibili fans card",
+          theme_color: "#18a058",
+          background_color: "#ffffff",
+          display: "standalone",
+          icons: [
+            {
+              src: "/favicon-32x32.png",
+              sizes: "32x32",
+              type: "image/png",
+            },
+            {
+              src: "/android-chrome-192x192.png",
+              sizes: "192x192",
+              type: "image/png",
+            },
+            {
+              src: "/android-chrome-512x512.png",
+              sizes: "512x512",
+              type: "image/png",
+              purpose: "any",
+            },
+            {
+              src: "/pwa-512x512.png",
+              sizes: "512x512",
+              type: "image/png",
+              purpose: "maskable",
+            },
+          ],
+        },
+        workbox: {
+          globPatterns: ["**/*.{js,css,html,png,jpg,svg,ttf,woff2}"],
+        },
+        devOptions: {
+          enabled: true,
+        },
+      }),
       VueDevTools(),
     ],
     worker: {

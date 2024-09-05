@@ -11,7 +11,6 @@ declare module 'vue' {
     AvatarCropper: typeof import('./src/components/common/AvatarCropper.vue')['default']
     AvatarCropperDialog: typeof import('./src/components/common/AvatarCropperDialog.vue')['default']
     Button: typeof import('./src/components/ui/Button.vue')['default']
-    ColorSquare: typeof import('./src/components/common/Palette.vue')['default']
     ConfigProvider: typeof import('./src/components/global/ConfigProvider.vue')['default']
     Cropper: typeof import('./src/components/global/Cropper.vue')['default']
     CropperToolbox: typeof import('./src/components/ui/CropperToolbox.vue')['default']
