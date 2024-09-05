@@ -8,8 +8,6 @@ const props = withDefaults(defineProps<{
   size?: [number, number];
   type?: "circle" | "rectangle";
   img?: string | Blob;
-  /** 0-100 */
-  zoom?: number;
   defaultZoom?: number;
   /** w/h */
   aspectRatio?: number;
@@ -120,10 +118,11 @@ function onCropperReady() {
   onReadyFn = undefined;
 }
 
-function onCropperChange(e: any) {
+function onCropperChange() {
   if (!cropperRef.value) {
     return;
   }
+  const e = cropperRef.value.getResult();
   const imageSize = e.image as { width: number | null; height: number | null };
   if (!imageSize.width || !imageSize.height) {
     return;
@@ -174,7 +173,7 @@ function handleZoom(zoom: number, oldZoom: number) {
   }
 }
 
-function handleMove(direction: "up" | "down" | "left" | "right", offset?: number) {
+function handleMove(direction: "up" | "down" | "left" | "right") {
   if (!cropperRef.value) {
     return;
   }
@@ -182,12 +181,11 @@ function handleMove(direction: "up" | "down" | "left" | "right", offset?: number
   if (!imageSize.height || !imageSize.width) {
     return;
   }
-  if (!offset) {
-    if (direction === "up" || direction === "down") {
-      offset = imageSize.height / 10;
-    } else {
-      offset = imageSize.width / 10;
-    }
+  let offset: number;
+  if (direction === "up" || direction === "down") {
+    offset = imageSize.height / 10;
+  } else {
+    offset = imageSize.width / 10;
   }
   switch (direction) {
     case "up":
@@ -218,17 +216,7 @@ const imageRestriction = useMergedState(controlledImageRestriction, uncontrolled
   <div ref="cropperWrapperRef" class="flex flex-col gap-8">
     <Cropper ref="cropperRef" :default-size :default-position class="h-0 flex-1 shadow-lg" priority="visible-area" :min-width :min-height :transitions="false" :debounce="false" :src="url" :stencil-props :canvas="false" :stencil-size :image-restriction="imageRestriction === 'fit' ? 'stencil' : 'none'" :resize-image :stencil-component="type === 'rectangle' ? RectangleStencil : CircleStencil" @change="onCropperChange" @ready="onCropperReady" />
     <div class="flex flex-col gap-2">
-      <div class="flex items-center gap-4">
-        <div class="i-uil-search-minus shrink-0 cursor-pointer text-lg transition hover:text-primary" @click="minus"></div>
-        <NSlider :value="zoom" :tooltip="false" @update:value="onZoom" />
-        <div class="i-uil-search-plus shrink-0 cursor-pointer text-2xl transition hover:text-primary" @click="plus"></div>
-      </div>
-      <div class="flex items-center justify-center gap-4">
-        <Button icon="i-uil-arrow-up" @click="handleMove('up')" />
-        <Button icon="i-uil-arrow-down" @click="handleMove('down')" />
-        <Button icon="i-uil-arrow-left" @click="handleMove('left')" />
-        <Button icon="i-uil-arrow-right" @click="handleMove('right')" />
-      </div>
+      <CropperToolbox :zoom @update:zoom="onZoom" @minus="minus" @plus="plus" @move="handleMove" />
       <div class="flex items-center justify-center">
         <NCheckbox :checked="imageRestriction === 'fit'" @update:checked="v => imageRestriction = v ? 'fit' : 'none'">
           {{ t('cropper.restrictImage') }}

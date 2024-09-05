@@ -3,7 +3,6 @@ import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
 import { useDisabled } from "./useDisabled";
 import { useUserStore } from "@/store/user";
 import { compressImage } from "@/utils/draw";
-import AvatarCropper from "@/components/common/AvatarCropper.vue";
 
 const { t, locale } = useI18n();
 const message = useMessage();
@@ -44,7 +43,6 @@ function beforeUpload(file: UploadSettledFileInfo) {
 
 const showCropper = ref(false);
 const uncroppedAvatar = ref<string>();
-const cropperRef = ref<InstanceType<typeof AvatarCropper>>();
 
 async function handleAvatar(fileList: UploadFileInfo[]) {
   if (fileList.length) {
@@ -62,8 +60,7 @@ async function handleAvatar(fileList: UploadFileInfo[]) {
   }
 }
 
-async function confirm() {
-  const canvas = cropperRef.value?.cropperRef?.getResult().canvas;
+async function confirm(canvas?: HTMLCanvasElement) {
   if (canvas) {
     const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve));
     if (blob) {
@@ -106,19 +103,6 @@ const { disabled } = useDisabled();
         <NDatePicker :disabled clearable :formatted-value="currentTemplate?.copywriting.date" value-format="yyyy/MM/dd" :format="dateFormat" @update:formatted-value="v => currentTemplate && (currentTemplate.copywriting.date = v ?? undefined)" />
       </ActionFormItem>
     </NForm>
-    <!-- TODO fix content width -->
-    <NModal v-model:show="showCropper" class="h-screen" :title="t('action.user.avatar.cropDialog.title')" preset="card">
-      <div class="h-full w-full flex items-center justify-center">
-        <AvatarCropper ref="cropperRef" :url="uncroppedAvatar" />
-      </div>
-      <template #footer>
-        <div class="flex justify-end gap-4" @click="cancel">
-          <NButton>{{ t('action.user.avatar.cropDialog.cancel') }}</NButton>
-          <NButton type="primary" @click="confirm">
-            {{ t('action.user.avatar.cropDialog.confirm') }}
-          </NButton>
-        </div>
-      </template>
-    </NModal>
+    <AvatarCropperDialog v-model:show="showCropper" :url="uncroppedAvatar" @confirm="confirm" @cancel="cancel" />
   </div>
 </template>

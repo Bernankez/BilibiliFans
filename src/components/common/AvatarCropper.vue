@@ -3,6 +3,10 @@ import { CircleStencil, Cropper } from "vue-advanced-cropper";
 
 const { url } = defineProps<{ url?: string }>();
 
+const emit = defineEmits<{
+  change: [e: any];
+}>();
+
 function defaultSize({ imageSize }: { imageSize?: { width: number;height: number } }) {
   return {
     width: imageSize?.width,
@@ -29,5 +33,5 @@ defineExpose({
 </script>
 
 <template>
-  <Cropper ref="cropperRef" :default-size :resize-image :stencil-props priority="visible-area" image-restriction="fit-area" :stencil-component="CircleStencil" :src="url" />
+  <Cropper ref="cropperRef" :debounce="false" :transitions="false" :default-size :resize-image :stencil-props priority="visible-area" image-restriction="fit-area" :stencil-component="CircleStencil" :src="url" @change="e => emit('change', e)" />
 </template>
