@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import UnoCSS from "unocss/vite";
 import VueDevTools from "vite-plugin-vue-devtools";
 import AutoImport from "unplugin-auto-import/vite";
@@ -10,9 +11,8 @@ import { UtilsResolver } from "@bernankez/utils/resolver";
 import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
 import { transformLazyShow } from "v-lazy-show";
 
-// https://vitejs.dev/config/
-export default defineConfig(() => {
-  const createFontCarrier = () => FontCarrier({
+function createFontCarrier() {
+  return FontCarrier({
     fonts: [
       {
         path: "./src/assets/font/Kenney-Mini-Square.ttf",
@@ -21,7 +21,10 @@ export default defineConfig(() => {
     ],
     type: "woff2",
   });
+}
 
+// https://vitejs.dev/config/
+export default defineConfig(() => {
   return {
     plugins: [
       vue({
@@ -33,6 +36,7 @@ export default defineConfig(() => {
           },
         },
       }),
+      vueJsx(),
       UnoCSS(),
       AutoImport({
         imports: [

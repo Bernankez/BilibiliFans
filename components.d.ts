@@ -44,6 +44,7 @@ declare module 'vue' {
     NUpload: typeof import('naive-ui')['NUpload']
     NUploadDragger: typeof import('naive-ui')['NUploadDragger']
     Palette: typeof import('./src/components/common/Palette.vue')['default']
+    PreviewPost: typeof import('./src/components/common/PreviewPost.vue')['default']
     ResponsiveButton: typeof import('./src/components/ui/ResponsiveButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -6,6 +6,8 @@ const message = useMessage();
 const templateStore = useTemplateStore();
 const { currentTemplate } = storeToRefs(templateStore);
 const defaultLink = "https://www.bilibili.com/h5/mall/home?navhide=1";
+const userStore = useUserStore();
+const { no } = storeToRefs(userStore);
 
 function resetLink() {
   if (currentTemplate.value) {
@@ -63,10 +65,10 @@ const { disabled } = useDisabled();
         </template>
         <NInput :value="currentTemplate?.copywriting.post" type="textarea" @update:value="v => currentTemplate && (currentTemplate.copywriting.post = v)" />
       </ActionFormItem>
-      <ActionFormItem class="cursor-default rounded-md p-2 transition hover:bg-accent" @click="copyPost">
-        <span class="break-all">
-          {{ post }}
-        </span>
+      <ActionFormItem :label="t('action.copywriting.form.preview.title')">
+        <div class="rounded bg-accent p-2">
+          <PreviewPost :post-template="currentTemplate?.copywriting.post" :name="currentTemplate?.copywriting.name" :no :link="currentTemplate?.copywriting.link" @click="copyPost" />
+        </div>
       </ActionFormItem>
     </NForm>
   </div>

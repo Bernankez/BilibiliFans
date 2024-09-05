@@ -14,6 +14,9 @@
       "copy": {
         "success": "复制成功"
       }
+    },
+    "preview": {
+      "title": "预览"
     }
   }
 }

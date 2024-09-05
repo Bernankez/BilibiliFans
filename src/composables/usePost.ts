@@ -6,7 +6,7 @@ export function usePost() {
 
   const matches = computed(() => [
     ["name", currentTemplate.value?.copywriting.name],
-    ["no", no.value],
+    ["no", no.value.toString().padStart(6, "0")],
     ["link", currentTemplate.value?.copywriting.link],
   ]);
 
