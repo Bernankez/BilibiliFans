@@ -6,11 +6,13 @@ import user from "./action/user.json";
 import template from "./action/template.json";
 import setting from "./action/setting.json";
 import cropper from "./cropper.json";
+import changelog from "./changelog.json";
 
 export const zhCN = {
   app,
   sidebar,
   cropper,
+  changelog,
   action: {
     template,
     copywriting,

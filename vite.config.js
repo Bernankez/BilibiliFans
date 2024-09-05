@@ -24,7 +24,6 @@ function createFontCarrier() {
     type: "woff2",
   });
 }
-
 // https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
@@ -118,8 +117,8 @@ export default defineConfig(() => {
       VueDevTools(),
     ],
     worker: {
-      format: "es" as const,
-      plugins: () => [createFontCarrier()],
+      format: "es",
+      plugins() { return [createFontCarrier()]; },
     },
     resolve: {
       alias: {

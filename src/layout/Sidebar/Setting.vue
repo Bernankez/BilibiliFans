@@ -12,6 +12,8 @@ const router = useRouter();
 const appStore = useAppStore();
 const { imageSize, imageSizeRef } = storeToRefs(appStore);
 
+const showChangelog = ref(false);
+
 function railStyle({ focused }: { focused: boolean; checked: boolean }) {
   const style: CSSProperties = {};
   style.background = `rgb(var(--muted))`;
@@ -113,15 +115,16 @@ function formatTooltip(n: number) {
         </template>
       </ActionFormItem>
       <ActionFormItem>
-        <div class="flex items-center justify-end gap-2">
-          <div class="text-xl">
+        <div class="flex items-center justify-end gap-1">
+          <Button class="text-lg" @click="showChangelog = true">
             v{{ version }}
-          </div>
+          </Button>
           <a href="https://github.com/Bernankez/BilibiliFans" target="_blank">
             <div class="i-uil-github text-3xl transition hover:text-primary"></div>
           </a>
         </div>
       </ActionFormItem>
     </NForm>
+    <ChangelogDialog v-model:show="showChangelog" />
   </div>
 </template>
