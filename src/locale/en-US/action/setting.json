@@ -2,7 +2,10 @@
   "title": "Settings",
   "form": {
     "quality": {
-      "title": "Image size"
+      "title": "Image size",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small"
     },
     "language": {
       "title": "Language"

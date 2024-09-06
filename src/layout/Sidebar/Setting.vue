@@ -56,19 +56,19 @@ function renderIcon(icon: string, as: "icon" | "text" = "icon") {
   return () => icon;
 }
 
-const marks = {
-  24: "小",
-  50: "中",
-  92: "大",
-};
+const marks = computed(() => ({
+  24: t("action.setting.form.quality.small"),
+  50: t("action.setting.form.quality.medium"),
+  92: t("action.setting.form.quality.large"),
+}));
 
 function formatTooltip(n: number) {
-  const points = Object.keys(marks).map(v => Number(v));
+  const points = Object.keys(marks.value).map(v => Number(v));
   points.sort();
-  let cur = marks[points[0] as keyof typeof marks];
+  let cur = marks.value[points[0] as keyof typeof marks.value];
   for (const i of points) {
     if (n > i) {
-      cur = marks[i as keyof typeof marks];
+      cur = marks.value[i as keyof typeof marks.value];
     } else {
       break;
     }
