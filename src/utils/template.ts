@@ -39,7 +39,7 @@ export async function exportTemplate(template: TemplateManifest<string | Blob>):
       ...rest.cardStyle,
       background: {
         ...rest.cardStyle.background,
-        image: "background",
+        image: undefined,
       },
     },
   };
