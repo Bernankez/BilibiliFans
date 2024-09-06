@@ -29,11 +29,11 @@ jobs:
       - name: Install
         run: nci
 
-      - name: Build
-        run: nr build
-
       - name: Lint
         run: nr lint
+
+      - name: Build
+        run: nr build
 
       - name: Typecheck
         run: nr typecheck
