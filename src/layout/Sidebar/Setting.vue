@@ -75,6 +75,36 @@ function formatTooltip(n: number) {
   }
   return cur;
 }
+
+// @unocss-include
+const dropdownOptions = computed<DropdownOption[]>(() => [
+  {
+    label: t("changelog.title"),
+    key: "changelog",
+  },
+  {
+    label: () => h("div", {
+      class: "flex items-center gap-2",
+    }, [
+      h("span", t("changelog.legacy.v0")),
+      h("div", {
+        class: "i-uil-external-link-alt",
+      }),
+    ]),
+    key: "v0",
+  },
+]);
+
+function onDropdown(key: string) {
+  switch (key) {
+    case "changelog":
+      showChangelog.value = true;
+      break;
+    case "v0":
+      window.open("https://bilibili-fans-8pzyemay2-bernankez.vercel.app", "_blank");
+      break;
+  }
+}
 </script>
 
 <template>
@@ -116,9 +146,11 @@ function formatTooltip(n: number) {
       </ActionFormItem>
       <ActionFormItem>
         <div class="flex items-center justify-end gap-1">
-          <Button class="text-lg" @click="showChangelog = true">
-            v{{ version }}
-          </Button>
+          <NDropdown trigger="click" :options="dropdownOptions" placement="bottom-end" @select="onDropdown">
+            <Button class="text-lg">
+              v{{ version }}
+            </Button>
+          </NDropdown>
           <a href="https://github.com/Bernankez/BilibiliFans" target="_blank">
             <div class="i-uil-github text-3xl transition hover:text-primary"></div>
           </a>

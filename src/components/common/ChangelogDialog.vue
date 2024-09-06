@@ -11,18 +11,24 @@ const show = defineModel("show", {
 </script>
 
 <template>
-  <NModal v-model:show="show" class="max-w-150" :title="t('changelog.title')" preset="card">
-    <NTabs type="card" default-value="v1">
-      <NTabPane name="v1" label="v1">
-        <NScrollbar class="h-60vh">
+  <NModal v-model:show="show" class="max-h-screen max-w-150" :title="t('changelog.title')" preset="card">
+    <NCollapse default-expanded-names="v1" accordion>
+      <NCollapseItem title="v1.x" name="v1">
+        <NScrollbar class="max-h-60vh" content-style="overflow: hidden;">
           <Changelogv1 class="text-base prose" />
         </NScrollbar>
-      </NTabPane>
-      <NTabPane name="v0" label="v0">
-        <NScrollbar class="h-60vh">
+      </NCollapseItem>
+      <NCollapseItem title="v0.x" name="v0">
+        <NScrollbar class="max-h-60vh" content-style="overflow: hidden;">
           <Changelogv0 class="text-base prose" />
         </NScrollbar>
-      </NTabPane>
-    </NTabs>
+      </NCollapseItem>
+    </NCollapse>
   </NModal>
 </template>
+
+<style scoped>
+:global(.n-card .n-card__content) {
+  padding-right: 0 !important;
+}
+</style>
