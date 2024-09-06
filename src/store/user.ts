@@ -10,6 +10,6 @@ export const useUserStore = defineStore("user", () => {
   };
 }, {
   persist: {
-    paths: ["nickname", "avatar"],
+    pick: ["nickname", "avatar"],
   },
 });
