@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <samp>点击 <a href="https://bilibili-fans.keke.cc" target="_blank">bilibili-fans.keke.cc</a> 或 <a href="https://bernankez.github.io/BilibiliFans" target="_blank">Github Pages</a> 或 <a href="https://bilibili-fans.vercel.app" target="_blank">Vercel</a> 开始制作🎉</samp>
+  <samp>点击 <a href="https://bilibili-fans.keke.cc" target="_blank">bilibili-fans.keke.cc</a> 开始制作🎉</samp>
 </p>
 
 <p align="center">
@@ -15,5 +15,6 @@
 </p>
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/23058788/191068507-c8a145ae-c43e-4b5f-9486-bdf368e52967.png">
+  <img src="https://github.com/user-attachments/assets/ffdc5828-0fe2-4704-b1af-ef2f2870f495">
+  <img src="https://github.com/user-attachments/assets/5b124635-1234-4c5f-bfda-3bb3e396b391">
 </p>

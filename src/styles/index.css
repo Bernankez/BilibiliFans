@@ -1,0 +1,36 @@
+@font-face {
+  font-family: Emoji;
+  src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
+  unicode-range: U+1F000-1F644, U+203C-3299;
+}
+
+:root {
+  width: 100%;
+  height: 100%;
+  font-family:
+    Avenir,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Emoji,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html body,
+#app {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}

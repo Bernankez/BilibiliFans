@@ -1,0 +1,31 @@
+{
+  "title": "Card Style",
+  "form": {
+    "fontColor": {
+      "title": "Font Color"
+    },
+    "background": {
+      "title": "Background Color"
+    },
+    "backgroundImage": {
+      "title": "Background Image",
+      "placeholder": "Click or drag file here to upload",
+      "typeValidate": "Please upload image file"
+    },
+    "foreground": {
+      "title": "Foreground Color",
+      "left": {
+        "title": "Left Gradient Color"
+      },
+      "leftGradient": {
+        "title": "Left Gradient Range"
+      },
+      "right": {
+        "title": "Right Gradient Color"
+      },
+      "rightGradient": {
+        "title": "Right Gradient Range"
+      }
+    }
+  }
+}

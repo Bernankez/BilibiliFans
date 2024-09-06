@@ -1,0 +1,22 @@
+{
+  "title": "Your Information",
+  "nickname": {
+    "title": "Nickname"
+  },
+  "avatar": {
+    "title": "Avatar",
+    "placeholder": "Click or drag file here to upload",
+    "typeValidate": "Please upload image file",
+    "cropDialog": {
+      "title": "Crop avatar",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  },
+  "no": {
+    "title": "NO."
+  },
+  "date": {
+    "title": "Date"
+  }
+}

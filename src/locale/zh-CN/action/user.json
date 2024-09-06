@@ -1,0 +1,22 @@
+{
+  "title": "你的信息",
+  "nickname": {
+    "title": "用户名"
+  },
+  "avatar": {
+    "title": "头像",
+    "placeholder": "点击或拖动文件到此处上传",
+    "typeValidate": "请上传图片文件",
+    "cropDialog": {
+      "title": "裁剪头像",
+      "confirm": "确定",
+      "cancel": "取消"
+    }
+  },
+  "no": {
+    "title": "装扮编号"
+  },
+  "date": {
+    "title": "获得日期"
+  }
+}

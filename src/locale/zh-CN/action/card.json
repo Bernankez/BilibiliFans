@@ -1,0 +1,31 @@
+{
+  "title": "卡片样式",
+  "form": {
+    "fontColor": {
+      "title": "字体颜色"
+    },
+    "background": {
+      "title": "背景色"
+    },
+    "backgroundImage": {
+      "title": "背景图片",
+      "placeholder": "点击或拖动文件到此处上传",
+      "typeValidate": "请上传图片文件"
+    },
+    "foreground": {
+      "title": "前景色",
+      "left": {
+        "title": "左侧渐变色"
+      },
+      "leftGradient": {
+        "title": "左侧渐变范围"
+      },
+      "right": {
+        "title": "右侧渐变色"
+      },
+      "rightGradient": {
+        "title": "右侧渐变范围"
+      }
+    }
+  }
+}

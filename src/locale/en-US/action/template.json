@@ -1,0 +1,26 @@
+{
+  "title": "Template Management",
+  "import": {
+    "title": "Import template",
+    "error": {
+      "invalidFile": "Invalid template file"
+    }
+  },
+  "rename": {
+    "title": "Rename"
+  },
+  "export": {
+    "title": "Export"
+  },
+  "delete": {
+    "title": "Delete",
+    "confirm": "Are you sure to delete current template?",
+    "confirmText": "Confirm"
+  },
+  "select": {
+    "placeholder": {
+      "default": "Default templates",
+      "custom": "Custom templates"
+    }
+  }
+}

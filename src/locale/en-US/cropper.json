@@ -1,0 +1,9 @@
+{
+  "restrictImage": "Restrict the image within the stencil",
+  "toolbox": {
+    "up": "Move the image up",
+    "down": "Move the image down",
+    "left": "Move the image left",
+    "right": "Move the image right"
+  }
+}

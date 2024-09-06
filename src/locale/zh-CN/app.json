@@ -1,0 +1,45 @@
+{
+  "theme": {
+    "light": "亮色",
+    "dark": "暗色"
+  },
+  "interface": {
+    "dragFileToOpen": {
+      "placeholder": "拖动.bilifans文件到这里",
+      "typeValidate": "只可以上传.bilifans格式的文件"
+    },
+    "chooseTemplate": "或者选择一个模版",
+    "toggleEdit": "切换至编辑模式",
+    "togglePreview": "切换至预览模式",
+    "splitWindow": "拆分窗口",
+    "mergeWindow": "合并窗口",
+    "new": {
+      "title": "关闭",
+      "confirm": {
+        "title": "关闭会丢失当前未保存的更改，是否继续？",
+        "confirm": "继续"
+      }
+    },
+    "save": {
+      "title": "保存",
+      "saveImage": {
+        "title": "保存图片",
+        "success": "图片已保存，动态已复制"
+      },
+      "export": {
+        "title": "导出为.bilifans文件",
+        "success": "导出成功"
+      },
+      "saveTemplate": {
+        "title": "保存为新模版",
+        "success": "保存成功"
+      }
+    },
+    "nameDialog": {
+      "title": "请输入模版名称",
+      "confirm": "确定",
+      "cancel": "取消",
+      "empty": "模版名称不能为空"
+    }
+  }
+}

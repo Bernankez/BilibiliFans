@@ -1,0 +1,45 @@
+{
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "interface": {
+    "dragFileToOpen": {
+      "placeholder": "Drag the .bilifans file here to open",
+      "typeValidate": "Only .bilifans files can be uploaded"
+    },
+    "chooseTemplate": "Or choose a template",
+    "toggleEdit": "Switch to edit mode",
+    "togglePreview": "Switch to preview mode",
+    "splitWindow": "Split window",
+    "mergeWindow": "Merge window",
+    "new": {
+      "title": "Close",
+      "confirm": {
+        "title": "Closing will discard the current unsaved changes, continue?",
+        "confirm": "Continue"
+      }
+    },
+    "save": {
+      "title": "Save",
+      "saveImage": {
+        "title": "Save image",
+        "success": "Image saved successfully and post copied to clipboard"
+      },
+      "export": {
+        "title": "Export as .bilifans file",
+        "success": "Exported successfully"
+      },
+      "saveTemplate": {
+        "title": "Save as new template",
+        "success": "Saved successfully"
+      }
+    },
+    "nameDialog": {
+      "title": "Please enter the template name",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "empty": "Template name cannot be empty"
+    }
+  }
+}

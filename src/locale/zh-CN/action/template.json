@@ -1,0 +1,26 @@
+{
+  "title": "模版管理",
+  "import": {
+    "title": "导入模版",
+    "error": {
+      "invalidFile": "无效的模版文件"
+    }
+  },
+  "rename": {
+    "title": "重命名"
+  },
+  "export": {
+    "title": "导出"
+  },
+  "delete": {
+    "title": "删除",
+    "confirm": "确定要删除当前模版吗？",
+    "confirmText": "确定"
+  },
+  "select": {
+    "placeholder": {
+      "default": "默认模版",
+      "custom": "自定义模版"
+    }
+  }
+}
