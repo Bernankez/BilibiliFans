@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { SelectGroupOption, SelectOption } from "naive-ui";
-import type { TemplateManifest } from "@/types/template";
 import { accept, exportTemplate, importTemplate } from "@/utils/template";
+import type { TemplateManifest } from "@/types/template";
+import type { SelectGroupOption, SelectOption } from "naive-ui";
 
 const { t } = useI18n();
 const message = useMessage();

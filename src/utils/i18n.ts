@@ -1,7 +1,7 @@
-import { createI18n } from "vue-i18n";
-import { n } from "@bernankez/utils";
-import { zhCN } from "@/locale/zh-CN";
 import { enUS } from "@/locale/en-US";
+import { zhCN } from "@/locale/zh-CN";
+import { n } from "@bernankez/utils";
+import { createI18n } from "vue-i18n";
 
 export const availableLocales = n(["en-US", "zh-CN"]);
 export type AvailableLocales = typeof availableLocales[number];

@@ -1,17 +1,17 @@
 import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { UtilsResolver } from "@bernankez/utils/resolver";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import UnoCSS from "unocss/vite";
-import VueDevTools from "vite-plugin-vue-devtools";
 import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
-import { UtilsResolver } from "@bernankez/utils/resolver";
-import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
-import { transformLazyShow } from "v-lazy-show";
-import { VitePWA } from "vite-plugin-pwa";
+import Components from "unplugin-vue-components/vite";
 import Markdown from "unplugin-vue-markdown/vite";
+import { transformLazyShow } from "v-lazy-show";
+import { defineConfig } from "vite";
+import FontCarrier, { numberChars } from "vite-plugin-font-carrier";
+import { VitePWA } from "vite-plugin-pwa";
+import VueDevTools from "vite-plugin-vue-devtools";
 
 function createFontCarrier() {
   return FontCarrier({

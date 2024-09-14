@@ -1,5 +1,5 @@
-import { klona } from "klona";
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
+import { klona } from "klona";
 import type { RawDrawOptions } from "@/utils/draw";
 
 export function draw(options: RawDrawOptions) {

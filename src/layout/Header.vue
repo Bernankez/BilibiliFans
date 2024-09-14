@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
-import dayjs from "dayjs";
-import { accept, exportTemplate } from "@/utils/template";
 import { draw } from "@/utils/draw-worker";
+import { accept, exportTemplate } from "@/utils/template";
+import dayjs from "dayjs";
+import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
 
 const { t } = useI18n();
 

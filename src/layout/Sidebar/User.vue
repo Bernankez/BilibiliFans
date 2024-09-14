@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
-import { useDisabled } from "./useDisabled";
 import { useUserStore } from "@/store/user";
 import { compressImage } from "@/utils/draw";
+import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
+import { useDisabled } from "./useDisabled";
 
 const { t, locale } = useI18n();
 const message = useMessage();

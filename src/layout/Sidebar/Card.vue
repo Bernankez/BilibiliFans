@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { fitBackground } from "@/utils/draw";
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
 import { useDisabled } from "./useDisabled";
-import { fitBackground } from "@/utils/draw";
 
 const { t } = useI18n();
 const message = useMessage();

@@ -1,15 +1,15 @@
-import { defineStore } from "pinia";
-import { klona } from "klona";
+import { resolveDefaultTemplates } from "@/templates";
+import { imageToBlob } from "@/utils/template";
 import { useIDBKeyval } from "@vueuse/integrations/useIDBKeyval";
+import { klona } from "klona";
+import { nanoid } from "nanoid";
+import { defineStore } from "pinia";
+import type { TemplateManifest } from "@/types/template";
 /**
  * @see https://github.com/microsoft/TypeScript/issues/47663#issuecomment-1519138189
  */
 // eslint-disable-next-line unused-imports/no-unused-imports
 import type { RemovableRef } from "@vueuse/shared";
-import { nanoid } from "nanoid";
-import type { TemplateManifest } from "@/types/template";
-import { resolveDefaultTemplates } from "@/templates";
-import { imageToBlob } from "@/utils/template";
 
 export const useTemplateStore = defineStore("template", () => {
   const defaultTemplates = ref<TemplateManifest<string>[]>([]);

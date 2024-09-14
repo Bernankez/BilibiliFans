@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { resizeCanvas } from "@/utils/canvas";
+import { checkVisibility } from "@/utils/dom";
 import dayjs from "dayjs";
 import { klona } from "klona";
-import { resizeCanvas } from "@/utils/canvas";
 // @see https://github.com/vitejs/vite/issues/11823
 import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
-import { checkVisibility } from "@/utils/dom";
 import type { RawDrawOptions } from "@/utils/draw";
 
 export interface FansCardProps {

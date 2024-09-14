@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { FormItemInst, FormItemRule } from "naive-ui";
 import type { TemplateManifest } from "@/types/template";
+import type { FormItemInst, FormItemRule } from "naive-ui";
 
 const props = defineProps<{
   template?: TemplateManifest<Blob | string>;

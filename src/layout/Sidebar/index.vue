@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from "@vueuse/core";
 import clsx from "clsx";
-import SidebarPanel from "./SidebarPanel.vue";
 import ActionPanel from "./ActionPanel.vue";
+import SidebarPanel from "./SidebarPanel.vue";
 
 const sidebarStore = useSidebarStore();
 const { show } = storeToRefs(sidebarStore);

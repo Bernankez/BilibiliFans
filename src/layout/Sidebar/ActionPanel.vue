@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Action from "./Action.vue";
 import type { Actions } from "@/store/sidebar";
+import Action from "./Action.vue";
 
 const { t } = useI18n();
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { setLocale } from "@/utils/i18n";
+import type { AvailableLocales } from "@/utils/i18n";
 import type { DropdownOption } from "naive-ui";
 import type { CSSProperties } from "vue";
-import type { AvailableLocales } from "@/utils/i18n";
-import { setLocale } from "@/utils/i18n";
 import { version } from "~/package.json";
 
 const toggle = useToggle(isDark);

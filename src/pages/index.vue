@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { breakpointsTailwind } from "@vueuse/core";
-import type { UploadSettledFileInfo } from "naive-ui";
-import type { TemplateManifest } from "@/types/template";
 import { accept, importTemplate } from "@/utils/template";
+import { breakpointsTailwind } from "@vueuse/core";
+import type { TemplateManifest } from "@/types/template";
+import type { UploadSettledFileInfo } from "naive-ui";
 
 const { t } = useI18n();
 const message = useMessage();

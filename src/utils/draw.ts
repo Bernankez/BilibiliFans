@@ -1,10 +1,10 @@
+import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 import { isDefined } from "@bernankez/utils";
 import Compressor from "compressorjs";
+import type { User } from "@/types/user";
 import { resolveImage } from "./cache";
 import { create, getContext } from "./canvas";
 import { isWebWorker } from "./is";
-import type { User } from "@/types/user";
-import KenneyMini from "@/assets/font/Kenney-Mini-Square.ttf";
 
 export interface RawDrawOptions {
   width: number;

@@ -1,5 +1,5 @@
-import JSZip from "jszip";
 import JSON5 from "json5";
+import JSZip from "jszip";
 import { nanoid } from "nanoid";
 import type { TemplateManifest } from "@/types/template";
 

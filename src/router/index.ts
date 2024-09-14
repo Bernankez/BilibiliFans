@@ -1,5 +1,5 @@
-import { type RouteRecordRaw, RouterView, createRouter, createWebHistory } from "vue-router";
 import { type AvailableLocales, i18n, inferPreferredLocale, setLocale } from "@/utils/i18n";
+import { createRouter, createWebHistory, type RouteRecordRaw, RouterView } from "vue-router";
 
 export const routes: RouteRecordRaw[] = [
   {

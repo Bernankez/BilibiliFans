@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { checkVisibility } from "@/utils/dom";
 import { CircleStencil, Cropper, RectangleStencil } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
-import { checkVisibility } from "@/utils/dom";
 
 const props = withDefaults(defineProps<{
   origin?: [number, number];
