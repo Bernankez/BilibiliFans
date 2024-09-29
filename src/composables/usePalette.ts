@@ -1,10 +1,6 @@
-import analyze from "rgbaster";
+import { palette as _palette } from "@/workers/palette";
+import type { Palette } from "@/utils/rgbaster";
 import type { MaybeRefOrGetter } from "vue";
-
-export interface Palette {
-  color: string;
-  count: number;
-}
 
 export function usePalette(image: MaybeRefOrGetter<Blob | string | undefined>, count = 3) {
   const palette = ref<Palette[]>([]);
@@ -13,7 +9,13 @@ export function usePalette(image: MaybeRefOrGetter<Blob | string | undefined>, c
 
   watch(url, async (url) => {
     if (url) {
-      const result = await analyze(url, { scale: 0.6 });
+      const img = new Image();
+      if (!url.startsWith("data")) {
+        img.crossOrigin = "Anonymous";
+      }
+      img.src = url;
+      await img.decode();
+      const result = await _palette(url, img.width, img.height);
       palette.value = result.slice(0, count).map(({ color, count }) => ({
         color: rgb2hex(color),
         count,

@@ -1,6 +1,6 @@
-import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
 import { klona } from "klona";
 import type { RawDrawOptions } from "@/utils/draw";
+import DrawWorkerUrl from "./worker.ts?worker&url";
 
 export function draw(options: RawDrawOptions) {
   const worker = new Worker(DrawWorkerUrl, {
@@ -9,6 +9,7 @@ export function draw(options: RawDrawOptions) {
   return new Promise<ImageBitmap>((resolve) => {
     worker.onmessage = (e) => {
       resolve(e.data);
+      worker.terminate();
     };
     worker.postMessage(klona(options));
   });

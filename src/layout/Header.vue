@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { draw } from "@/utils/draw-worker";
 import { accept, exportTemplate } from "@/utils/template";
+import { draw } from "@/workers/draw";
 import dayjs from "dayjs";
 import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
 
