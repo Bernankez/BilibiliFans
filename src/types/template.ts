@@ -21,6 +21,8 @@ export interface TemplateManifest<T extends string | Blob = string> {
     };
     background: {
       image?: T;
+      /** Defaults to 'fit' */
+      imageRestriction?: "fit" | "none";
       origin: [number, number];
       size: [number, number];
       color?: string;

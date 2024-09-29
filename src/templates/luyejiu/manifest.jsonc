@@ -19,6 +19,7 @@
       }
     },
     "background": {
+      "imageRestriction": "fit",
       "origin": [0, 239],
       "size": [1040, 428]
     }
