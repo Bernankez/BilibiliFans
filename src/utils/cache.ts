@@ -5,7 +5,7 @@ const cache = new LRUCache<string, ImageBitmap | HTMLImageElement>({
   max: 10,
 });
 
-export async function resolveImage(image?: string | Blob, alt?: string) {
+export async function resolveImage(image: string | Blob | undefined, alt?: string): Promise<HTMLImageElement | ImageBitmap | undefined> {
   if (!image) {
     return;
   }
@@ -26,6 +26,11 @@ export async function resolveImage(image?: string | Blob, alt?: string) {
     return imageBitmap;
   } else {
     const img = new Image();
+    // Can't set cross origin to be anonymous for data url's
+    // https://github.com/mrdoob/three.js/issues/1305
+    if (!image.startsWith("data")) {
+      img.crossOrigin = "Anonymous";
+    }
     img.src = image;
     if (alt) {
       img.alt = alt;

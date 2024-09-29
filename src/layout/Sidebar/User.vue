@@ -64,7 +64,7 @@ async function confirm(canvas?: HTMLCanvasElement) {
   if (canvas) {
     const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve));
     if (blob) {
-      const compressed = await compressImage(blob, { limit: 2000000 });
+      const compressed = await compressImage(blob, { limit: 2000000, log: true });
       const reader = new FileReader();
       reader.onload = (e) => {
         avatar.value = e.target?.result as string;

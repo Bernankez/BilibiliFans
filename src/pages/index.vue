@@ -105,10 +105,10 @@ async function importFile(file: UploadSettledFileInfo) {
         </Transition>
         <Transition name="card">
           <!-- The initial loading without DOM will cause the Cropper stencil to be positioned incorrectly when switch with v-show. Using v-lazy-show can solve this.
-        The issue only occur on Mac and cannot reproduce on Windows. -->
+            The issue only occur on Mac and cannot reproduce on Windows. -->
           <!-- eslint-disable-next-line vue/require-toggle-inside-transition -->
           <div v-lazy-show="mode === 'edit'" class="h-full max-w-200 w-full flex items-center p-4">
-            <Cropper :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
+            <Cropper v-model:image-restriction="currentTemplate.cardStyle.background.imageRestriction" :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
           </div>
         </Transition>
       </template>
@@ -124,7 +124,7 @@ async function importFile(file: UploadSettledFileInfo) {
         <template #2>
           <div class="h-full flex items-center justify-center">
             <div class="h-full max-w-200 w-full flex items-center p-4">
-              <Cropper :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
+              <Cropper v-model:image-restriction="currentTemplate.cardStyle.background.imageRestriction" :origin="currentTemplate?.cardStyle.background?.origin" :size="currentTemplate?.cardStyle.background?.size" class="max-h-full w-full" :img="currentTemplate?.cardStyle.background.image" :min-width="64" :aspect-ratio="1 / 0.4115" @change="onCropperChange" />
             </div>
           </div>
         </template>

@@ -438,15 +438,11 @@ export function drawDate(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderin
 
 export function compressImage(file: Blob, options?: { limit?: number; log?: boolean }) {
   const { limit, log = true } = options || {};
-  const size = file.size;
-  if (limit && size < limit) {
-    return file;
-  }
-  const quality = limit ? (limit / size) : 0.9;
   return new Promise<File | Blob>((resolve, reject) => {
     // eslint-disable-next-line unused-imports/no-unused-vars
     const compressor = new Compressor(file, {
-      quality,
+      convertTypes: [file.type],
+      convertSize: isDefined(limit) ? limit : Infinity,
       success(result) {
         if (log) {
           // eslint-disable-next-line no-console

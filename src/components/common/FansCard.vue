@@ -4,7 +4,7 @@ import { checkVisibility } from "@/utils/dom";
 import dayjs from "dayjs";
 import { klona } from "klona";
 // @see https://github.com/vitejs/vite/issues/11823
-import DrawWorkerUrl from "@/workers/draw.ts?worker&url";
+import DrawWorkerUrl from "@/workers/draw/worker.ts?worker&url";
 import type { RawDrawOptions } from "@/utils/draw";
 
 export interface FansCardProps {

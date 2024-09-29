@@ -32,8 +32,8 @@ export async function importTemplate(file: File): Promise<TemplateManifest<Blob>
 
 export async function exportTemplate(template: TemplateManifest<string | Blob>): Promise<Blob> {
   const zip = new JSZip();
-  const { type, ...rest } = template;
-  const targetTemplate: Omit<TemplateManifest<string>, "type"> = {
+  const { type, id, ...rest } = template;
+  const targetTemplate: Omit<TemplateManifest<string>, "type" | "id"> = {
     ...rest,
     cardStyle: {
       ...rest.cardStyle,

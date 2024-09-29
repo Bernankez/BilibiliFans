@@ -5,7 +5,7 @@
     "target": "ES2020",
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
     "useDefineForClassFields": true,
     "baseUrl": ".",

@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  rgbaster@2.1.1:
-    hash: cw5dktlhozx42tfdlz5gzgzobu
-    path: patches/rgbaster@2.1.1.patch
-
 importers:
 
   .:
@@ -58,9 +53,6 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^4.0.1
         version: 4.0.1(pinia@2.2.2(typescript@5.6.2)(vue@3.5.5(typescript@5.6.2)))(rollup@2.79.1)
-      rgbaster:
-        specifier: ^2.1.1
-        version: 2.1.1(patch_hash=cw5dktlhozx42tfdlz5gzgzobu)
       unocss:
         specifier: ^0.62.3
         version: 0.62.3(postcss@8.4.44)(rollup@2.79.1)(vite@5.4.5(@types/node@22.5.5)(terser@5.31.6))
@@ -3878,9 +3870,6 @@ packages:
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
-
-  rgbaster@2.1.1:
-    resolution: {integrity: sha512-vUQI+ldMMSGXEbWtqb/6aqLY1LHc33OtXg2Q9S0TCxzt2KxGncRJB6dk860KzhWTjms+Fz4wkxrJu8MlCrFpYg==}
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
@@ -9116,8 +9105,6 @@ snapshots:
   reusify@1.0.4: {}
 
   rfdc@1.4.1: {}
-
-  rgbaster@2.1.1(patch_hash=cw5dktlhozx42tfdlz5gzgzobu): {}
 
   rimraf@3.0.2:
     dependencies:

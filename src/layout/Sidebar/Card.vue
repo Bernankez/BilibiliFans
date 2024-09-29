@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fitBackground } from "@/utils/draw";
+import { compressImage, fitBackground } from "@/utils/draw";
 import type { UploadFileInfo, UploadSettledFileInfo } from "naive-ui";
 import { useDisabled } from "./useDisabled";
 
@@ -69,7 +69,7 @@ async function handleBackground(fileList: UploadFileInfo[]) {
   if (fileList.length) {
     const background = fileList[0].file;
     if (background) {
-      currentTemplate.value.cardStyle.background.image = background;
+      currentTemplate.value.cardStyle.background.image = await compressImage(background, { limit: 5000000, log: true });
       const { width, height } = await getImageDimensions(background);
       const { origin, size } = fitBackground(width, height);
       currentTemplate.value.cardStyle.background.origin = origin;
@@ -80,7 +80,7 @@ async function handleBackground(fileList: UploadFileInfo[]) {
   }
 }
 
-function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
+function getImageDimensions(file: File | Blob): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
