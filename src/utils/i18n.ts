@@ -25,18 +25,19 @@ export async function setLocale(locale: AvailableLocales) {
   document.querySelector("html")?.setAttribute("lang", locale);
 }
 
-export function inferPreferredLocale() {
+export function inferPreferredLocale(): AvailableLocales {
   const appStore = useAppStore();
   if (appStore.locale) {
     return appStore.locale;
   }
   const userLocale = (window.navigator.language || defaultLocale) as AvailableLocales;
-  if (availableLocales.indexOf(userLocale)) {
+  if (availableLocales.indexOf(userLocale) > 0) {
     return userLocale;
   }
   const userLocaleWithoutRegion = userLocale.split("-")[0] as AvailableLocales;
-  if (availableLocales.indexOf(userLocaleWithoutRegion)) {
-    return userLocaleWithoutRegion;
+  const availableLocale = availableLocales.find(locale => locale.startsWith(userLocaleWithoutRegion));
+  if (availableLocale) {
+    return availableLocale;
   }
   return defaultLocale;
 }
